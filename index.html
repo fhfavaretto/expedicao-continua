@@ -283,6 +283,7 @@
 
     .tabs {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.3rem;
       margin: 0;
       padding: 0.25rem;
@@ -313,6 +314,37 @@
       color: var(--totvs-darker);
       transform: none;
     }
+
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0 0 1.25rem;
+    }
+
+    .section-btn {
+      background: #fff;
+      color: var(--totvs-darker);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.55rem 1.1rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .section-btn[aria-selected="true"] {
+      background: var(--totvs-darkest);
+      border-color: var(--totvs-darkest);
+      color: #fff;
+    }
+
+    .section-btn:hover:not([aria-selected="true"]) {
+      border-color: var(--totvs-base);
+      color: var(--totvs-base);
+      transform: none;
+    }
+
+    .section[hidden] { display: none !important; }
 
     .panel[hidden] { display: none !important; }
 
@@ -469,6 +501,39 @@
       color: var(--muted);
       font-size: 0.85rem;
     }
+
+    .disclaimer {
+      margin-top: 2.25rem;
+      padding: 1.1rem 1.2rem;
+      border-radius: 14px;
+      border: 1px solid #f0d59a;
+      background: #fff8e8;
+      color: #5a4a2a;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .disclaimer h2 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #7a4d00;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .disclaimer p {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .disclaimer-meta {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
   </style>
 </head>
 <body>
@@ -479,39 +544,88 @@
           <img class="hero-logo" src="Logo.jpg" alt="TOTVS" width="92" height="92" />
         </div>
         <div class="hero-copy">
-          <h1>Expedição Contínua</h1>
-          <p>Consulte pacotes Backoffice, Qualidade e o histórico da LIB Framework direto do TDN.</p>
+          <h1 id="hero-title">Expedição Contínua</h1>
+          <p id="hero-subtitle">Consulte pacotes Backoffice, Qualidade, Varejo e o histórico da LIB Framework direto do TDN.</p>
         </div>
       </div>
       <button type="button" class="btn-primary" id="refresh-all">Atualizar todos</button>
     </header>
 
-    <div class="toolbar">
-      <div class="tabs" role="tablist" aria-label="Tipo de pacote">
-        <button type="button" class="tab" role="tab" id="tab-backoffice" aria-controls="panel-backoffice" aria-selected="true" data-tab="backoffice">Backoffice</button>
-        <button type="button" class="tab" role="tab" id="tab-qualidade" aria-controls="panel-qualidade" aria-selected="false" data-tab="qualidade">Qualidade</button>
-        <button type="button" class="tab" role="tab" id="tab-lib" aria-controls="panel-lib" aria-selected="false" data-tab="lib">Lib</button>
+    <nav class="section-nav" aria-label="Áreas">
+      <button type="button" class="section-btn" data-section="expedicao" aria-selected="true">Expedição Contínua</button>
+      <button type="button" class="section-btn" data-section="binarios" aria-selected="false">Binários</button>
+    </nav>
+
+    <div id="section-expedicao" class="section">
+      <div class="toolbar">
+        <div class="tabs" role="tablist" aria-label="Tipo de pacote">
+          <button type="button" class="tab" role="tab" id="tab-backoffice" aria-controls="panel-backoffice" aria-selected="true" data-tab="backoffice">Backoffice</button>
+          <button type="button" class="tab" role="tab" id="tab-qualidade" aria-controls="panel-qualidade" aria-selected="false" data-tab="qualidade">Qualidade</button>
+          <button type="button" class="tab" role="tab" id="tab-varejo" aria-controls="panel-varejo" aria-selected="false" data-tab="varejo">Varejo</button>
+          <button type="button" class="tab" role="tab" id="tab-lib" aria-controls="panel-lib" aria-selected="false" data-tab="lib">Lib</button>
+        </div>
       </div>
+
+      <section id="panel-backoffice" class="panel" role="tabpanel" aria-labelledby="tab-backoffice">
+        <div id="modules-backoffice" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-qualidade" class="panel" role="tabpanel" aria-labelledby="tab-qualidade" hidden>
+        <div id="modules-qualidade" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-varejo" class="panel" role="tabpanel" aria-labelledby="tab-varejo" hidden>
+        <div id="modules-varejo" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-lib" class="panel" role="tabpanel" aria-labelledby="tab-lib" hidden>
+        <div id="modules-lib" class="grid" aria-live="polite"></div>
+      </section>
     </div>
 
-    <section id="panel-backoffice" class="panel" role="tabpanel" aria-labelledby="tab-backoffice">
-      <div id="modules-backoffice" class="grid" aria-live="polite"></div>
-    </section>
+    <div id="section-binarios" class="section" hidden>
+      <div id="modules-binarios" class="grid" aria-live="polite"></div>
+    </div>
 
-    <section id="panel-qualidade" class="panel" role="tabpanel" aria-labelledby="tab-qualidade" hidden>
-      <div id="modules-qualidade" class="grid" aria-live="polite"></div>
-    </section>
+    <aside class="disclaimer" role="note" aria-label="Aviso legal">
+      <h2>Aviso importante</h2>
+      <p>
+        Esta página é apenas uma ferramenta da comunidade para facilitar a consulta a informações
+        publicadas pela TOTVS (TDN e canais oficiais). Trata-se de um compilado de documentações
+        e links de pacotes já disponíveis publicamente.
+      </p>
+      <p>
+        Não nos responsabilizamos por qualquer informação exibida, eventual desatualização,
+        indisponibilidade de links, decisões técnicas ou impactos decorrentes do uso destes dados.
+        Sempre confira o conteúdo oficial no TDN e no Portal do Cliente TOTVS antes de aplicar
+        qualquer pacote.
+      </p>
+      <p>
+        Todos os direitos sobre marcas, produtos, documentações e conteúdos mencionados são
+        reservados à TOTVS S.A. e respectivos titulares. Este projeto não possui vínculo oficial
+        com a TOTVS.
+      </p>
+    </aside>
 
-    <section id="panel-lib" class="panel" role="tabpanel" aria-labelledby="tab-lib" hidden>
-      <div id="modules-lib" class="grid" aria-live="polite"></div>
-    </section>
-
-    <footer>
-      Backoffice e Qualidade (QUALITY): data e link do portal. Lib: histórico + próxima versão no Framework Release Notes.
+    <footer class="disclaimer-meta">
+      Ferramenta comunitária · fontes: TDN TOTVS · Expedição Contínua e Binários.
     </footer>
   </main>
 
   <script>
+    const SECTIONS = {
+      expedicao: {
+        title: "Expedição Contínua",
+        subtitle:
+          "Consulte pacotes Backoffice, Qualidade, Varejo e o histórico da LIB Framework direto do TDN.",
+      },
+      binarios: {
+        title: "Binários",
+        subtitle:
+          "Application Server, DBAccess e SmartClient HTML. Links do TDN serão configurados em seguida.",
+      },
+    };
+
     const TABS = {
       backoffice: {
         panelId: "panel-backoffice",
@@ -572,6 +686,20 @@
           },
         ],
       },
+      varejo: {
+        panelId: "panel-varejo",
+        rootId: "modules-varejo",
+        modules: [
+          {
+            id: "loja-varejo",
+            name: "Loja Varejo",
+            type: "quality",
+            pageId: "532654397",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=532654397",
+            packageLabel: "Varejo",
+          },
+        ],
+      },
       lib: {
         panelId: "panel-lib",
         rootId: "modules-lib",
@@ -589,15 +717,47 @@
       },
     };
 
+    const BINARIOS = [
+      {
+        id: "application-server",
+        name: "Application Server",
+        type: "binary",
+        packageLabel: "Binário",
+        url: "",
+      },
+      {
+        id: "dbaccess",
+        name: "DBAccess",
+        type: "binary",
+        packageLabel: "Binário",
+        url: "",
+      },
+      {
+        id: "smartclient-html",
+        name: "SmartClient HTML",
+        type: "binary",
+        packageLabel: "Binário",
+        url: "",
+      },
+    ];
+
     const TDN_BASE = "https://tdn.totvs.com/pages/releaseview.action?pageId=";
     let activeTab = "backoffice";
+    let activeSection = "expedicao";
 
-    function allModules() {
+    function sectionModules() {
+      if (activeSection === "binarios") return BINARIOS;
       return Object.values(TABS).flatMap((tab) => tab.modules);
     }
 
+    function allModules() {
+      return [...Object.values(TABS).flatMap((tab) => tab.modules), ...BINARIOS];
+    }
+
     function moduleUrl(mod) {
-      return mod.url || `${TDN_BASE}${mod.pageId}`;
+      if (mod.url) return mod.url;
+      if (mod.pageId) return `${TDN_BASE}${mod.pageId}`;
+      return "";
     }
 
     function formatDate(isoOrText) {
@@ -957,18 +1117,19 @@
       }
 
       if (mod.type === "quality") {
+        const label = mod.packageLabel || "Release";
         return `
-        <article class="card card-lib" data-module-id="${mod.id}" data-type="quality">
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="quality" data-package-label="${label}">
           <div class="card-header">
             <h2>${mod.name}</h2>
-            <span class="badge">QUALITY</span>
+            <span class="badge">${label}</span>
           </div>
 
           <div class="body-idle idle">
             Clique em <strong>Atualizar todos</strong> para buscar os pacotes por release.
           </div>
 
-          <div class="body-loading loading hidden">Buscando pacotes QUALITY no TDN…</div>
+          <div class="body-loading loading hidden">Buscando pacotes por release no TDN…</div>
           <div class="body-error error hidden"></div>
 
           <div class="body-success meta hidden">
@@ -978,6 +1139,44 @@
 
           <div class="actions">
             <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "binary") {
+        const hasLink = Boolean(moduleUrl(mod));
+        return `
+        <article class="card" data-module-id="${mod.id}" data-type="binary">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "Binário"}</span>
+          </div>
+          <div class="body-idle idle">
+            ${
+              hasLink
+                ? 'Clique em <strong>Atualizar todos</strong> para buscar no TDN.'
+                : "Link do TDN ainda não configurado. Envie a URL para habilitar a consulta."
+            }
+          </div>
+          <div class="body-loading loading hidden">Buscando no TDN…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="meta-row">
+              <span>Informação</span>
+              <strong class="js-date">—</strong>
+            </div>
+            <div class="meta-row">
+              <span>Produto</span>
+              <strong class="js-package">${mod.name}</strong>
+            </div>
+            <a class="btn btn-primary js-download hidden" href="#" target="_blank" rel="noopener noreferrer">Abrir download</a>
+          </div>
+          <div class="actions">
+            ${
+              hasLink
+                ? `<a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>`
+                : `<span class="note">Aguardando link</span>`
+            }
           </div>
         </article>`;
       }
@@ -1083,6 +1282,7 @@
     }
 
     function fillQualitySuccess(card, data) {
+      const label = card.dataset.packageLabel || "Release";
       const list = card.querySelector(".js-quality-releases");
       list.innerHTML = (data.releases || [])
         .map(
@@ -1090,7 +1290,7 @@
           <div class="quality-release">
             <div class="quality-release-top">
               <strong>Release ${item.release}</strong>
-              <span class="badge">QUALITY</span>
+              <span class="badge">${label}</span>
             </div>
             <div class="meta-row">
               <span>Último pacote expedido</span>
@@ -1127,6 +1327,12 @@
     async function refreshModule(mod) {
       const card = findCard(mod);
       if (!card) return;
+
+      if (mod.type === "binary" && !moduleUrl(mod)) {
+        setState(card, "idle");
+        return;
+      }
+
       setState(card, "loading");
       try {
         const html = await fetchTdnHtml(moduleUrl(mod));
@@ -1147,7 +1353,7 @@
             mod.type === "lib"
               ? "Não achei páginas Versão LIB no índice."
               : mod.type === "quality"
-                ? "Não achei pacotes QUALITY (release) na página."
+                ? "Não achei pacotes por release na página."
                 : "Não achei o pacote na página."
           );
           return;
@@ -1165,10 +1371,14 @@
 
     async function refreshAll() {
       const btn = document.getElementById("refresh-all");
+      const modules = sectionModules().filter(
+        (mod) => mod.type !== "binary" || moduleUrl(mod)
+      );
       btn.disabled = true;
       btn.textContent = "Atualizando…";
       try {
-        await Promise.all(allModules().map((mod) => refreshModule(mod)));
+        if (!modules.length) return;
+        await Promise.all(modules.map((mod) => refreshModule(mod)));
       } finally {
         btn.disabled = false;
         btn.textContent = "Atualizar todos";
@@ -1186,18 +1396,55 @@
       });
     }
 
+    function setSection(sectionId) {
+      activeSection = sectionId;
+      const meta = SECTIONS[sectionId] || SECTIONS.expedicao;
+      document.getElementById("hero-title").textContent = meta.title;
+      document.getElementById("hero-subtitle").textContent = meta.subtitle;
+
+      document.querySelectorAll(".section-btn").forEach((btn) => {
+        btn.setAttribute(
+          "aria-selected",
+          btn.dataset.section === sectionId ? "true" : "false"
+        );
+      });
+
+      document.getElementById("section-expedicao").hidden = sectionId !== "expedicao";
+      document.getElementById("section-binarios").hidden = sectionId !== "binarios";
+
+      const refreshBtn = document.getElementById("refresh-all");
+      if (sectionId === "binarios") {
+        const ready = BINARIOS.some((mod) => moduleUrl(mod));
+        refreshBtn.disabled = !ready;
+        refreshBtn.title = ready
+          ? ""
+          : "Configure os links do TDN para habilitar a atualização";
+      } else {
+        refreshBtn.disabled = false;
+        refreshBtn.title = "";
+      }
+    }
+
     function render() {
       Object.values(TABS).forEach((tab) => {
         const root = document.getElementById(tab.rootId);
         root.innerHTML = tab.modules.map(cardTemplate).join("");
       });
 
+      const binariesRoot = document.getElementById("modules-binarios");
+      binariesRoot.innerHTML = BINARIOS.map(cardTemplate).join("");
+
       document.querySelectorAll(".tab").forEach((tab) => {
         tab.addEventListener("click", () => setTab(tab.dataset.tab));
       });
 
+      document.querySelectorAll(".section-btn").forEach((btn) => {
+        btn.addEventListener("click", () => setSection(btn.dataset.section));
+      });
+
       document.getElementById("refresh-all").addEventListener("click", refreshAll);
       setTab("backoffice");
+      setSection("expedicao");
     }
 
     window.ExpedicaoContinua = {
@@ -1205,6 +1452,8 @@
       parseQualityFromHtml,
       parseLibFromHtml,
       TABS,
+      BINARIOS,
+      SECTIONS,
       refreshAll,
     };
     render();
