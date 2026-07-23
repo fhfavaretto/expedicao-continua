@@ -223,7 +223,8 @@
       display: flex;
       flex-direction: column;
       gap: 0.9rem;
-      min-height: 188px;
+      height: 100%;
+      min-height: 292px;
     }
 
     .card-header {
@@ -231,13 +232,20 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 0.75rem;
+      min-height: 3.1rem;
     }
 
     .card-header h2 {
       margin: 0;
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 600;
+      line-height: 1.25;
       color: var(--totvs-darker);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.5em;
     }
 
     .badge {
@@ -252,11 +260,14 @@
       color: var(--totvs-dark);
       border: 1px solid rgba(0, 163, 190, 0.35);
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .meta {
       display: grid;
       gap: 0.65rem;
+      flex: 1 1 auto;
+      align-content: start;
     }
 
     .meta .js-download {
@@ -268,6 +279,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
+      min-height: 2.85rem;
     }
 
     .meta-row span {
@@ -288,7 +300,7 @@
       color: var(--muted);
       line-height: 1.5;
       font-size: 0.98rem;
-      flex: 1;
+      flex: 1 1 auto;
     }
 
     .error { color: var(--danger); }
@@ -296,9 +308,24 @@
 
     .actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.45rem;
       margin-top: auto;
+      padding-top: 0.15rem;
+    }
+
+    .actions .btn-primary,
+    .actions .js-download {
+      width: 100%;
+    }
+
+    .btn.is-disabled,
+    .actions .js-download.is-disabled {
+      opacity: 0.45;
+      pointer-events: none;
+      cursor: not-allowed;
+      transform: none;
     }
 
     button,
@@ -814,6 +841,66 @@
       line-height: 1.45;
     }
 
+
+    .hub-table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .hub-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    .hub-table th,
+    .hub-table td {
+      padding: 0.7rem 0.85rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 0.92rem;
+    }
+
+    .hub-table th {
+      background: var(--totvs-lightest);
+      color: var(--totvs-darker);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+    }
+
+    .hub-table tr:last-child td { border-bottom: 0; }
+
+    .hub-table a {
+      color: var(--totvs-darker);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .hub-table a:hover {
+      color: var(--totvs-base);
+      text-decoration: underline;
+    }
+
+    .hub-est-overdue {
+      color: var(--warn);
+      font-weight: 600;
+    }
+
+    .hub-est-upcoming {
+      color: var(--totvs-dark);
+      font-weight: 600;
+    }
+
+    .meta-row .js-next {
+      font-size: 1.05rem;
+    }
+
     /* —— Mobile —— */
     @media (max-width: 699px) {
       body {
@@ -907,18 +994,20 @@
 
       .card {
         padding: 1rem;
-        min-height: 0;
+        min-height: 270px;
         border-radius: 12px;
         gap: 0.75rem;
       }
 
       .card-header {
-        align-items: center;
+        align-items: flex-start;
+        min-height: 2.8rem;
       }
 
       .card-header h2 {
-        font-size: 1.12rem;
+        font-size: 1.08rem;
         line-height: 1.25;
+        min-height: 2.5em;
       }
 
       .badge {
@@ -938,7 +1027,6 @@
 
       .actions .btn,
       .actions a.btn,
-      .meta .js-download,
       .meta .js-section-link,
       .btn-primary {
         width: 100%;
@@ -1060,23 +1148,28 @@
     <div id="section-expedicao" class="section">
       <div class="toolbar">
         <div class="tabs" role="tablist" aria-label="Tipo de pacote">
-          <button type="button" class="tab" role="tab" id="tab-backoffice" aria-controls="panel-backoffice" aria-selected="true" data-tab="backoffice">Backoffice</button>
-          <button type="button" class="tab" role="tab" id="tab-qualidade" aria-controls="panel-qualidade" aria-selected="false" data-tab="qualidade">Qualidade</button>
-          <button type="button" class="tab" role="tab" id="tab-varejo" aria-controls="panel-varejo" aria-selected="false" data-tab="varejo">Varejo</button>
+          <button type="button" class="tab" role="tab" id="tab-visao-geral" aria-controls="panel-visao-geral" aria-selected="true" data-tab="visao-geral">Visão geral</button>
+          <button type="button" class="tab" role="tab" id="tab-semanal" aria-controls="panel-semanal" aria-selected="false" data-tab="semanal">Semanal</button>
+          <button type="button" class="tab" role="tab" id="tab-quinzenal" aria-controls="panel-quinzenal" aria-selected="false" data-tab="quinzenal">Quinzenal</button>
+          <button type="button" class="tab" role="tab" id="tab-mensal" aria-controls="panel-mensal" aria-selected="false" data-tab="mensal">Mensal</button>
           <button type="button" class="tab" role="tab" id="tab-lib" aria-controls="panel-lib" aria-selected="false" data-tab="lib">Lib</button>
         </div>
       </div>
 
-      <section id="panel-backoffice" class="panel" role="tabpanel" aria-labelledby="tab-backoffice">
-        <div id="modules-backoffice" class="grid" aria-live="polite"></div>
+      <section id="panel-visao-geral" class="panel" role="tabpanel" aria-labelledby="tab-visao-geral">
+        <div id="modules-visao-geral" class="grid" aria-live="polite"></div>
       </section>
 
-      <section id="panel-qualidade" class="panel" role="tabpanel" aria-labelledby="tab-qualidade" hidden>
-        <div id="modules-qualidade" class="grid" aria-live="polite"></div>
+      <section id="panel-semanal" class="panel" role="tabpanel" aria-labelledby="tab-semanal" hidden>
+        <div id="modules-semanal" class="grid" aria-live="polite"></div>
       </section>
 
-      <section id="panel-varejo" class="panel" role="tabpanel" aria-labelledby="tab-varejo" hidden>
-        <div id="modules-varejo" class="grid" aria-live="polite"></div>
+      <section id="panel-quinzenal" class="panel" role="tabpanel" aria-labelledby="tab-quinzenal" hidden>
+        <div id="modules-quinzenal" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-mensal" class="panel" role="tabpanel" aria-labelledby="tab-mensal" hidden>
+        <div id="modules-mensal" class="grid" aria-live="polite"></div>
       </section>
 
       <section id="panel-lib" class="panel" role="tabpanel" aria-labelledby="tab-lib" hidden>
@@ -1163,79 +1256,476 @@
       },
     };
 
+    const EXPEDICAO_HUB_URL = "https://tdn.totvs.com/pages/releaseview.action?pageId=327322399";
+    const EXPEDICAO_HUB_PAGE_ID = "327322399";
+
+    const HUB_MODULE_SEED = [
+      {
+        id: "hub-522005297",
+        code: "MNT",
+        name: "MNT - Manutenção de Ativos",
+        label: "MNT - Manutenção de Ativos",
+        cadence: "Semanal",
+        pageId: "522005297",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=522005297",
+        type: "backoffice",
+        packageLabel: "Semanal",
+      },
+      {
+        id: "hub-382557083",
+        code: "ATF",
+        name: "ATF - Ativo Fixo",
+        label: "ATF - Ativo Fixo",
+        cadence: "Quinzenal",
+        pageId: "382557083",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=382557083",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-agro",
+        code: "AGRO",
+        name: "AGRO - Gestão Agrícola",
+        label: "AGRO - Gestão Agrícola",
+        cadence: "Mensal",
+        pageId: null,
+        url: "",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-501123489",
+        code: "RH",
+        name: "RH - Recursos Humanos",
+        label: "RH - Recursos Humanos",
+        cadence: "Semanal",
+        pageId: "501123489",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=501123489",
+        type: "backoffice",
+        packageLabel: "Semanal",
+      },
+      {
+        id: "hub-527004007",
+        code: "CEN",
+        name: "CEN - Central de Obrigações",
+        label: "CEN - Central de Obrigações",
+        cadence: "Quinzenal",
+        pageId: "527004007",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=527004007",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-526987588",
+        code: "COMEX",
+        name: "COMEX - Comercio Exterior",
+        label: "COMEX - Comercio Exterior",
+        cadence: "Mensal",
+        pageId: "526987588",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=526987588",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-522011099",
+        code: "COM",
+        name: "COM - Compras",
+        label: "COM - Compras",
+        cadence: "Quinzenal",
+        pageId: "522011099",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=522011099",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-521997496",
+        code: "CRM",
+        name: "CRM - Customer Relationship Management",
+        label: "CRM - Customer Relationship Management",
+        cadence: "Mensal",
+        pageId: "521997496",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=521997496",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-334342777",
+        code: "CTB",
+        name: "CTB - Contabilidade Gerencial",
+        label: "CTB - Contabilidade Gerencial",
+        cadence: "Quinzenal",
+        pageId: "334342777",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=334342777",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-525823851",
+        code: "FIS",
+        name: "FIS - Livros Fiscais",
+        label: "FIS - Livros Fiscais",
+        cadence: "Mensal",
+        pageId: "525823851",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=525823851",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-522000602",
+        code: "EST",
+        name: "EST - Estoque e Custos",
+        label: "EST - Estoque e Custos",
+        cadence: "Quinzenal",
+        pageId: "522000602",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=522000602",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-547876421",
+        code: "GFE",
+        name: "GFE - Frete Embarcador",
+        label: "GFE - Frete Embarcador",
+        cadence: "Mensal",
+        pageId: "547876421",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=547876421",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-521997859",
+        code: "FAT",
+        name: "FAT - Faturamento",
+        label: "FAT - Faturamento",
+        cadence: "Quinzenal",
+        pageId: "521997859",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=521997859",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-527830949",
+        code: "mobile",
+        name: "Mobile",
+        label: "Mobile",
+        cadence: "Mensal",
+        pageId: "527830949",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=527830949",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-531017758",
+        code: "FIN",
+        name: "FIN - Financeiro",
+        label: "FIN - Financeiro",
+        cadence: "Quinzenal",
+        pageId: "531017758",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=531017758",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-556880961",
+        code: "OMS",
+        name: "OMS - Gestão de Distribuição",
+        label: "OMS - Gestão de Distribuição",
+        cadence: "Mensal",
+        pageId: "556880961",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=556880961",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-679961416",
+        code: "GCT",
+        name: "GCT - Gestão de Contratos",
+        label: "GCT - Gestão de Contratos",
+        cadence: "Quinzenal",
+        pageId: "679961416",
+        url: "https://tdn.totvs.com/pages/viewpage.action?pageId=679961416",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-526987258",
+        code: "PLS",
+        name: "PLS - Plano de Saúde",
+        label: "PLS - Plano de Saúde",
+        cadence: "Mensal",
+        pageId: "526987258",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=526987258",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-525810597",
+        code: "TEC",
+        name: "TEC - Gestão de Serviços",
+        label: "TEC - Gestão de Serviços",
+        cadence: "Quinzenal",
+        pageId: "525810597",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=525810597",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-521997643",
+        code: "PMS",
+        name: "PMS - Gestão de Projetos",
+        label: "PMS - Gestão de Projetos",
+        cadence: "Mensal",
+        pageId: "521997643",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=521997643",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-527002880",
+        code: "GTP",
+        name: "GTP - Gestão de Transporte de Passageiro",
+        label: "GTP - Gestão de Transporte de Passageiro",
+        cadence: "Quinzenal",
+        pageId: "527002880",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=527002880",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-561054124",
+        code: "QDO",
+        name: "QDO - Controle de documentos",
+        label: "QDO - Controle de documentos",
+        cadence: "Mensal",
+        pageId: "561054124",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=561054124",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-525012367",
+        code: "JURI",
+        name: "JURI - Gestão de Assuntos Jurídicos",
+        label: "JURI - Gestão de Assuntos Jurídicos",
+        cadence: "Quinzenal",
+        pageId: "525012367",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=525012367",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-561054149",
+        code: "QIE",
+        name: "QIE - Inspeção de Entradas",
+        label: "QIE - Inspeção de Entradas",
+        cadence: "Mensal",
+        pageId: "561054149",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=561054149",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-pco",
+        code: "PCO",
+        name: "PCO - Planejamento e Controle Orçamentário",
+        label: "PCO - Planejamento e Controle Orçamentário",
+        cadence: "Quinzenal",
+        pageId: null,
+        url: "",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-521997552",
+        code: "TMK",
+        name: "TMK - Telemarketing, Televendas e Telecobrança",
+        label: "TMK - Telemarketing, Televendas e Telecobrança",
+        cadence: "Mensal",
+        pageId: "521997552",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=521997552",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-557684117",
+        code: "PCP",
+        name: "PCP - Planejamento e Controle de Produção",
+        label: "PCP - Planejamento e Controle de Produção",
+        cadence: "Quinzenal",
+        pageId: "557684117",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=557684117",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-556881341",
+        code: "WMS",
+        name: "WMS - Gestão de Armazéns",
+        label: "WMS - Gestão de Armazéns",
+        cadence: "Mensal",
+        pageId: "556881341",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=556881341",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-525024604",
+        code: "PFS",
+        name: "PFS - Pré Faturamento de Serviços",
+        label: "PFS - Pré Faturamento de Serviços",
+        cadence: "Quinzenal",
+        pageId: "525024604",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=525024604",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-taf",
+        code: "TAF",
+        name: "TAF - Automação Fiscal",
+        label: "TAF - Automação Fiscal",
+        cadence: "Mensal",
+        pageId: null,
+        url: "https://tdn.totvs.com/x/KTvOJQ",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-561058184",
+        code: "SFC",
+        name: "SFC - Chão de Fabrica",
+        label: "SFC - Chão de Fabrica",
+        cadence: "Quinzenal",
+        pageId: "561058184",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=561058184",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-679961656",
+        code: "GCP",
+        name: "GCP - Gestão de Contratos Públicos",
+        label: "GCP - Gestão de Contratos Públicos",
+        cadence: "Mensal",
+        pageId: "679961656",
+        url: "https://tdn.totvs.com/pages/viewpage.action?pageId=679961656",
+        type: "backoffice",
+        packageLabel: "Mensal",
+      },
+      {
+        id: "hub-553908682",
+        code: "TMS",
+        name: "TMS - Gestão de Transporte",
+        label: "TMS - Gestão de Transporte",
+        cadence: "Quinzenal",
+        pageId: "553908682",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=553908682",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-525011807",
+        code: "TSS",
+        name: "TSS - Totvs Service SOA",
+        label: "TSS - Totvs Service SOA",
+        cadence: "Quinzenal",
+        pageId: "525011807",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=525011807",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-525010692",
+        code: "TSS_PROTHEUS",
+        name: "TSS_PROTHEUS - Documentos Eletrônicos NFE-NFSE-MDE-MDFE(FAT)",
+        label: "TSS_PROTHEUS - Documentos Eletrônicos NFE-NFSE-MDE-MDFE(FAT)",
+        cadence: "Quinzenal",
+        pageId: "525010692",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=525010692",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-532654397",
+        code: "VAREJO",
+        name: "VAREJO - Operações de PDV e Retaguarda",
+        label: "VAREJO - Operações de PDV e Retaguarda",
+        cadence: "Quinzenal",
+        pageId: "532654397",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=532654397",
+        type: "quality",
+        packageLabel: "Varejo",
+      },
+      {
+        id: "hub-557350060",
+        code: "MDT",
+        name: "MDT - Medicina e Segurança do Trabalho",
+        label: "MDT - Medicina e Segurança do Trabalho",
+        cadence: "Quinzenal",
+        pageId: "557350060",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=557350060",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "hub-557344356",
+        code: "SGA",
+        name: "SGA - Gestão Ambiental",
+        label: "SGA - Gestão Ambiental",
+        cadence: "Quinzenal",
+        pageId: "557344356",
+        url: "https://tdn.totvs.com/pages/releaseview.action?pageId=557344356",
+        type: "backoffice",
+        packageLabel: "Quinzenal",
+      },
+      {
+        id: "qualidade",
+        code: "QUALITY",
+        name: "Qualidade",
+        label: "Qualidade",
+        cadence: "Mensal",
+        pageId: "1033985016",
+        url: "https://tdn.totvs.com/pages/viewpage.action?pageId=1033985016",
+        type: "quality",
+        packageLabel: "Mensal",
+      },
+    ];
+
+    function hubModulesByCadence(cadence, catalog = HUB_MODULE_SEED) {
+      return catalog
+        .filter((m) => m.cadence === cadence)
+        .map((m) => ({ ...m }));
+    }
+
     const TABS = {
-      backoffice: {
-        panelId: "panel-backoffice",
-        rootId: "modules-backoffice",
+      "visao-geral": {
+        panelId: "panel-visao-geral",
+        rootId: "modules-visao-geral",
         modules: [
           {
-            id: "faturamento",
-            name: "Faturamento",
-            type: "backoffice",
-            pageId: "521997859",
-            packageLabel: "Backoffice",
-          },
-          {
-            id: "financeiro",
-            name: "Financeiro",
-            type: "backoffice",
-            pageId: "531017758",
-            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=531017758",
-            packageLabel: "Backoffice",
-          },
-          {
-            id: "compras",
-            name: "Compras",
-            type: "backoffice",
-            pageId: "522011099",
-            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=522011099",
-            packageLabel: "Backoffice",
-          },
-          {
-            id: "fiscal",
-            name: "Fiscal",
-            type: "backoffice",
-            pageId: "525823851",
-            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=525823851",
-            packageLabel: "Backoffice",
-          },
-          {
-            id: "estoque-custos-automacao",
-            name: "Estoque e Custos e Automação e Coleta de Dados",
-            type: "backoffice",
-            pageId: "522000602",
-            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=522000602",
-            packageLabel: "Backoffice",
+            id: "expedicao-hub",
+            name: "Sazonalidade e módulos",
+            type: "expedicao-hub",
+            packageLabel: "Hub",
+            pageId: EXPEDICAO_HUB_PAGE_ID,
+            url: EXPEDICAO_HUB_URL,
           },
         ],
       },
-      qualidade: {
-        panelId: "panel-qualidade",
-        rootId: "modules-qualidade",
-        modules: [
-          {
-            id: "qualidade",
-            name: "Qualidade",
-            type: "quality",
-            pageId: "1033985016",
-            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=1033985016",
-            packageLabel: "QUALITY",
-          },
-        ],
+      semanal: {
+        panelId: "panel-semanal",
+        rootId: "modules-semanal",
+        modules: hubModulesByCadence("Semanal"),
       },
-      varejo: {
-        panelId: "panel-varejo",
-        rootId: "modules-varejo",
-        modules: [
-          {
-            id: "loja-varejo",
-            name: "Loja Varejo",
-            type: "quality",
-            pageId: "532654397",
-            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=532654397",
-            packageLabel: "Varejo",
-          },
-        ],
+      quinzenal: {
+        panelId: "panel-quinzenal",
+        rootId: "modules-quinzenal",
+        modules: hubModulesByCadence("Quinzenal"),
+      },
+      mensal: {
+        panelId: "panel-mensal",
+        rootId: "modules-mensal",
+        modules: hubModulesByCadence("Mensal"),
       },
       lib: {
         panelId: "panel-lib",
@@ -1246,7 +1736,6 @@
             name: "Framework LIB",
             type: "lib",
             packageLabel: "LIB",
-            // URL com "|" no path retorna HTTP 400 em proxies; usar pageId estável.
             pageId: "152798709",
             url: "https://tdn.totvs.com/pages/viewpage.action?pageId=152798709",
             childrenUrl:
@@ -1403,7 +1892,7 @@
     const BINARIOS = Object.values(BINARIO_TABS).flatMap((tab) => tab.modules);
 
     const TDN_BASE = "https://tdn.totvs.com/pages/releaseview.action?pageId=";
-    let activeTab = "backoffice";
+    let activeTab = "visao-geral";
     let activeSection = "expedicao";
     let activeBinarioTab = "appserver";
     let activeAppServerSub = "releases";
@@ -1427,8 +1916,11 @@
         return tab.modules.filter(isBinaryModuleReady);
       }
       // Expedição: só a aba ativa — evita rate limit nos proxies e falha da LIB.
+      // Visão geral já busca o hub + módulos em lote no próprio refresh.
       const tab = TABS[activeTab];
-      return (tab?.modules || []).filter((mod) => moduleUrl(mod));
+      return (tab?.modules || []).filter(
+        (mod) => mod.type === "expedicao-hub" || moduleUrl(mod)
+      );
     }
 
     function allModules() {
@@ -1464,6 +1956,125 @@
     function startOfTodayUTC() {
       const now = new Date();
       return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    }
+
+    function cadenceDays(cadence) {
+      const c = String(cadence || "").toLowerCase();
+      if (c.startsWith("seman")) return 7;
+      if (c.startsWith("quinzen")) return 14;
+      if (c.startsWith("mens")) return 30;
+      return 14;
+    }
+
+    function estimateNextRelease(cutoffIsoOrText, cadence) {
+      const raw = String(cutoffIsoOrText || "").trim();
+      const iso = raw.slice(0, 10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return null;
+      const days = cadenceDays(cadence);
+      const next = new Date(`${iso}T00:00:00Z`);
+      if (Number.isNaN(next.getTime())) return null;
+      next.setUTCDate(next.getUTCDate() + days);
+      const today = startOfTodayUTC();
+      const nextIso = next.toISOString().slice(0, 10);
+      return {
+        iso: nextIso,
+        date: formatDate(nextIso),
+        days,
+        status: next < today ? "overdue" : "upcoming",
+      };
+    }
+
+    function slugHubId(pageId, label) {
+      if (pageId) return `hub-${pageId}`;
+      return `hub-${String(label || "mod")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")
+        .slice(0, 48)}`;
+    }
+
+    function parseExpedicaoHub(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const tables = Array.from(doc.querySelectorAll("table"));
+      const table = tables.find((t) =>
+        /Sazonalidade/i.test(t.textContent || "")
+      );
+      if (!table) return { error: "not_found", modules: [] };
+
+      const cadences = ["Semanal", "Quinzenal", "Mensal"];
+      const modules = [];
+      const rows = Array.from(table.querySelectorAll("tr")).slice(2);
+
+      rows.forEach((row) => {
+        const cells = Array.from(row.querySelectorAll("td"));
+        cells.slice(0, 3).forEach((cell, idx) => {
+          const text = decodeHtmlEntities((cell.textContent || "").replace(/\s+/g, " ").trim());
+          if (!text) return;
+          const link = cell.querySelector("a[href]");
+          let href = link?.getAttribute("href") || "";
+          if (href.startsWith("/")) href = `https://tdn.totvs.com${href}`;
+          const pageIdMatch = href.match(/pageId=(\d+)/i);
+          const pageId = pageIdMatch ? pageIdMatch[1] : null;
+          const codeMatch = text.match(/^([A-Z0-9_]+)\s*[-–]\s*(.+)$/);
+          const code = codeMatch ? codeMatch[1] : "";
+          const name = codeMatch ? codeMatch[2].trim() : text;
+          const cadence = cadences[idx];
+          modules.push({
+            id: slugHubId(pageId, text),
+            code: code || name.slice(0, 12),
+            name: text,
+            label: text,
+            cadence,
+            pageId,
+            url: href || (pageId ? `${TDN_BASE}${pageId}` : ""),
+            type: pageId === "532654397" ? "quality" : "backoffice",
+            packageLabel: pageId === "532654397" ? "Varejo" : cadence,
+          });
+        });
+      });
+
+      const seen = new Set();
+      const unique = modules.filter((m) => {
+        const key = m.pageId || m.label;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+
+      if (!unique.length) return { error: "not_found", modules: [] };
+      return { modules: unique, hubUrl: EXPEDICAO_HUB_URL };
+    }
+
+    async function mapPool(items, limit, worker) {
+      const results = new Array(items.length);
+      let cursor = 0;
+      async function run() {
+        while (cursor < items.length) {
+          const index = cursor++;
+          results[index] = await worker(items[index], index);
+        }
+      }
+      const n = Math.max(1, Math.min(limit, items.length || 1));
+      await Promise.all(Array.from({ length: n }, () => run()));
+      return results;
+    }
+
+    function applyHubCatalog(modules) {
+      const list = Array.isArray(modules) && modules.length ? modules : HUB_MODULE_SEED;
+      const qualidade = HUB_MODULE_SEED.find((m) => m.id === "qualidade");
+      const merged = [...list];
+      if (qualidade && !merged.some((m) => m.id === "qualidade" || m.pageId === "1033985016")) {
+        merged.push({ ...qualidade });
+      }
+      TABS.semanal.modules = hubModulesByCadence("Semanal", merged);
+      TABS.quinzenal.modules = hubModulesByCadence("Quinzenal", merged);
+      TABS.mensal.modules = hubModulesByCadence("Mensal", merged);
+      ["semanal", "quinzenal", "mensal"].forEach((id) => {
+        const tab = TABS[id];
+        const root = document.getElementById(tab.rootId);
+        if (root) root.innerHTML = tab.modules.map(cardTemplate).join("");
+      });
+      return merged;
     }
 
     function decodeHtmlEntities(value) {
@@ -1509,12 +2120,37 @@
       const doc = new DOMParser().parseFromString(html, "text/html");
       const paragraphs = Array.from(doc.querySelectorAll("p"));
 
-      const match = paragraphs.find((p) => {
-        const text = (p.textContent || "").toLowerCase();
-        return text.includes("data de corte") && text.includes("backoffice");
-      });
+      const match =
+        paragraphs.find((p) => {
+          const text = (p.textContent || "").toLowerCase();
+          return text.includes("data de corte") && text.includes("backoffice");
+        }) ||
+        paragraphs.find((p) => {
+          const text = (p.textContent || "").toLowerCase();
+          return text.includes("data de corte");
+        });
 
-      if (!match) return { error: "not_found" };
+      if (!match) {
+        // Fallback: first <time datetime> near a downloads link in main content.
+        const root = doc.querySelector("#main-content") || doc.body;
+        const timeEl = root?.querySelector("time[datetime]");
+        const linkEl =
+          root?.querySelector('a.external-link[href*="downloads"]') ||
+          Array.from(root?.querySelectorAll("a") || []).find((a) =>
+            /aqui|download/i.test(a.textContent || "")
+          );
+        const datetime = timeEl?.getAttribute("datetime") || "";
+        const downloadUrl = linkEl?.getAttribute("href") || "";
+        if (!datetime) return { error: "not_found" };
+        return {
+          cutoffDate: formatDate(datetime),
+          cutoffDatetime: datetime,
+          downloadUrl: downloadUrl
+            ? new URL(downloadUrl, "https://tdn.totvs.com").href
+            : "",
+          packageName: "Expedição Contínua",
+        };
+      }
 
       const timeEl = match.querySelector("time");
       const linkEl =
@@ -1526,13 +2162,17 @@
       const datetime = timeEl?.getAttribute("datetime") || timeEl?.textContent || "";
       const downloadUrl = linkEl?.getAttribute("href") || "";
 
-      if (!datetime || !downloadUrl) return { error: "incomplete" };
+      if (!datetime) return { error: "incomplete" };
 
       return {
         cutoffDate: formatDate(datetime),
         cutoffDatetime: datetime,
-        downloadUrl: new URL(downloadUrl, "https://tdn.totvs.com").href,
-        packageName: "Backoffice",
+        downloadUrl: downloadUrl
+          ? new URL(downloadUrl, "https://tdn.totvs.com").href
+          : "",
+        packageName: /backoffice/i.test(match.textContent || "")
+          ? "Backoffice"
+          : "Expedição Contínua",
       };
     }
 
@@ -2712,6 +3352,44 @@
     function cardTemplate(mod) {
       const tdn = moduleUrl(mod);
       const isLib = mod.type === "lib";
+
+      if (mod.type === "expedicao-hub") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="expedicao-hub">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "Hub"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar a tabela de sazonalidade do TDN e estimar a próxima atualização de cada módulo.
+          </div>
+          <div class="body-loading loading hidden">Buscando hub e datas de corte dos módulos…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <p class="note">
+              Cadências oficiais (Semanal / Quinzenal / Mensal). A próxima data é uma
+              <strong>estimativa</strong> com base no último pacote + cadência — não é um compromisso da TOTVS.
+            </p>
+            <div class="hub-table-wrap">
+              <table class="hub-table">
+                <thead>
+                  <tr>
+                    <th>Módulo</th>
+                    <th>Cadência</th>
+                    <th>Último</th>
+                    <th>Próxima (est.)</th>
+                  </tr>
+                </thead>
+                <tbody class="js-hub-rows"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver hub no TDN</a>
+          </div>
+        </article>`;
+      }
+
       if (isLib) {
         return `
         <article class="card card-lib" data-module-id="${mod.id}" data-type="lib">
@@ -3097,14 +3775,18 @@
       }
 
       return `
-        <article class="card" data-module-id="${mod.id}" data-type="${mod.type}">
+        <article class="card" data-module-id="${mod.id}" data-type="${mod.type}" data-cadence="${mod.cadence || ""}">
           <div class="card-header">
             <h2>${mod.name}</h2>
-            <span class="badge">${mod.packageLabel || "Backoffice"}</span>
+            <span class="badge">${mod.packageLabel || mod.cadence || "Módulo"}</span>
           </div>
 
           <div class="body-idle idle">
-            Clique em <strong>Atualizar todos</strong> para buscar no TDN.
+            ${
+              tdn
+                ? 'Clique em <strong>Atualizar todos</strong> para buscar no TDN.'
+                : "Este módulo ainda não tem link estável no hub do TDN."
+            }
           </div>
 
           <div class="body-loading loading hidden">Buscando no TDN…</div>
@@ -3116,17 +3798,30 @@
               <strong class="js-date">—</strong>
             </div>
             <div class="meta-row">
-              <span>Pacote</span>
-              <strong class="js-package">${mod.packageLabel || "Backoffice"}</strong>
+              <span>Próxima estimada</span>
+              <strong class="js-next">—</strong>
             </div>
-            <a class="btn btn-primary js-download" href="#" target="_blank" rel="noopener noreferrer">Baixar pacote</a>
+            <div class="meta-row">
+              <span>Cadência</span>
+              <strong class="js-package">${mod.cadence || mod.packageLabel || "—"}</strong>
+            </div>
           </div>
 
           <div class="actions">
-            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+            <a
+              class="btn btn-primary js-download is-disabled"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-disabled="true"
+            >Baixar pacote</a>
+            ${
+              tdn
+                ? `<a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>`
+                : `<span class="btn btn-ghost is-disabled" aria-disabled="true">Ver no TDN</span>`
+            }
           </div>
-        </article>
-      `;
+        </article>`;
     }
 
     function setState(card, state, message) {
@@ -3454,6 +4149,10 @@
         fillQualitySuccess(card, data);
         return;
       }
+      if (card.dataset.type === "expedicao-hub") {
+        fillHubSuccess(card, data);
+        return;
+      }
       if (card.dataset.type === "appserver" || card.dataset.type === "dbaccess") {
         fillAppServerSuccess(card, data);
         return;
@@ -3487,10 +4186,66 @@
         return;
       }
 
-      card.querySelector(".js-date").textContent = data.cutoffDate;
-      card.querySelector(".js-package").textContent = data.packageName;
+      card.querySelector(".js-date").textContent = data.cutoffDate || "—";
+      const nextEl = card.querySelector(".js-next");
+      if (nextEl) {
+        const estimate =
+          data.nextEstimate ||
+          estimateNextRelease(data.cutoffDatetime, card.dataset.cadence || data.cadence);
+        if (estimate) {
+          nextEl.textContent = estimate.date;
+          nextEl.classList.toggle("hub-est-overdue", estimate.status === "overdue");
+          nextEl.classList.toggle("hub-est-upcoming", estimate.status === "upcoming");
+          nextEl.title =
+            estimate.status === "overdue"
+              ? "Estimativa já passou — aguardando novo pacote no TDN"
+              : `Último + ${estimate.days} dia(s)`;
+        } else {
+          nextEl.textContent = "—";
+          nextEl.removeAttribute("title");
+        }
+      }
+      const pkg = card.querySelector(".js-package");
+      if (pkg) {
+        pkg.textContent = data.cadence || data.packageName || pkg.textContent;
+      }
       const download = card.querySelector(".js-download");
-      if (download && data.downloadUrl) download.href = data.downloadUrl;
+      if (download) {
+        if (data.downloadUrl) {
+          download.href = data.downloadUrl;
+          download.classList.remove("is-disabled", "hidden");
+          download.removeAttribute("aria-disabled");
+        } else {
+          download.removeAttribute("href");
+          download.classList.add("is-disabled");
+          download.setAttribute("aria-disabled", "true");
+        }
+      }
+      setState(card, "success");
+    }
+
+    function fillHubSuccess(card, data) {
+      const body = card.querySelector(".js-hub-rows");
+      const rows = data.rows || [];
+      body.innerHTML = rows
+        .map((row) => {
+          const name = row.url
+            ? `<a href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.name)}</a>`
+            : escapeHtml(row.name);
+          const nextClass =
+            row.nextStatus === "overdue"
+              ? "hub-est-overdue"
+              : row.nextStatus === "upcoming"
+                ? "hub-est-upcoming"
+                : "";
+          return `<tr>
+            <td>${name}</td>
+            <td>${escapeHtml(row.cadence || "—")}</td>
+            <td>${escapeHtml(row.lastDate || "—")}</td>
+            <td class="${nextClass}">${escapeHtml(row.nextDate || "—")}</td>
+          </tr>`;
+        })
+        .join("");
       setState(card, "success");
     }
 
@@ -3857,12 +4612,111 @@
       }
     }
 
+    async function refreshExpedicaoHub(mod, card) {
+      setState(card, "loading");
+      try {
+        let catalog = HUB_MODULE_SEED;
+        try {
+          const hubHtml = await fetchTdnHtml(moduleUrl(mod) || EXPEDICAO_HUB_URL);
+          const parsedHub = parseExpedicaoHub(hubHtml);
+          if (!parsedHub.error && parsedHub.modules.length) {
+            catalog = parsedHub.modules;
+          }
+        } catch (err) {
+          console.warn("Hub TDN indisponível, usando catálogo local.", err);
+        }
+
+        catalog = applyHubCatalog(catalog);
+
+        const rows = await mapPool(catalog, 3, async (item) => {
+          const base = {
+            name: item.name,
+            cadence: item.cadence,
+            url: item.url || "",
+            lastDate: "",
+            nextDate: "",
+            nextStatus: "",
+          };
+
+          if (!moduleUrl(item)) return base;
+
+          try {
+            const html = await fetchTdnHtml(moduleUrl(item));
+            let cutoffDatetime = "";
+            let cutoffDate = "";
+            let downloadUrl = "";
+
+            if (item.type === "quality") {
+              const q = parseQualityFromHtml(html);
+              if (!q.error && q.releases?.length) {
+                const best = [...q.releases].sort((a, b) =>
+                  String(b.cutoffDatetime || "").localeCompare(
+                    String(a.cutoffDatetime || "")
+                  )
+                )[0];
+                cutoffDatetime = best.cutoffDatetime || "";
+                cutoffDate = best.cutoffDate || formatDate(cutoffDatetime);
+                downloadUrl = best.downloadUrl || "";
+              }
+            } else {
+              const p = parsePackageFromHtml(html);
+              if (!p.error) {
+                cutoffDatetime = p.cutoffDatetime || "";
+                cutoffDate = p.cutoffDate || "";
+                downloadUrl = p.downloadUrl || "";
+              }
+            }
+
+            const estimate = estimateNextRelease(cutoffDatetime, item.cadence);
+            const payload = {
+              cutoffDate,
+              cutoffDatetime,
+              downloadUrl,
+              packageName: item.packageLabel || item.cadence,
+              cadence: item.cadence,
+              nextEstimate: estimate,
+            };
+
+            const moduleCard = findCard(item);
+            if (moduleCard && cutoffDate && item.type !== "quality") {
+              fillSuccess(moduleCard, payload);
+            }
+
+            return {
+              ...base,
+              lastDate: cutoffDate || "—",
+              nextDate: estimate?.date || "—",
+              nextStatus: estimate?.status || "",
+            };
+          } catch (err) {
+            console.warn("Falha ao ler módulo", item.name, err);
+            return { ...base, lastDate: "erro", nextDate: "—" };
+          }
+        });
+
+        fillHubSuccess(card, { rows });
+      } catch (err) {
+        console.error(err);
+        setState(card, "error", "Não foi possível carregar o hub da Expedição Contínua.");
+      }
+    }
+
     async function refreshModule(mod) {
       const card = findCard(mod);
       if (!card) return;
 
       if (mod.type === "binary" && !moduleUrl(mod)) {
         setState(card, "idle");
+        return;
+      }
+
+      if (mod.type === "expedicao-hub") {
+        await refreshExpedicaoHub(mod, card);
+        return;
+      }
+
+      if ((mod.type === "backoffice" || mod.type === "quality") && !moduleUrl(mod)) {
+        setState(card, "error", "Link do módulo não disponível no hub do TDN.");
         return;
       }
 
@@ -4150,7 +5004,7 @@
       });
 
       document.getElementById("refresh-all").addEventListener("click", refreshAll);
-      setTab("backoffice");
+      setTab("visao-geral");
       setBinarioTab("appserver");
       setAppServerSub("releases");
       setDbAccessSub("releases");
@@ -4180,6 +5034,11 @@
       parseBrowsersHomologationPage,
       parseExpandChangelog,
       parseGitHubRelease,
+      parseExpedicaoHub,
+      estimateNextRelease,
+      cadenceDays,
+      HUB_MODULE_SEED,
+      EXPEDICAO_HUB_URL,
       TABS,
       BINARIO_TABS,
       BINARIOS,

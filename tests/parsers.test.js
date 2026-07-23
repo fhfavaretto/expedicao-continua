@@ -234,6 +234,40 @@ describe("regressão — contratos da UI/config", () => {
     expect(mods.every((m) => m.repo && m.url.includes("github.com"))).toBe(true);
   });
 
+  it("Hub Expedição: parseia sazonalidade e links de módulos", () => {
+    const parsed = app.parseExpedicaoHub(readFixture("expedicao-hub.html"));
+    expect(parsed.error).toBeUndefined();
+    expect(parsed.modules.length).toBeGreaterThanOrEqual(30);
+    expect(parsed.modules.some((m) => m.cadence === "Semanal" && /MNT|RH/i.test(m.name))).toBe(
+      true
+    );
+    expect(parsed.modules.some((m) => m.cadence === "Quinzenal" && /FAT|Faturamento/i.test(m.name))).toBe(
+      true
+    );
+    expect(parsed.modules.some((m) => m.cadence === "Mensal" && /FIS|Fiscal/i.test(m.name))).toBe(
+      true
+    );
+    expect(parsed.modules.some((m) => m.pageId === "521997859")).toBe(true);
+  });
+
+  it("Hub Expedição: estima próxima data pela cadência", () => {
+    const next = app.estimateNextRelease("2026-05-07", "Quinzenal");
+    expect(next.date).toBe("21/05/2026");
+    expect(next.days).toBe(14);
+    expect(app.cadenceDays("Semanal")).toBe(7);
+    expect(app.cadenceDays("Mensal")).toBe(30);
+  });
+
+  it("TABS expõe visão geral e cadências da Expedição", () => {
+    expect(app.TABS["visao-geral"].modules[0].type).toBe("expedicao-hub");
+    expect(app.TABS.semanal.modules.length).toBeGreaterThanOrEqual(1);
+    expect(app.TABS.quinzenal.modules.length).toBeGreaterThanOrEqual(10);
+    expect(app.TABS.mensal.modules.length).toBeGreaterThanOrEqual(5);
+    expect(app.TABS.mensal.modules.some((m) => m.id === "qualidade")).toBe(true);
+    expect(app.TABS.qualidade).toBeUndefined();
+    expect(app.HUB_MODULE_SEED.length).toBeGreaterThanOrEqual(30);
+  });
+
   it("GitHub release: extrai tag e data da release", () => {
     const tds = app.parseGitHubRelease(readFixture("tds-vscode-latest.json"));
     expect(tds.error).toBeUndefined();

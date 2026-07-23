@@ -2,13 +2,13 @@
 
 Ferramenta comunitária que reúne, em um só lugar, links e informações públicas da TOTVS (TDN, GitHub e canais oficiais) sobre:
 
-- **Expedição Contínua** — pacotes Backoffice, Qualidade, Varejo e LIB
+- **Expedição Contínua** — visão geral com sazonalidade (semanal / quinzenal / mensal), último pacote e próxima atualização estimada; Qualidade entra em Mensal; LIB à parte
 - **Binários** — AppServer, DBAccess, SmartClient HTML
 - **Ferramental** — releases do TDS e do TIR no VS Code
 
 Site: https://fhfavaretto.github.io/expedicao-continua/
 
-> Não é um produto oficial da TOTVS. Sempre confira a documentação e os downloads no TDN / Portal do Cliente antes de aplicar qualquer pacote.
+> Não é um produto oficial da TOTVS. A “próxima atualização” é uma estimativa com base na cadência do hub TDN + data do último pacote — sempre confira o TDN / Portal do Cliente antes de aplicar qualquer pacote.
 
 ## Como usar
 

@@ -1,0 +1,1108 @@
+<div id="main-content"><h1>Expedição Contínua Protheus</h1><table class="wysiwyg-macro" style="background-image: url(/plugins/servlet/confluence/placeholder/macro-heading?definition=e2h0bWx9&amp;locale=pt_BR&amp;version=2); background-repeat: no-repeat;" data-macro-name="html" data-macro-body-type="PLAIN_TEXT" data-mce-style="background-image: url(\'http://tdn.totvs.com/plugins/servlet/confluence/placeholder/macro-heading?definition=e2h0bWx9&amp;locale=pt_BR&amp;version=2\'); background-repeat: no-repeat;"><tbody><tr><td class="wysiwyg-macro-body"><pre>&lt;iframe width="100%" height="940px" frameBorder=0 src="';
+    var fonteP2 = '"&gt;&lt;/iframe&gt;&nbsp;</pre></td></tr></tbody></table>';
+
+    for (i = 0; i < nodes.length; i++) {
+      try {
+        if (nodes[i].innerText.indexOf("iframe") > -1)
+          nodes[i].remove();
+
+        if (nodes[i].innerText.indexOf(".pdf") > -1 && nodes[i].innerText.indexOf("http") <= 0 && nodes[i].innerHTML.indexOf("attachment") > -1) {
+          console.log(i);
+          var elementoChild = document.createElement('p');
+          if (parseInt($("meta[name=ajs-page-id]").attr("content")) == 0) {
+            var pageID = parseInt($("meta[name=ajs-attachment-source-content-id]").attr("content")) + 1;
+            console.log("id=0 pageID:" + pageID);
+          } else {
+            var pageID = parseInt($("meta[name=ajs-page-id]").attr("content"));
+            console.log("id!=0 pageID:" + pageID);
+          }
+
+          elementoChild.innerHTML = fonteP1 + "http://tdn.totvs.com/plugins/servlet/pdf-viewer?file=http://tdn.totvs.com/download/attachments/" + pageID + "/" + nodes[i].innerText + fonteP2;
+          novoElemento.appendChild(elementoChild);
+        }
+      } catch (e) {
+        // statements to handle any exceptions
+        //console.log(e); // pass exception object to error handler
+      }
+
+    }
+
+    textBox.appendChild(novoElemento);
+
+  }
+
+  /*
+  function verificaURL() {
+      $('a[href]').each(function() {
+          url = $(this).attr('href');
+ 
+          if (url.indexOf('http://tdn.totvs.com') > -1 || url.indexOf('https://tdn.totvs.com') > -1) {
+              url = url.replace('http://tdn.totvs.com', '');
+              url = url.replace('https://tdn.totvs.com', '');
+              console.log('removendo tdn.totvs.com da URL');
+          }
+ 
+          if (url.indexOf('http') > -1 || url.indexOf('https') > -1) {
+              console.log("change not needed");
+              $(this).attr("target", "_parent");
+          } else if (url.indexOf('#') > -1) {
+              console.log("has hash so do nothing");
+          } else {
+              url = 'http://dev.fluig.com/#' + url;
+              $(this).attr("href", url);
+              console.log("changing url >>" + url);
+              $(this).attr("target", "_parent");
+          }
+ 
+ 
+          if (conta = 10) {
+              clearInterval(tempo);
+          }
+ 
+          conta = conta + 1;
+ 
+      });
+ 
+  }*/
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+  $(window).load(function () {
+    if (isthisie()) {
+      googleTranslateElementInit();
+      document.getElementById("header").style.top = document.body.style.top;
+    }
+    const url = window.location.href
+    const changePasswordUrl = 'https://tdn.totvs.com/forgotuserpassword.action'
+    if (url === changePasswordUrl) {
+      window.location.href = 'https://portalpass.totvs.com.br/autenticacao/reset'
+    }
+
+    /*
+    $("body").attrchange({
+        trackValues: true,
+        /* Default to false, if set to true the event object is
+            updated with old and new value.
+        callback: function(event) {
+            document.getElementById("header").style.top = document.body.style.top;
+        }
+    });
+    */
+  });
+</script>
+
+<meta name="google-site-verification" content="wrePBMntSyizUXFFUgaywLiheblvG1skNn4h0JzHlpg">
+
+<script type="text/javascript">
+  AJS.toInit(function () {
+    if (AJS.params.remoteUser == '') {
+      AJS.$('.page-metadata-modification-info').hide();
+      AJS.$('.content-navigation').hide();
+      AJS.$('#space-tools-menu-trigger').hide();
+      AJS.$('.ajs-menu-bar').hide();
+    }
+  });
+</script>
+
+    
+                <link rel="canonical" href="https://tdn.totvs.com/pages/viewpage.action?pageId=327322399">
+        <link rel="shortlink" href="https://tdn.totvs.com/x/H4uCEw">
+    <meta name="wikilink" content="[PROT:Expedição Contínua Protheus]">
+    <meta name="page-version" content="28">
+    <meta name="ajs-page-version" content="28">
+
+</head>
+
+    
+<body id="com-atlassian-confluence" class="theme-default aui-layout aui-theme-default">
+
+        
+            <div id="stp-licenseStatus-banner"></div>
+            <fieldset class="parameters hidden">
+        </fieldset>
+            
+            <div id="workflow-page-status" style="display: none;"><fieldset class="hidden parameters">
+<input type="hidden" id="hoverDescription" value="null"><input type="hidden" id="finalState" value="false"><input type="hidden" id="hasFinalState" value="false"><input type="hidden" id="publishedView" value="true"><input type="hidden" id="taskable" value="false"><input type="hidden" id="activeTasks" value="0"><input type="hidden" id="pageAssignable" value="false"><input type="hidden" id="workflowAdmin" value="false"><input type="hidden" id="anonymous" value="true"><input type="hidden" id="activityVisible" value="false"><input type="hidden" id="approvalMinQuery" value="2"><input type="hidden" id="showDocumentActivity" value="false"><input type="hidden" id="alternateViewTitle" value="View published version of page"></fieldset></div>
+<div style="display: none;"></div><fieldset class="parameters hidden">
+<input type="hidden" id="isWorkflowsLiteApp" value="false">
+<input type="hidden" id="isWorkflowsApp" value="true">
+<input type="hidden" id="parametersLabel" value="Parameters">
+<input type="hidden" id="hasWorkflow" value="true">
+<input type="hidden" id="isPageReadAck" value="false">
+<input type="hidden" id="cwConfluenceLocale" value="en">
+<input type="hidden" id="pluginKey" value="com.comalatech.workflow">
+<input type="hidden" id="cwConfluenceTimeFormat" value="h:mm a">
+<input type="hidden" id="isComalaAppLicensed" value="true">
+<input type="hidden" id="cwIsSpaceAdmin" value="false">
+<input type="hidden" id="cwIsConfluenceAdmin" value="false">
+<input type="hidden" id="hasReadAck" value="false">
+<input type="hidden" id="cwSpaceWorkflowAllowed" value="true">
+<input type="hidden" id="cwConfluenceDateTimeFormat" value="dd MMM, yyyy HH:mm">
+<input type="hidden" id="tasksLabel" value="Tasks">
+<input type="hidden" id="approvalsLabel" value="Approvals">
+<input type="hidden" id="cwConfluenceDateFormat" value="dd MMM, yyyy">
+<input type="hidden" id="statesLabel" value="State">
+<input type="hidden" id="workflowVersion" value="7.0.3">
+<input type="hidden" id="isApprovalsApp" value="false">
+</fieldset><script type="text/x-template" title="adhocworkflows-loading">
+    <div class="progress-messages-icon"></div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-user">
+    <li class="preset"><img src="{pictureUrl}"><a name="{name}"><span>({name}) {shortName}</span></a></li>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-assignee">
+    <li class="assignee" name="{name}">
+        <div>
+            <img src="{pictureUrl}"/>{fullName}
+            <span class="remove-assignee"></span>
+        </div>
+    </li>
+</script>
+
+<script type="text/x-template" title="adhoc-action">
+    <span class="workflow-action {id}" name="{id}"></span>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-approvals">
+    <div class="progress-messages-icon"></div>
+    <div id="workflow-main">
+        <div class="approvals">
+        </div>
+        <form class="aui adhocworkflows">
+            <div class="button-panel dialog">
+                <a href="#" class="parameters">Parameters...</a>
+                <a href="#" class="cancel-dialog">Cancel</a>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-approval-action-default">
+    <span class="approval-name">{defaultAction.name}</span>
+    <a name="{defaultAction.id}" class="approve workflow-action" href="#"><span>{defaultAction.shortName}</span></a>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-approval-duedate">
+    <div class="task-duedate">due {friendlyDueDate}</div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-approval">
+    <div id="{id}" class="approval {separator}">
+        <div class="approval-header clr">
+            <div class="name {mark}">
+            </div>
+            <div class="approval-duedate">
+            </div>
+            <div class="workflow-actions">
+            </div>
+        </div>
+        <div class="approval-edit">
+            <div class="adhoc-message">
+            </div>
+            <form class="aui approval {signatureType}">
+                <input type="hidden" name="name" value="{name}"/>
+                <fieldset>
+                    <div class="credential-username"><label for="username">User Name</label></div>
+                    <input class="credential-username" type="text" name="username" id="username" width="10" >
+                    <div class="credential-password"><label for="password">Password</label></div>
+                    <input class="credential-password" type="password" name="password" id="password" width="10">
+                                        <input  type="text"
+                            class="text assignee-user"
+                            name="assignee"
+                            placeholder="Assign to..."/>
+                                        <input  type="text"
+                            class="text autocomplete-filtered-user"
+                            users="{filterUsers}"
+                            groups="{filterGroups}"
+                            name="assignee"
+                            data-max="10"
+                            data-template="{username}"
+                            data-none-message="No matching user found"
+                            placeholder="Assign to..."/>
+                    <div class="usersdropdown aui-dd-parent">
+                        <a href="" class="aui-dd-trigger" style="display:none;"></a>
+                        <div class="aui-dropdown aui-dropdown-left hidden">
+                            <ol>
+                            </ol>
+                        </div>
+                    </div>
+                    <ol class="assignees select">
+                    </ol>
+                    <textarea class="textarea" placeholder="Add an optional note"/>
+                </fieldset>
+                <div class="button-panel">
+                    <input type="submit" name="approve" class="approve" value="Approve">
+                    <input type="submit" name="reject" class="reject" value="Reject">
+                    <input type="submit" name="assign" class="assign" disabled="disabled" value="Assign">
+                    <a href="#" class="cancel-approval">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-assignee-option">
+    <option class="assigneename" value="{name}">
+        <img src="{pictureUrl}" title="{fullName}"/>{fullName}
+    </option>
+</script>
+
+
+<script type="text/x-template" title="adhocworkflows-approver">
+    <div id="{id}" class="approval approver">
+        <div class="approval-header clr">
+            <div class="name {mark}">
+                <img src="{user.pictureUrl}" title="{user.fullName}">
+            </div>
+            <div class="workflow-actions">
+            </div>
+        </div>
+        <div class="approval-edit">
+            <form class="aui approval {signatureType}">
+                <input type="hidden" name="name" value="{name}"/>
+                <fieldset>
+                    <div class="credential-username"><label for="username">User Name</label></div>
+                    <input class="credential-username" type="text" name="username" id="username" width="10" >
+                    <div class="credential-password"><label for="password">Password</label></div>
+                    <input class="credential-password" type="password" name="password" id="password" width="10">
+                    <ol class="assignees assignee">
+                    <li style="display:none" name="{user.name}"></li>
+                    </ol>
+                    <textarea class="textarea" placeholder="Add an optional note"/>
+                </fieldset>
+                <div class="button-panel">
+                    <input type="submit" name="approve" class="approve" value="Approve">
+                    <input type="submit" name="reject" class="reject" value="Reject">
+                    <input type="submit" name="assign" class="assign" value="Assign">
+                    <input type="submit" name="unassign" class="delete" value="Unassign">
+                    <a href="#" class="cancel-approval">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhoctasks-tasks">
+    <div class="progress-messages-icon"></div>
+    <div id="tasks-main">
+        <div class="tasks">
+        </div>
+        <form class="aui adhocworkflows addtask">
+            <input type="hidden" name="id" value=""/>
+            <fieldset>
+                <span class="workflow-action assign-new-task" name="assign"></span>
+                <input  id="taskName0"
+                        name="taskName0"
+                        class="text taskName active"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName1"
+                        name="taskName1"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName2"
+                        name="taskName2"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName3"
+                        name="taskName3"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName4"
+                        name="taskName4"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName5"
+                        name="taskName5"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName6"
+                        name="taskName6"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName7"
+                        name="taskName7"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName8"
+                        name="taskName8"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="taskName9"
+                        name="taskName9"
+                        class="text taskName"
+                        type="text"
+                        placeholder="Task name..."/>
+                <input  id="newTaskAssignee"
+                        type="text"
+                        class="text autocomplete-user"
+                        name="assignee"
+                        data-max="10"
+                        data-template="{username}"
+                        data-none-message="No matching user found"
+                        placeholder="Assign to..."/>
+                <div class="usersdropdown aui-dd-parent">
+                    <a href="" class="aui-dd-trigger" style="display:none;"></a>
+                    <ul class="aui-dropdown aui-dropdown-left hidden">
+                    </ul>
+                </div>
+                <ol class="assignees select single">
+                </ol>
+                <textarea class="textarea" placeholder="Add an optional note"/>
+            </fieldset>
+            <div class="button-panel">
+                <a href="#" class="add-task">Add task...</a>
+                <input type="submit" name="create" class="create" value="Create">
+                <a href="#" class="cancel-addtask">Cancel</a>
+                <a href="#" class="cancel-dialog">Cancel</a>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhoctasks-tasks-count">
+    {count} Tasks
+</script>
+
+<script type="text/x-template" title="adhoctasks-tasks-count0">
+    Tasks
+</script>
+
+<script type="text/x-template" title="adhoctasks-tasks-count1">
+    1 Task
+</script>
+
+<script type="text/x-template" title="adhoctasks-task-action-default">
+    <span class="task-name">{name}</span>
+        <a name="{action.id}" class="workflow-action" title="{hint}" href="#">{shortName}</a>
+</script>
+
+<script type="text/x-template" title="adhoctasks-task-name">
+    <span class="task-name">{name}</span>
+</script>
+
+<script type="text/x-template" title="adhoctasks-task-assignee">
+    <img src="{user.pictureUrl}" title="{user.fullName}"> {user.fullName}
+</script>
+
+<script type="text/x-template" title="adhoctasks-task-duedate">
+    <span class="task-duedate">due {friendlyDueDate}</span>
+</script>
+
+<script type="text/x-template" title="adhoctasks-task-completed">
+    <div>
+        {actor.fullName} {lastAction} {date}
+    </div>
+    <blockquote class="note">
+        {comment}
+    </blockquote>
+</script>
+
+<script type="text/x-template" title="adhoctasks-task">
+    <div id="task-{id}" class="task {toggle}">
+        <div class="task-header">
+            <div class="name {completed}">
+            </div>
+            <div class="workflow-actions">
+            </div>
+        </div>
+        <div class="task-edit">
+            <div class="task-caption">
+            </div>
+            <form class="aui">
+                <input type="hidden" name="id" value="{id}"/>
+                <fieldset>
+                    <input  type="text"
+                            class="text autocomplete-user"
+                            name="assignee"
+                            data-max="10"
+                            data-template="{username}"
+                            data-none-message="No matching user found"
+                            placeholder="Assign to..."/>
+                    <div class="usersdropdown aui-dd-parent">
+                        <a href="" class="aui-dd-trigger" style="display:none;"></a>
+                        <ul class="aui-dropdown aui-dropdown-left hidden">
+                        </ul>
+                    </div>
+                    <ol class="assignees select single">
+                    </ol>
+                    <textarea class="textarea" placeholder="Add an optional note"/>
+                </fieldset>
+                <div class="button-panel">
+                    <input type="submit" name="remove" class="remove" value="Delete">
+                    <input type="submit" name="complete" class="complete" value="Complete">
+                    <input type="submit" name="assign" class="assign" value="Assign">
+                    <a href="#" class="cancel-task">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>
+<script type="text/x-template" title="adhocworkflows-states">
+    <div class="progress-messages-icon"></div>
+    <div id="workflow-main">
+        <form class="aui state">
+            <fieldset>
+                <span class="workflow-action assign-page" name="assign"></span>
+                <select id="select-workflow-state" name="state">
+                </select>
+                <ol class="assignees assigned">
+                </ol>
+                <input type="text "
+                            class="text newstatename"
+                            placeholder="New State name"/>
+                <input type="text"
+                            class="text autocomplete-user"
+                            name="assignee"
+                            data-max="10"
+                            data-template="{username}"
+                            data-none-message="No matching user found"
+                            placeholder="Assign to..."
+                            placeholder2="Reassign to..."/>
+                <div class="usersdropdown aui-dd-parent">
+                    <a href="" class="aui-dd-trigger" style="display:none;"></a>
+                    <ul class="aui-dropdown aui-dropdown-left hidden">
+                    </ul>
+                </div>
+                <ol class="assignees select single">
+                </ol>
+                <textarea class="textarea" placeholder="Add an optional note"></textarea>
+            </fieldset>
+            <div class="button-panel">
+                <input type="submit" name="change" class="accept" value="Accept">
+                <input type="submit" name="unassign" class="unassign" value="Unassign">
+                <a href="#" class="parameters">Parameters...</a>
+                <a href="#" class="cancel-dialog">Cancel</a>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-state">
+    <option>{name}</option>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-state-adhoc">
+    <optgroup label="Ad hoc Workflow">
+        <option value="0">Create a new state...</option>
+    </optgroup>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-select">
+    <div class="progress-messages-icon"></div>
+    <form class="aui adhocworkflows">
+        <fieldset>
+            <label for="select-workflow-templates">Workflow</label>
+            <select id="select-workflow-templates" name="workflowTemplate" class="select">
+            </select>
+            <div class="adhoc-states">
+                <label for="adhoc-state-names">State names</label>
+                <input id="adhoc-state-names" type="text" class="state-names" value="In Progress, Approved"/>
+                <span class="description">
+                    This is just an initial list, you will be able to change later
+                </span>
+            </div>
+
+            <span class="description">
+                Learn more about
+                <a target="_blank" href="https://apps.appf.re/cdmdc/doc/featuretour/xcvbJg">
+                    working with workflows
+                </a>
+            </span>
+        </fieldset>
+        <div class="button-panel">
+            <input type="submit" name="confirm" value="Add">
+            <a href="#" class="close-dialog">Cancel</a>
+        </div>
+
+    </form>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-adhoc-template">
+    <optgroup label="Ad hoc Workflow">
+        <option value="0" title="Use this to define the workflow as you go: at each step allow participants to create tasks and to decide where next to route the document. All the states and tasks will be recorded and you will be able to reuse the workflow.">Start with a blank workflow</option>
+    </optgroup>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-select-template">
+    <option value="{id}" title="{description}">{name}</option>
+</script>
+
+
+<script type="text/x-template" title="adhocworkflows-form">
+    <div class="progress-messages-icon"></div>
+    <div id="workflow-form">
+        <form class="aui ahoc-form">
+            <fieldset>
+                <table>
+
+                </table>
+            </fieldset>
+            <div class="button-panel">
+                <input type="submit" name="accept" class="accept" value="Accept">
+                <a href="#" class="edit-form"><span class="value">Edit</span></a>
+                <a href="#" class="cancel-dialog">Cancel</a>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-inputfield">
+    <tr>
+        <td class="field-name">
+            {name}
+        </td>
+        <td id="{id}" class="value">
+        </td>
+    </tr>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-inputfield-text">
+    <span class="value">{value}</span>
+    <input name="{id}" type="text" class="text" value="{value}"/>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-inputfield-user">
+    <span class="user value" title="{value}">{value}</span>
+    <input  type="text"
+            class="text autocomplete-user"
+            name="{id}"
+            data-max="10"
+            data-template="{username}"
+            data-none-message="No matching user found"
+            placeholder="Assign to..."
+            value="{value}"/>
+    <div class="usersdropdown aui-dd-parent">
+        <a href="" class="aui-dd-trigger" style="display:none;"></a>
+        <ul class="aui-dropdown aui-dropdown-left">
+        </ul>
+    </div>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-inputfield-decorated-user">
+    <img src="{user.pictureUrl}" title="{user.fullName}">
+    <span>{user.fullName}</span>
+</script>
+
+
+<script type="text/x-template" title="adhocworkflows-inputfield-list">
+    <span class="value">
+        {value}
+    </span>
+    <select name="{id}">
+    </select>
+</script>
+
+<script type="text/x-template" title="adhocworkflows-inputfield-list-option">
+    <option {selected}>{option}</option>
+</script>
+
+            <fieldset class="parameters hidden">
+<input type="hidden" id="showPageOnboarding" value="false">
+<input type="hidden" id="showDashboardOnboarding" value="false">
+</fieldset>
+    <ul id="assistive-skip-links" class="assistive">
+    <li><a href="#title-heading">Skip to main content</a></li>
+    <li><a href="#breadcrumbs">assistive.skiplink.to.breadcrumbs</a></li>
+    <li><a href="#header-menu-bar">assistive.skiplink.to.header.menu</a></li>
+    <li><a href="#navigation">assistive.skiplink.to.action.menu</a></li>
+    <li><a href="#quick-search-query">assistive.skiplink.to.quick.search</a></li>
+</ul>
+<div id="page">
+<div id="full-height-container">
+    <div id="header-precursor">
+        <div class="cell">
+            <!-- GoogleTag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCMTF2Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Global site tag (gtag.js) - Google Analytics G4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8RWQ11H2P1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8RWQ11H2P1');
+</script>
+<!-- End Google Tag Manager G4 -->
+
+<!--<div id = "alertMsg" class="aui-message closeable" style="display:none;">
+    <p class="title">
+        <strong>[MANUTENÇÃO]</strong>
+    </p>
+    <p>A partir do dia 28/08 após às 20hs, o acesso ao TDN nas páginas logadas será integrado ao Identity Fluig, seguindo o mesmo padrão já adotado em outras ferramentas, como o Jira Produção. <br> 
+Essa mudança tem como objetivo aprimorar a segurança e a gestão de acessos a ferramenta.  Atenciosamente, equipe TOTVS.
+</div>-->
+                            </div>
+    </div>
+            
+
+
+
+
+
+<header id="header" role="banner">
+            <a class="aui-skip-link" href="https://tdn.totvs.com/login.action?os_destination=%2Fpages%2Freleaseview.action%3FpageId%3D327322399">Log in</a>
+            <a class="aui-skip-link" href="#nav-sidebar">Skip to sidebar</a>
+        <a class="aui-skip-link" href="#main">Skip to main content</a>
+    <nav class="aui-header aui-dropdown2-trigger-group" aria-label="Site"><div class="aui-header-inner"><div class="aui-header-before"><button class="aui-dropdown2-trigger app-switcher-trigger aui-dropdown2-trigger-arrowless" aria-controls="app-switcher" aria-haspopup="true" role="button" data-aui-trigger="" href="#app-switcher"><span class="aui-icon aui-icon-small aui-iconfont-appswitcher">Linked Applications</span></button><div id="app-switcher" class="aui-dropdown2 aui-style-default" role="menu" hidden data-is-user-admin="false" data-is-switcher="true"><div class="app-switcher-loading">Loading...</div></div></div><div class="aui-header-primary"><span id="logo" class="aui-header-logo aui-header-logo-custom"><a href="/" aria-label="Go to home page"><img src="/download/attachments/327682/atl.site.logo?version=3&modificationDate=1784579696502&api=v2" alt="TDN"></a></span><ul class="aui-nav">
+                            <li>
+            
+        
+        
+<a id="space-directory-link" href="/spacedirectory/view.action" class="aui-nav-imagelink" title="Spaces">
+            <span>Spaces</span>
+    </a>
+        </li>
+                                <li class="aui-buttons">
+            </li>
+</ul>
+</div><div class="aui-header-secondary"><ul class="aui-nav">
+                        <li>
+        <div id="search-ui" class="aui-quicksearch dont-default-focus header-quicksearch"><button id="quick-search-query-button" aria-label="Search" aria-haspopup="dialog" aria-controls="search_drawer"></button><input id="quick-search-query" aria-label="Search" placeholder="Search" type="text" aria-haspopup="dialog" aria-controls="search_drawer"><div id="quick-search-alert" role="alert">Hit enter to search</div><aui-spinner size="small"></aui-spinner></div>
+    </li>
+        <li>
+            
+        <a id="help-menu-link" class="aui-nav-link aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" href="#" aria-haspopup="true" aria-owns="help-menu-link-content" title="Help">
+        <span class="aui-icon aui-icon-small aui-iconfont-question-filled">Help</span>
+    </a>
+    <nav id="help-menu-link-content" class="aui-dropdown2 aui-style-default">
+                    <div class="aui-dropdown2-section">
+                                <ul id="help-menu-link-leading" class="aui-list-truncate section-leading first">
+                                            <li>
+        
+            
+<a id="confluence-help-link" href="https://docs.atlassian.com/confluence/docs-719/" title="Visit the Confluence documentation home" target="_blank">
+        Online Help
+</a>
+</li>
+                                            <li>
+    
+                
+<a id="keyboard-shortcuts-link" href="#" title="View available keyboard shortcuts">
+        Keyboard Shortcuts
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="whats-new-menu-link" href="https://confluence.atlassian.com/display/DOC/Confluence+7.19+Release+Notes" title="">
+        What’s new
+</a>
+</li>
+                                            <li>
+    
+                
+<a id="gadget-directory-link" href="#" class="user-item administration-link" title="Browse gadgets provided by Confluence">
+        Available Gadgets
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="confluence-about-link" href="/aboutconfluencepage.action" title="Get more information about Confluence">
+        About Confluence
+</a>
+</li>
+                                    </ul>
+            </div>
+            </nav>
+    
+    </li>
+        <li>
+                
+    
+    </li>
+        <li>
+            
+    </li>
+        <li>
+                                            </li><li>
+        
+            
+<a id="login-link" href="/login.action?os_destination=%2Fpages%2Freleaseview.action%3FpageId%3D327322399" class="user-item login-link" title="">
+        Log in
+</a>
+</li>
+                        
+    
+    </ul>
+</div></div><!-- .aui-header-inner--></nav><!-- .aui-header -->
+    <br class="clear">
+</header>
+    
+
+    
+        <div class="ia-splitter">
+            <div class="ia-splitter-left">
+                <div class="ia-fixed-sidebar">
+                                            
+                            <div class="acs-side-bar ia-scrollable-section"><div class="acs-side-bar-space-info tipsy-enabled" data-configure-tooltip="Edit space details"><div class="avatar"><div class="space-logo" data-key="PROT" data-name="Linha Microsiga Protheus" data-entity-type="confluence.space"><div class="avatar-img-container"><div class="avatar-img-wrapper"><a href="/display/PROT/TOTVS+Linha+Protheus" title="Linha Microsiga Protheus"><img class="avatar-img" src="/images/logo/default-space-logo.svg" alt="Linha Microsiga Protheus"></a></div></div></div></div><div class="space-information-container"><div class="name"><a href="/display/PROT/TOTVS+Linha+Protheus" title="Linha Microsiga Protheus">Linha Microsiga Protheus</a></div><div class="flyout-handle icon aui-icon aui-icon-small aui-iconfont-edit"></div></div></div><div class="acs-side-bar-content"><div class="acs-nav-wrapper"><div class="acs-nav" data-has-create-permission="false" data-quick-links-state="hide" data-page-tree-state="null" data-nav-type="page-tree"><div class="acs-nav-sections"><div class="custom-sidebar"><div class="custom-sidebar-content"><div class="content"><p>    
+    
+
+
+</p><div class="search-macro search-macro-medium">
+    <div class="aui-dd-parent"></div>
+    <form class="aui aui-dd-parent" name="livesearchForm" method="GET" action="/dosearchsite.action" role="search">
+        <fieldset class="search-macro-fields">
+            <div class="search-macro-query">
+                <input class="text" type="text" name="queryString" autocomplete="off" placeholder="Buscar na estrutura de pagina" aria-label="Buscar na estrutura de pagina">
+                            </div>
+                        <button type="submit" class="search-macro-button aui-button">
+                <span class="aui-icon aui-icon-small aui-iconfont-search">Search</span>
+            </button>
+                        <input type="hidden" name="where" value="PROT">
+            <input type="hidden" name="additional" value="space name">
+            <input type="hidden" name="labels" value="">
+            <input type="hidden" name="contentType" value="">
+        </fieldset>
+    </form>
+</div>
+<p></p></div></div></div></div></div></div><div class="ia-secondary-container tipsy-enabled" data-tree-type="page-tree"><div class="ia-secondary-header"><h2 class="ia-secondary-header-title page-tree"><span class="icon"></span><span class="label">Page tree</span></h2></div><div class="ia-secondary-content">
+
+
+<div class="plugin_pagetree conf-macro output-inline" data-hasbody="false" data-macro-name="pagetree">
+
+        
+        
+    <div class="plugin_pagetree_children_list plugin_pagetree_children_list_noleftspace">
+        <div class="plugin_pagetree_children">
+        </div>
+    </div>
+
+    <fieldset class="hidden">
+        <input type="hidden" name="treeId" value="">
+        <input type="hidden" name="treeRequestId" value="/plugins/pagetree/naturalchildren.action?decorator=none&excerpt=false&sort=position&reverse=false&disableLinks=false&expandCurrent=true&placement=sidebar">
+        <input type="hidden" name="treePageId" value="327322399">
+
+        <input type="hidden" name="noRoot" value="false">
+        <input type="hidden" name="rootPageId" value="187531295">
+
+        <input type="hidden" name="rootPage" value="">
+        <input type="hidden" name="startDepth" value="0">
+        <input type="hidden" name="spaceKey" value="PROT">
+
+        <input type="hidden" name="i18n-pagetree.loading" value="Loading...">
+        <input type="hidden" name="i18n-pagetree.error.permission" value="Unable to load page tree. It seems that you do not have permission to view the root page.">
+        <input type="hidden" name="i18n-pagetree.eeror.general" value="There was a problem retrieving the page tree. Please check the server log file for more information.">
+        <input type="hidden" name="loginUrl" value="/login.action?os_destination=%2Fpages%2Freleaseview.action%3FpageId%3D327322399&permissionViolation=true">
+        <input type="hidden" name="mobile" value="false">
+        <input type="hidden" name="placement" value="sidebar">
+
+                <fieldset class="hidden">
+                                                <input type="hidden" name="ancestorId" value="544709945">
+                                    <input type="hidden" name="ancestorId" value="189305592">
+                                    <input type="hidden" name="ancestorId" value="187531295">
+                                    </fieldset>
+    </fieldset>
+</div>
+</div></div></div><div class="hidden"><a href="/collector/pages.action?key=PROT" id="space-pages-link"></a><script type="text/x-template" title="logo-config-content"><h2>Space Details</h2><div class="personal-space-logo-hint">Your profile picture is used as the logo for your personal space. <a href="/users/profile/editmyprofilepicture.action" target="_blank">Change your profile picture</a>.</div></script></div></div><div class="space-tools-section"><div id="space-tools-menu-additional-items" class="hidden"><div data-label="Browse pages" data-class="" data-href="/pages/reorderpages.action?key=PROT">Browse pages</div></div><button id="space-tools-menu-trigger" class="aui-dropdown2-trigger aui-button aui-button-subtle tipsy-enabled aui-dropdown2-trigger-arrowless" aria-controls="space-tools-menu" aria-haspopup="true" role="button" data-aui-trigger=""><span class="aui-icon aui-icon-small aui-iconfont-configure">Configure</span><span class="aui-button-label">Space tools</span><span class="aui-icon"></span></button><div id="space-tools-menu" class="aui-dropdown2 aui-style-default space-tools-dropdown" role="menu" hidden data-aui-alignment="top left"></div><a href="#" role="button" class="expand-collapse-trigger aui-icon aui-icon-small aui-iconfont-chevron-double-left" aria-expanded="true"></a></div>
+                    
+                                    </div>
+            </div>
+        <!-- \#header -->
+
+            
+    
+        <div id="main" class="aui-page-panel">
+                        <div id="main-header">
+                        
+    <div id="navigation" class="content-navigation view" role="region" aria-label="Page tools">
+                    <ul class="ajs-menu-bar">
+                                            
+        <li class="normal ajs-menu-item">
+        <a id="action-menu-link" class="action aui-dropdown2-trigger-arrowless aui-button aui-button-subtle ajs-menu-title aui-dropdown2-trigger" href="#" aria-haspopup="true" aria-label="More options" aria-owns="action-menu" data-container="#navigation">
+            <span>
+                                    <span class="aui-icon aui-icon-small aui-iconfont-more" aria-label="More options"></span>
+                                
+            </span>
+        </a>         <div id="action-menu" class="aui-dropdown2 aui-style-default" aria-hidden="true">
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-workflowToolsActions" class="section-workflowToolsActions first">
+                                                    <li>
+
+    
+            
+    
+                                                        
+    
+    
+            <a id="removePageReadConfirmation" href="#" rel="nofollow" title="">
+                        <span>
+                                Remove Read Confirmation
+            </span>        </a>
+    </li>
+                                        </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-primary" class="section-primary">
+                                                    <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="view-attachments-link" href="/pages/viewpageattachments.action?pageId=327322399" rel="nofollow" class="action-view-attachments" accessKey="t" title="View Attachments">
+                        <span>
+                                A<u>t</u>tachments (11)
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-view-history-link" href="/pages/viewpreviousversions.action?pageId=327322399" rel="nofollow" class="action-view-history" title="">
+                        <span>
+                                Page History
+            </span>        </a>
+    </li>
+                                        </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-secondary" class="section-secondary">
+                                                    <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="view-page-info-link" href="/pages/viewinfo.action?pageId=327322399" rel="nofollow" class="action-view-info" title="">
+                        <span>
+                                Page Information
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+            
+    
+                                                        
+    
+    
+            <a id="view-resolved-comments" href="#" rel="nofollow" title="">
+                        <span>
+                                Resolved comments
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="view-in-hierarchy-link" href="/pages/reorderpages.action?key=PROT&openId=327322399#selectedPageInHierarchy" rel="nofollow" title="">
+                        <span>
+                                View in Hierarchy
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-view-source-link" href="/plugins/viewsource/viewpagesrc.action?pageId=327322399" rel="nofollow" class="action-view-source popup-link" title="">
+                        <span>
+                                View Source
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-export-word-link" href="/exportword?pageId=327322399" rel="nofollow" class="action-export-word" title="">
+                        <span>
+                                Export to Word
+            </span>        </a>
+    </li>
+                                        </ul>
+                </div>
+                    </div>
+    </li>
+            </ul>
+    </div>
+
+            
+            <div id="title-heading" class="pagetitle with-breadcrumbs">
+                
+                                    <div id="breadcrumb-section">
+                        
+    
+    
+    <nav aria-label="Breadcrumbs">
+        <ol id="breadcrumbs">
+                                                            
+                                
+            <li class="first">
+                                
+                                    <span><a href="/collector/pages.action?key=PROT">Pages</a></span>
+                                                                                                                                                </li><li id="ellipsis" title="Show all breadcrumbs" aria-expanded="false" aria-label="Show all breadcrumbs" tabindex="0" role="button"><span><strong>…</strong></span></li>
+                                                            
+                                
+            <li class="hidden-crumb">
+                                
+                                    <span><a href="/display/PROT/TOTVS+Linha+Protheus">TOTVS Linha Protheus</a></span>
+                                                                                                                                        
+                                
+            </li><li class="hidden-crumb">
+                                
+                                    <span><a href="/pages/viewpage.action?pageId=189305592">Documento de Referência</a></span>
+                                                                                                                    
+                                
+            </li><li>
+                                
+                                    <span><a href="/display/PROT/Engenharia+Protheus">Engenharia Protheus</a></span>
+                                                                                                    </li></ol>
+    </nav>
+
+
+                    </div>
+                
+                
+                
+            <div id="page-metadata-banner"><ul class="banner"><li id="system-content-items" class="noprint"><a href="" title="Unrestricted" id="content-metadata-page-restrictions-hidden" class="hidden"></a><a href="/pages/viewpageattachments.action?pageId=327322399&metadataLink=true" title="11 attachments" id="content-metadata-attachments" class="aui-icon aui-icon-small aui-iconfont-attachment"></a></li><li class="page-metadata-item noprint" id="adhocWorkflowsInfoBanner-wrapper"><a href="" title="Workflow Information" id="adhocWorkflowsInfoBanner" class="cw-inactive"><span>Workflow</span></a></li><li class="page-metadata-item noprint" id="readackInfoBanner-wrapper"><a href="" title="Read Confirmation" id="readackInfoBanner" class="cw-inactive"><span>Read Confirmation</span></a></li><li class="page-metadata-item noprint" id="languages-dropdown-wrapper"><a href="/" title="" id="languages-dropdown" class="bv-languages-dropdown"><span>Languages</span></a></li></ul></div>
+        
+
+                <h1 id="title-text" class="with-breadcrumbs">
+                                                <a href="/pages/viewpage.action?pageId=327322399">Expedição Contínua Protheus</a>
+                                    </h1>
+            </div>
+        </div><!-- \#main-header -->
+        
+        
+
+        <div id="sidebar-container">
+                                                </div><!-- \#sidebar-container -->
+
+        
+    
+
+        
+
+
+
+
+            
+    
+
+                                
+    
+
+    
+    
+        
+    
+    
+                    
+    
+
+    
+
+    
+            
+        
+
+    
+    
+
+    
+            
+        
+
+
+
+    
+<div id="content" class="page view">
+    
+
+
+<div id="action-messages">
+                        </div>
+
+
+
+            <script type="text/x-template" title="searchResultsGrid">
+    <table class="aui">
+        <thead>
+            <tr class="header">
+                <th class="search-result-title">Page Title</th>
+                <th class="search-result-space">Space</th>
+                <th class="search-result-date">Updated</th>
+            </tr>
+        </thead>
+    </table>
+</script>
+<script type="text/x-template" title="searchResultsGridCount">
+    <p class="search-result-count">{0}</p>
+</script>
+<script type="text/x-template" title="searchResultsGridRow">
+    <tr class="search-result">
+        <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td>
+        <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td>
+        <td class="search-result-date"><span class="date" title="{6}">{5}</span></td>
+    </tr>
+</script>
+        
+    
+            
+
+        
+                            
+    
+
+                    
+
+        
+        <div class="page-metadata">
+    <ul>
+        <li class="page-metadata-modification-info">
+            
+        
+    
+    
+        
+    
+        
+            
+            Created by <span class="author">     <a href="    /display/~marcos.goncalves
+" aria-label="created by Marcos Goncalves" class="url fn">Marcos Goncalves</a></span>, last modified by <span class="editor">     <a href="    /display/~tp.e.anibaletto
+" aria-label="modified by Eloisa Anibaletto" class="url fn">Eloisa Anibaletto</a></span> on <a class="last-modified" aria-label="modified on 03 Aug, 2023, select to show changes" title="Show changes" href="/pages/diffpagesbyversion.action?pageId=327322399&selectedPageVersions=27&selectedPageVersions=28">03 Aug, 2023</a>
+            </li>
+    </ul>
+</div>
+        
+                                            
+        <div id="main-content" class="wiki-content">
+                           
+            <div class="wiki-content">
+                <p></p><div class="toc-macro client-side-toc-macro conf-macro output-block" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-hasbody="false" data-macro-name="toc"> </div><p></p><hr><h1 id="ExpediçãoContínuaProtheus-1.AevoluçãodaexpediçãoProtheus">1.&#160;A evolução da expedição Protheus</h1><p>Para melhor atender os seus clientes, a TOTVS vem buscando, ao longo dos anos, a melhor forma de realizar a&#160;<strong>expedição da linha Microsiga Protheus</strong>, com o objetivo de facilitar a entrega de correções e inovações do produto.</p><p>A mudança para o&#160;<em>release incremental</em>, a criação do&#160;<strong>UPDDISTR</strong>, os pacotes acumulados e outras formas de entrega, foram desenvolvidos visando facilitar para o cliente, a atualização de seu ambiente com as inovações da TOTVS.</p><p>O desafio de entregar qualidade aos nossos clientes, norteou as nossas ações e nos levou a desenhar uma nova forma de expedição, chamada de<strong>&#160;Expedição Contínua Protheus</strong>.&#160;</p><h1 id="ExpediçãoContínuaProtheus-2.Objetivosdaexpediçãocontínua">2. Objetivos da expedição contínua&#160;</h1><p>Visto a constante evolução da <strong>linha Microsiga Protheus</strong>, a crescente complexidade dos módulos e os desafios dos clientes, criou-se um novo processo de expedição, baseado na divisão do Protheus em seus diversos segmentos.</p><p>Este novo processo de expedição terá uma frequência quinzenal e disponibilizará aos clientes o estado mais atual das soluções.&#160;</p><p>Para exemplificar este modelo, utilizaremos o RH e seus módulos: Gestão de Pessoal, Ponto Eletrônico, Recrutamento e Seleção etc.</p><p>Semanalmente, o estado completo e mais atual destes módulos passará por um processo de execução de testes automatizados e, em seguida será disponibilizado para <em>download</em> como um pacote único. Assim, o cliente poderá atualizar apenas os módulos que fazem parte do seu processo de trabalho e a TOTVS garantirá a consistência do pacote disponibilizado.</p><p>Com esta nova forma de expedir, buscaremos reduzir a quantidade dos modos atuais de expedição, limitando-os a dois processos: release semestral e <strong>Expedição Contínua Protheus</strong>.</p><h1 id="ExpediçãoContínuaProtheus-3.Módulosparticipantes">3. Módulos participantes</h1><p>O calendário oficial lista os módulos participantes, bem como a sazonalidade prevista de expedição e a documentação especifica de cada pacote.&#160;</p><p>A previsão e publicação dos pacotes é de escolha do <strong>Responsável pelo Produto</strong> e excepcionalmente, uma publicação pode ser adiada para a próxima janela, de acordo com sua avaliação.&#160;</p><p><br></p><p><strong>Calendário Oficial - Atualizado em Setembro/2020</strong></p><div class="table-wrap"><table class="relative-table wrapped confluenceTable" style="width: 99.9203%;"><colgroup><col style="width: 29.5211%;"><col style="width: 36.8451%;"><col style="width: 33.6338%;"></colgroup><tbody><tr><th style="text-align: center;width: 99.9203%;" colspan="3" class="confluenceTh"><strong><em>Sazonalidade x Módulos</em></strong></th></tr><tr><th style="text-align: center;width: 29.4821%;" class="confluenceTh">Semanal</th><th style="text-align: center;width: 36.8127%;" class="confluenceTh">Quinzenal</th><th style="text-align: center;width: 33.6255%;" class="confluenceTh">Mensal</th></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=522005297" rel="nofollow">MNT -&#160;Manutenção de Ativos</a></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=382557083" rel="nofollow">ATF -&#160;Ativo Fixo</a></td><td style="width: 33.6255%;" class="confluenceTd">AGRO - Gestão Agrícola</td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><span style="color: rgb(23,43,77);"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=501123489" rel="nofollow">RH - Recursos Humanos</a></span></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=527004007" rel="nofollow">CEN - Central de Obrigações&#160;</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=526987588" rel="nofollow">COMEX - Comercio Exterior</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=522011099" rel="nofollow">COM - Compras</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=521997496" rel="nofollow">CRM -&#160;Customer Relationship Management</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=334342777" rel="nofollow">CTB -&#160;Contabilidade Gerencial</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=525823851" rel="nofollow">FIS -&#160;Livros Fiscais</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=522000602" rel="nofollow">EST -&#160;Estoque e Custos</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=547876421" rel="nofollow">GFE -&#160;Frete Embarcador</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=521997859" rel="nofollow">FAT - Faturamento</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=527830949" rel="nofollow">Mobile</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=531017758" rel="nofollow">FIN - Financeiro</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=556880961" rel="nofollow">OMS -&#160;Gestão de Distribuição</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/viewpage.action?pageId=679961416" rel="nofollow">GCT - Gestão de Contratos</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=526987258" rel="nofollow">PLS -&#160;Plano de Saúde</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=525810597" rel="nofollow">TEC - Gestão de Serviços</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=521997643" rel="nofollow">PMS -&#160;Gestão de Projetos</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=527002880" rel="nofollow">GTP - Gestão de Transporte de Passageiro</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=561054124" rel="nofollow">QDO -&#160;Controle de documentos</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=525012367" rel="nofollow">JURI -&#160;Gestão de Assuntos Jurídicos</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=561054149" rel="nofollow">QIE -&#160;Inspeção de Entradas</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd">PCO - Planejamento e Controle Orçamentário</td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=521997552" rel="nofollow">TMK -&#160;Telemarketing, Televendas e Telecobrança</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=557684117" rel="nofollow">PCP - Planejamento e Controle de Produção</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=556881341" rel="nofollow">WMS -&#160;Gestão de Armazéns</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=525024604" rel="nofollow">PFS - Pré Faturamento de Serviços</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/x/KTvOJQ" rel="nofollow">TAF - Automação Fiscal</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=561058184" rel="nofollow">SFC - Chão de Fabrica&#160;</a></td><td style="width: 33.6255%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/viewpage.action?pageId=679961656" rel="nofollow">GCP - Gestão de Contratos Públicos</a></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=553908682" rel="nofollow">TMS - Gestão de Transporte</a></td><td style="width: 33.6255%;" class="confluenceTd"><br></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=525011807" rel="nofollow">TSS - Totvs Service SOA</a></td><td style="width: 33.6255%;" class="confluenceTd"><br></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=525010692" rel="nofollow">TSS_PROTHEUS - Documentos Eletrônicos&#160;NFE-NFSE-MDE-MDFE(FAT)</a></td><td style="width: 33.6255%;" class="confluenceTd"><br></td></tr><tr><td style="width: 29.4821%;" class="confluenceTd"><br></td><td style="width: 36.8127%;" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=532654397" rel="nofollow">VAREJO -&#160;Operações de PDV e Retaguarda</a></td><td style="width: 33.6255%;" class="confluenceTd"><br></td></tr><tr><td colspan="1" class="confluenceTd"><br></td><td colspan="1" class="confluenceTd"><span style="color: rgb(23,43,77);"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=557350060" rel="nofollow">MDT - Medicina e Segurança do Trabalho</a></span></td><td colspan="1" class="confluenceTd"><br></td></tr><tr><td colspan="1" class="confluenceTd"><br></td><td colspan="1" class="confluenceTd"><a href="https://tdn.totvs.com/pages/releaseview.action?pageId=557344356" rel="nofollow">SGA -&#160;Gestão Ambiental</a></td><td colspan="1" class="confluenceTd"><br></td></tr></tbody></table></div>
