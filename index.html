@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expedição Contínua</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #0f2a2e;
+      --bg-1: #163a40;
+      --bg-2: #1e4a52;
+      --surface: rgba(255, 255, 255, 0.06);
+      --surface-strong: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #f2f7f6;
+      --muted: #a8c0c4;
+      --accent: #3dcfb6;
+      --accent-dim: #2a9f8c;
+      --danger: #ff8f8f;
+      --warn: #ffd48a;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      --radius: 18px;
+      --font-sans: "Outfit", sans-serif;
+      --font-display: "Source Serif 4", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #2a6b5e 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #1a5c4a 0%, transparent 50%),
+        linear-gradient(160deg, var(--bg-0), var(--bg-1) 45%, var(--bg-2));
+    }
+
+    .page {
+      width: min(960px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 4rem;
+    }
+
+    .hero {
+      margin-bottom: 2.25rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 36rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.4rem 1.25rem;
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-height: 260px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .card-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      background: rgba(61, 207, 182, 0.16);
+      color: var(--accent);
+      border: 1px solid rgba(61, 207, 182, 0.35);
+      white-space: nowrap;
+    }
+
+    .meta {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .meta-row span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .meta-row strong {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .idle,
+    .loading,
+    .error {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.98rem;
+      flex: 1;
+    }
+
+    .error { color: var(--danger); }
+    .loading { color: var(--warn); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: auto;
+    }
+
+    button,
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover:not(:disabled),
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #06241f;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #54dfc8;
+    }
+
+    .btn-secondary {
+      background: var(--surface-strong);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid transparent;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      padding-inline: 0.4rem;
+    }
+
+    .hidden { display: none !important; }
+
+    footer {
+      margin-top: 2.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <h1>Expedição Contínua</h1>
+      <p>Consulte a data de corte e o link do pacote Backoffice direto do TDN, sem dados fixos na página.</p>
+    </header>
+
+    <section id="modules" class="grid" aria-live="polite"></section>
+
+    <footer>
+      Dados obtidos sob demanda da página pública do TDN via proxy. Clique em Atualizar para buscar.
+    </footer>
+  </main>
+
+  <script>
+    const MODULES = [
+      {
+        id: "faturamento",
+        name: "Faturamento",
+        pageId: "521997859",
+        packageLabel: "Backoffice",
+      },
+    ];
+
+    const TDN_BASE = "https://tdn.totvs.com/pages/releaseview.action?pageId=";
+
+    function moduleUrl(mod) {
+      return mod.url || `${TDN_BASE}${mod.pageId}`;
+    }
+
+    function formatDate(isoOrText) {
+      if (!isoOrText) return "";
+      const iso = String(isoOrText).slice(0, 10);
+      const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (m) return `${m[3]}/${m[2]}/${m[1]}`;
+      return String(isoOrText).trim();
+    }
+
+    /**
+     * Extract first Backoffice / data de corte paragraph from TDN HTML.
+     * Exported for sanity checks via console.
+     */
+    function parsePackageFromHtml(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const paragraphs = Array.from(doc.querySelectorAll("p"));
+
+      const match = paragraphs.find((p) => {
+        const text = (p.textContent || "").toLowerCase();
+        return text.includes("data de corte") && text.includes("backoffice");
+      });
+
+      if (!match) {
+        return { error: "not_found" };
+      }
+
+      const timeEl = match.querySelector("time");
+      const linkEl =
+        match.querySelector('a.external-link[href*="downloads"]') ||
+        Array.from(match.querySelectorAll("a")).find((a) =>
+          /aqui/i.test(a.textContent || "")
+        );
+
+      const datetime = timeEl?.getAttribute("datetime") || timeEl?.textContent || "";
+      const downloadUrl = linkEl?.getAttribute("href") || "";
+
+      if (!datetime || !downloadUrl) {
+        return { error: "incomplete" };
+      }
+
+      const absoluteDownload = new URL(downloadUrl, "https://tdn.totvs.com").href;
+
+      return {
+        cutoffDate: formatDate(datetime),
+        cutoffDatetime: datetime,
+        downloadUrl: absoluteDownload,
+        packageName: "Backoffice",
+      };
+    }
+
+    async function fetchViaJina(url) {
+      const res = await fetch(`https://r.jina.ai/${url}`, {
+        headers: { "X-Return-Format": "html" },
+      });
+      if (!res.ok) throw new Error(`jina ${res.status}`);
+      const html = await res.text();
+      if (!html || html.length < 500) throw new Error("jina empty");
+      return html;
+    }
+
+    async function fetchViaAllOrigins(url) {
+      const res = await fetch(
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+      );
+      if (!res.ok) throw new Error(`allorigins ${res.status}`);
+      const html = await res.text();
+      if (!html || html.length < 500) throw new Error("allorigins empty");
+      return html;
+    }
+
+    async function fetchViaCorsProxy(url) {
+      const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+      if (!res.ok) throw new Error(`corsproxy ${res.status}`);
+      const html = await res.text();
+      if (!html || !/data de corte/i.test(html)) throw new Error("corsproxy unexpected");
+      return html;
+    }
+
+    async function fetchTdnHtml(url) {
+      const strategies = [fetchViaJina, fetchViaAllOrigins, fetchViaCorsProxy];
+      let lastError;
+      for (const strategy of strategies) {
+        try {
+          return await strategy(url);
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      throw lastError || new Error("all proxies failed");
+    }
+
+    function cardTemplate(mod) {
+      const tdn = moduleUrl(mod);
+      return `
+        <article class="card" data-module-id="${mod.id}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "Backoffice"}</span>
+          </div>
+
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar</strong> para buscar o pacote no TDN.
+          </div>
+
+          <div class="body-loading loading hidden">Buscando pacote no TDN…</div>
+
+          <div class="body-error error hidden"></div>
+
+          <div class="body-success meta hidden">
+            <div class="meta-row">
+              <span>Data de corte</span>
+              <strong class="js-date">—</strong>
+            </div>
+            <div class="meta-row">
+              <span>Pacote</span>
+              <strong class="js-package">Backoffice</strong>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn-primary js-refresh">Atualizar</button>
+            <a class="btn btn-secondary js-download hidden" href="#" target="_blank" rel="noopener noreferrer">Baixar pacote</a>
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function setState(card, state, message) {
+      card.querySelector(".body-idle").classList.toggle("hidden", state !== "idle");
+      card.querySelector(".body-loading").classList.toggle("hidden", state !== "loading");
+      card.querySelector(".body-error").classList.toggle("hidden", state !== "error");
+      card.querySelector(".body-success").classList.toggle("hidden", state !== "success");
+
+      const refreshBtn = card.querySelector(".js-refresh");
+      refreshBtn.disabled = state === "loading";
+
+      if (state === "error") {
+        card.querySelector(".body-error").textContent = message || "Erro desconhecido.";
+        card.querySelector(".js-download").classList.add("hidden");
+      }
+    }
+
+    function fillSuccess(card, data) {
+      card.querySelector(".js-date").textContent = data.cutoffDate;
+      card.querySelector(".js-package").textContent = data.packageName || "Backoffice";
+      const download = card.querySelector(".js-download");
+      download.href = data.downloadUrl;
+      download.classList.remove("hidden");
+      setState(card, "success");
+    }
+
+    async function refreshModule(mod, card) {
+      setState(card, "loading");
+      try {
+        const html = await fetchTdnHtml(moduleUrl(mod));
+        const parsed = parsePackageFromHtml(html);
+        if (parsed.error === "not_found") {
+          setState(card, "error", "Não achei o pacote na página.");
+          return;
+        }
+        if (parsed.error === "incomplete") {
+          setState(card, "error", "A página do TDN mudou de formato.");
+          return;
+        }
+        fillSuccess(card, parsed);
+      } catch (err) {
+        console.error(err);
+        setState(card, "error", "Não foi possível buscar o TDN. Tente de novo.");
+      }
+    }
+
+    function render() {
+      const root = document.getElementById("modules");
+      root.innerHTML = MODULES.map(cardTemplate).join("");
+
+      MODULES.forEach((mod) => {
+        const card = root.querySelector(`[data-module-id="${mod.id}"]`);
+        card.querySelector(".js-refresh").addEventListener("click", () => {
+          refreshModule(mod, card);
+        });
+      });
+    }
+
+    window.ExpedicaoContinua = { parsePackageFromHtml, MODULES };
+    render();
+  </script>
+</body>
+</html>
