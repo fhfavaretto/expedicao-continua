@@ -8,21 +8,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
   <style>
+    /* Cores oficiais TOTVS (tema Clássico / brand01) */
     :root {
-      --bg-0: #0f2a2e;
-      --bg-1: #163a40;
-      --bg-2: #1e4a52;
-      --surface: rgba(255, 255, 255, 0.06);
-      --surface-strong: rgba(255, 255, 255, 0.1);
-      --border: rgba(255, 255, 255, 0.14);
-      --text: #f2f7f6;
-      --muted: #a8c0c4;
-      --accent: #3dcfb6;
-      --accent-dim: #2a9f8c;
-      --danger: #ff8f8f;
-      --warn: #ffd48a;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-      --radius: 18px;
+      --totvs-base: #0079B8;
+      --totvs-dark: #00659A;
+      --totvs-darker: #004064;
+      --totvs-darkest: #051F31;
+      --totvs-light: #3DADFA;
+      --totvs-lighter: #AFD3FA;
+      --totvs-lightest: #E3EEFB;
+      --bg-0: #FBFBFB;
+      --bg-1: #E3EEFB;
+      --surface: #FFFFFF;
+      --surface-strong: #F2F2F2;
+      --border: #D9D9D9;
+      --text: #051F31;
+      --muted: #5A5A5A;
+      --accent: #0079B8;
+      --accent-hover: #00659A;
+      --danger: #C20C18;
+      --warn: #A15C00;
+      --shadow: 0 12px 32px rgba(5, 31, 49, 0.1);
+      --radius: 12px;
       --font-sans: "Outfit", sans-serif;
       --font-display: "Source Serif 4", Georgia, serif;
     }
@@ -35,55 +42,110 @@
       font-family: var(--font-sans);
       color: var(--text);
       background:
-        radial-gradient(1200px 600px at 10% -10%, #2a6b5e 0%, transparent 55%),
-        radial-gradient(900px 500px at 100% 0%, #1a5c4a 0%, transparent 50%),
-        linear-gradient(160deg, var(--bg-0), var(--bg-1) 45%, var(--bg-2));
+        radial-gradient(1000px 520px at 0% -10%, var(--totvs-lighter) 0%, transparent 55%),
+        radial-gradient(800px 480px at 100% 0%, var(--totvs-lightest) 0%, transparent 50%),
+        linear-gradient(165deg, var(--bg-0), var(--bg-1) 70%, #D6E8F7);
     }
 
     .page {
-      width: min(960px, calc(100% - 2rem));
+      width: min(880px, calc(100% - 2rem));
       margin: 0 auto;
-      padding: 3rem 0 4rem;
+      padding: 2.25rem 0 3.5rem;
     }
 
     .hero {
-      margin-bottom: 2.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 1.5rem;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1 1 18rem;
+      min-width: 0;
+    }
+
+    .hero-logo-wrap {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(0, 121, 184, 0.18);
+      box-shadow: 0 8px 20px rgba(5, 31, 49, 0.08);
+    }
+
+    .hero-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transform: scale(1.06);
+    }
+
+    .hero-copy {
+      min-width: 0;
     }
 
     .hero h1 {
-      margin: 0 0 0.5rem;
+      margin: 0 0 0.3rem;
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-size: clamp(1.75rem, 3.5vw, 2.35rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.1;
+      line-height: 1.15;
+      color: var(--totvs-darkest);
     }
 
     .hero p {
       margin: 0;
-      max-width: 36rem;
+      max-width: 34rem;
       color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.5;
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    #refresh-all {
+      flex-shrink: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.15rem;
     }
 
     .grid {
       display: grid;
-      gap: 1.25rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 700px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 14px;
       box-shadow: var(--shadow);
-      padding: 1.35rem 1.4rem 1.25rem;
-      backdrop-filter: blur(10px);
+      padding: 1.2rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      min-height: 260px;
+      gap: 0.9rem;
+      min-height: 188px;
     }
 
     .card-header {
@@ -97,6 +159,7 @@
       margin: 0;
       font-size: 1.35rem;
       font-weight: 600;
+      color: var(--totvs-darker);
     }
 
     .badge {
@@ -107,15 +170,20 @@
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.02em;
-      background: rgba(61, 207, 182, 0.16);
-      color: var(--accent);
-      border: 1px solid rgba(61, 207, 182, 0.35);
+      background: var(--totvs-lightest);
+      color: var(--totvs-darker);
+      border: 1px solid var(--totvs-lighter);
       white-space: nowrap;
     }
 
     .meta {
       display: grid;
       gap: 0.65rem;
+    }
+
+    .meta .js-download {
+      margin-top: 0.35rem;
+      width: fit-content;
     }
 
     .meta-row {
@@ -184,23 +252,27 @@
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #06241f;
+      background: var(--totvs-base);
+      color: #FFFFFF;
     }
 
     .btn-primary:hover:not(:disabled) {
-      background: #54dfc8;
+      background: var(--accent-hover);
     }
 
     .btn-secondary {
-      background: var(--surface-strong);
-      color: var(--text);
-      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--totvs-darker);
+      border: 1px solid var(--totvs-base);
+    }
+
+    .btn-secondary:hover {
+      background: var(--totvs-lightest);
     }
 
     .btn-ghost {
       background: transparent;
-      color: var(--muted);
+      color: var(--totvs-base);
       border: 1px solid transparent;
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -208,6 +280,189 @@
     }
 
     .hidden { display: none !important; }
+
+    .tabs {
+      display: flex;
+      gap: 0.3rem;
+      margin: 0;
+      padding: 0.25rem;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .tab {
+      background: transparent;
+      color: var(--muted);
+      border: 0;
+      border-radius: 9px;
+      padding: 0.5rem 0.95rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--totvs-base);
+      color: #fff;
+    }
+
+    .tab:hover:not([aria-selected="true"]) {
+      background: var(--totvs-lightest);
+      color: var(--totvs-darker);
+      transform: none;
+    }
+
+    .panel[hidden] { display: none !important; }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .card-lib {
+      min-height: 0;
+      grid-column: 1 / -1;
+    }
+
+    .lib-highlights {
+      display: grid;
+      gap: 0.85rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .lib-pill {
+      background: var(--totvs-lightest);
+      border: 1px solid var(--totvs-lighter);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .lib-pill-next {
+      background: #fff8e8;
+      border-color: #f0d59a;
+    }
+
+    .lib-pill > span:first-child {
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    .lib-pill strong {
+      font-size: 1.2rem;
+      color: var(--totvs-darker);
+    }
+
+    .lib-pill .lib-date {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .lib-pill .btn {
+      margin-top: 0.45rem;
+      width: fit-content;
+    }
+
+    .history-block h3 {
+      margin: 0.4rem 0 0;
+      font-size: 1rem;
+      color: var(--totvs-darker);
+    }
+
+    .history-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 360px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .history-list li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.35rem 0.75rem;
+      align-items: center;
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-list li:last-child { border-bottom: 0; }
+
+    .history-list a {
+      color: var(--totvs-darker);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .history-list a:hover { color: var(--totvs-base); text-decoration: underline; }
+
+    .history-meta {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .tag-past {
+      background: var(--totvs-lightest);
+      color: var(--totvs-darker);
+    }
+
+    .tag-next {
+      background: #ffe6a8;
+      color: #7a4d00;
+    }
+
+    .tag-future {
+      background: #eee;
+      color: #555;
+    }
+
+    .quality-releases {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .quality-release {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 0.95rem;
+      background: #fafcff;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .quality-release-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .quality-release-top strong {
+      color: var(--totvs-darker);
+      font-size: 1.05rem;
+    }
 
     footer {
       margin-top: 2.5rem;
@@ -219,28 +474,127 @@
 <body>
   <main class="page">
     <header class="hero">
-      <h1>Expedição Contínua</h1>
-      <p>Consulte a data de corte e o link do pacote Backoffice direto do TDN, sem dados fixos na página.</p>
+      <div class="hero-brand">
+        <div class="hero-logo-wrap">
+          <img class="hero-logo" src="Logo.jpg" alt="TOTVS" width="92" height="92" />
+        </div>
+        <div class="hero-copy">
+          <h1>Expedição Contínua</h1>
+          <p>Consulte pacotes Backoffice, Qualidade e o histórico da LIB Framework direto do TDN.</p>
+        </div>
+      </div>
+      <button type="button" class="btn-primary" id="refresh-all">Atualizar todos</button>
     </header>
 
-    <section id="modules" class="grid" aria-live="polite"></section>
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="Tipo de pacote">
+        <button type="button" class="tab" role="tab" id="tab-backoffice" aria-controls="panel-backoffice" aria-selected="true" data-tab="backoffice">Backoffice</button>
+        <button type="button" class="tab" role="tab" id="tab-qualidade" aria-controls="panel-qualidade" aria-selected="false" data-tab="qualidade">Qualidade</button>
+        <button type="button" class="tab" role="tab" id="tab-lib" aria-controls="panel-lib" aria-selected="false" data-tab="lib">Lib</button>
+      </div>
+    </div>
+
+    <section id="panel-backoffice" class="panel" role="tabpanel" aria-labelledby="tab-backoffice">
+      <div id="modules-backoffice" class="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="panel-qualidade" class="panel" role="tabpanel" aria-labelledby="tab-qualidade" hidden>
+      <div id="modules-qualidade" class="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="panel-lib" class="panel" role="tabpanel" aria-labelledby="tab-lib" hidden>
+      <div id="modules-lib" class="grid" aria-live="polite"></div>
+    </section>
 
     <footer>
-      Dados obtidos sob demanda da página pública do TDN via proxy. Clique em Atualizar para buscar.
+      Backoffice e Qualidade (QUALITY): data e link do portal. Lib: histórico + próxima versão no Framework Release Notes.
     </footer>
   </main>
 
   <script>
-    const MODULES = [
-      {
-        id: "faturamento",
-        name: "Faturamento",
-        pageId: "521997859",
-        packageLabel: "Backoffice",
+    const TABS = {
+      backoffice: {
+        panelId: "panel-backoffice",
+        rootId: "modules-backoffice",
+        modules: [
+          {
+            id: "faturamento",
+            name: "Faturamento",
+            type: "backoffice",
+            pageId: "521997859",
+            packageLabel: "Backoffice",
+          },
+          {
+            id: "financeiro",
+            name: "Financeiro",
+            type: "backoffice",
+            pageId: "531017758",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=531017758",
+            packageLabel: "Backoffice",
+          },
+          {
+            id: "compras",
+            name: "Compras",
+            type: "backoffice",
+            pageId: "522011099",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=522011099",
+            packageLabel: "Backoffice",
+          },
+          {
+            id: "fiscal",
+            name: "Fiscal",
+            type: "backoffice",
+            pageId: "525823851",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=525823851",
+            packageLabel: "Backoffice",
+          },
+          {
+            id: "estoque-custos-automacao",
+            name: "Estoque e Custos e Automação e Coleta de Dados",
+            type: "backoffice",
+            pageId: "522000602",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=522000602",
+            packageLabel: "Backoffice",
+          },
+        ],
       },
-    ];
+      qualidade: {
+        panelId: "panel-qualidade",
+        rootId: "modules-qualidade",
+        modules: [
+          {
+            id: "qualidade",
+            name: "Qualidade",
+            type: "quality",
+            pageId: "1033985016",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=1033985016",
+            packageLabel: "QUALITY",
+          },
+        ],
+      },
+      lib: {
+        panelId: "panel-lib",
+        rootId: "modules-lib",
+        modules: [
+          {
+            id: "framework-lib",
+            name: "Framework LIB",
+            type: "lib",
+            packageLabel: "LIB",
+            url: "https://tdn.totvs.com/display/public/framework/Framework+%7C+Release+Notes",
+            drawioUrl:
+              "https://tdn.totvs.com/rest/drawio/1.0/diagram/crud/ReleaseNotes/152798709",
+          },
+        ],
+      },
+    };
 
     const TDN_BASE = "https://tdn.totvs.com/pages/releaseview.action?pageId=";
+    let activeTab = "backoffice";
+
+    function allModules() {
+      return Object.values(TABS).flatMap((tab) => tab.modules);
+    }
 
     function moduleUrl(mod) {
       return mod.url || `${TDN_BASE}${mod.pageId}`;
@@ -254,10 +608,29 @@
       return String(isoOrText).trim();
     }
 
-    /**
-     * Extract first Backoffice / data de corte paragraph from TDN HTML.
-     * Exported for sanity checks via console.
-     */
+    function formatLibCodeDate(yyyymmdd) {
+      const m = String(yyyymmdd).match(/^(\d{4})(\d{2})(\d{2})$/);
+      if (!m) return yyyymmdd;
+      return `${m[3]}/${m[2]}/${m[1]}`;
+    }
+
+    function libCodeToDate(code) {
+      return new Date(
+        Date.UTC(Number(code.slice(0, 4)), Number(code.slice(4, 6)) - 1, Number(code.slice(6, 8)))
+      );
+    }
+
+    function startOfTodayUTC() {
+      const now = new Date();
+      return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    }
+
+    function decodeHtmlEntities(value) {
+      const ta = document.createElement("textarea");
+      ta.innerHTML = value;
+      return ta.value;
+    }
+
     function parsePackageFromHtml(html) {
       const doc = new DOMParser().parseFromString(html, "text/html");
       const paragraphs = Array.from(doc.querySelectorAll("p"));
@@ -267,9 +640,7 @@
         return text.includes("data de corte") && text.includes("backoffice");
       });
 
-      if (!match) {
-        return { error: "not_found" };
-      }
+      if (!match) return { error: "not_found" };
 
       const timeEl = match.querySelector("time");
       const linkEl =
@@ -281,18 +652,196 @@
       const datetime = timeEl?.getAttribute("datetime") || timeEl?.textContent || "";
       const downloadUrl = linkEl?.getAttribute("href") || "";
 
-      if (!datetime || !downloadUrl) {
-        return { error: "incomplete" };
-      }
-
-      const absoluteDownload = new URL(downloadUrl, "https://tdn.totvs.com").href;
+      if (!datetime || !downloadUrl) return { error: "incomplete" };
 
       return {
         cutoffDate: formatDate(datetime),
         cutoffDatetime: datetime,
-        downloadUrl: absoluteDownload,
+        downloadUrl: new URL(downloadUrl, "https://tdn.totvs.com").href,
         packageName: "Backoffice",
       };
+    }
+
+    /**
+     * QUALITY: layout com abas por release (ex.: 12.1.2410 / 12.1.2510).
+     * Texto: "O Pacote para release X ... data de corte ... download aqui".
+     * Usa regex no HTML bruto — o deck/tabs do Confluence quebra o parse só por <p>.
+     */
+    function parseQualityFromHtml(html) {
+      const releases = [];
+      const pattern =
+        /Pacote para release\s*(?:<[^>]+>)?\s*([0-9]+(?:\.[0-9]+)*)\s*(?:<\/[^>]+>)?[\s\S]{0,400}?datetime="([^"]+)"[\s\S]{0,400}?href="(https:\/\/suporte\.totvs\.com[^"]+)"/gi;
+
+      let match;
+      while ((match = pattern.exec(html)) !== null) {
+        const release = match[1];
+        const datetime = match[2];
+        const downloadUrl = match[3];
+        if (!release || !datetime || !downloadUrl) continue;
+        if (releases.some((r) => r.release === release)) continue;
+        releases.push({
+          release,
+          cutoffDate: formatDate(datetime),
+          cutoffDatetime: datetime,
+          downloadUrl: new URL(downloadUrl, "https://tdn.totvs.com").href,
+        });
+      }
+
+      // Fallback: DOM, caso o HTML venha já normalizado
+      if (!releases.length) {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        doc.querySelectorAll("p").forEach((p) => {
+          const text = (p.textContent || "").replace(/\u00a0/g, " ").toLowerCase();
+          if (!text.includes("data de corte") || !text.includes("pacote para release")) {
+            return;
+          }
+          const timeEl = p.querySelector("time");
+          const linkEl =
+            p.querySelector('a[href*="downloads"]') ||
+            Array.from(p.querySelectorAll("a")).find((a) =>
+              /aqui/i.test(a.textContent || "")
+            );
+          const releaseMatch = (p.textContent || "").match(
+            /release\s+(\d+(?:\.\d+)*)/i
+          );
+          const datetime =
+            timeEl?.getAttribute("datetime") || timeEl?.textContent || "";
+          const downloadUrl = linkEl?.getAttribute("href") || "";
+          const release = releaseMatch?.[1];
+          if (!release || !datetime || !downloadUrl) return;
+          if (releases.some((r) => r.release === release)) return;
+          releases.push({
+            release,
+            cutoffDate: formatDate(datetime),
+            cutoffDatetime: datetime,
+            downloadUrl: new URL(downloadUrl, "https://tdn.totvs.com").href,
+          });
+        });
+      }
+
+      if (!releases.length) return { error: "not_found" };
+
+      releases.sort((a, b) => b.release.localeCompare(a.release, undefined, { numeric: true }));
+      const latest = releases[0];
+
+      return {
+        packageName: "QUALITY",
+        cutoffDate: latest.cutoffDate,
+        downloadUrl: latest.downloadUrl,
+        releases,
+      };
+    }
+
+    function extractLibVersionsFromHtml(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const byCode = new Map();
+
+      doc.querySelectorAll("a[href]").forEach((a) => {
+        const text = (a.textContent || "").replace(/\s+/g, " ").trim();
+        const m = text.match(/Vers[aã]o\s+LIB\s+(\d{8})_P12/i);
+        if (!m) return;
+        const href = a.getAttribute("href");
+        if (!href) return;
+        const code = m[1];
+        byCode.set(code, {
+          code,
+          versionLabel: `${code}_P12`,
+          title: text,
+          pageUrl: new URL(href, "https://tdn.totvs.com").href,
+          dateLabel: formatLibCodeDate(code),
+          statusLabel: "",
+        });
+      });
+
+      return [...byCode.values()].sort((a, b) => b.code.localeCompare(a.code));
+    }
+
+    function parseLibDrawioStatuses(drawioJsonText) {
+      let xml = "";
+      try {
+        const data = JSON.parse(drawioJsonText);
+        xml = data.xml || "";
+      } catch {
+        xml = drawioJsonText;
+      }
+      if (!xml) return { statuses: {}, cadenceNote: "" };
+
+      const values = [...xml.matchAll(/value="([^"]*)"/g)].map((m) => {
+        let text = decodeHtmlEntities(m[1]);
+        text = decodeHtmlEntities(text);
+        text = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+        return text;
+      });
+
+      const statuses = {};
+      let cadenceNote = "";
+      for (let i = 0; i < values.length; i += 1) {
+        const libMatch = values[i].match(/^LIB (20\d{6})_P12$/i);
+        if (libMatch) {
+          const code = libMatch[1];
+          for (let j = i + 1; j < Math.min(i + 6, values.length); j += 1) {
+            if (/^LIB 20\d{6}_P12$/i.test(values[j])) break;
+            if (/Prevista para|Expedida em/i.test(values[j])) {
+              statuses[code] = values[j];
+              break;
+            }
+          }
+        }
+        if (/a cada 40 dias/i.test(values[i])) cadenceNote = values[i];
+      }
+      return { statuses, cadenceNote };
+    }
+
+    /**
+     * LIB hub: child pages "Versão LIB YYYYMMDD_P12" = histórico.
+     * Próxima = menor data futura; última expedida = maior data <= hoje.
+     * Draw.io (opcional) traz textos "Prevista/Expedida".
+     */
+    function parseLibFromHtml(html, drawioJsonText) {
+      const history = extractLibVersionsFromHtml(html);
+      if (!history.length) return { error: "not_found" };
+
+      const today = startOfTodayUTC();
+      const past = history.filter((v) => libCodeToDate(v.code) <= today);
+      const future = history
+        .filter((v) => libCodeToDate(v.code) > today)
+        .sort((a, b) => a.code.localeCompare(b.code));
+
+      const latest = past[0] || null;
+      const next = future[0] || null;
+
+      let cadenceNote =
+        "A LIB é disponibilizada em pacote completo, em geral a cada 40 dias.";
+      if (drawioJsonText) {
+        const { statuses, cadenceNote: note } = parseLibDrawioStatuses(drawioJsonText);
+        if (note) cadenceNote = note;
+        history.forEach((item) => {
+          if (statuses[item.code]) item.statusLabel = statuses[item.code];
+        });
+        if (latest && statuses[latest.code]) latest.statusLabel = statuses[latest.code];
+        if (next && statuses[next.code]) next.statusLabel = statuses[next.code];
+      }
+
+      history.forEach((item) => {
+        if (next && item.code === next.code) item.kind = "next";
+        else if (libCodeToDate(item.code) > today) item.kind = "future";
+        else item.kind = "past";
+      });
+
+      return {
+        packageName: "LIB Framework",
+        cadenceNote,
+        latest,
+        next,
+        history,
+        downloadUrl: null,
+      };
+    }
+
+    function parseModule(mod, html, drawioJsonText) {
+      if (mod.type === "lib") return parseLibFromHtml(html, drawioJsonText);
+      if (mod.type === "quality") return parseQualityFromHtml(html);
+      return parsePackageFromHtml(html);
     }
 
     async function fetchViaJina(url) {
@@ -319,7 +868,7 @@
       const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
       if (!res.ok) throw new Error(`corsproxy ${res.status}`);
       const html = await res.text();
-      if (!html || !/data de corte/i.test(html)) throw new Error("corsproxy unexpected");
+      if (!html || html.length < 500) throw new Error("corsproxy empty");
       return html;
     }
 
@@ -336,37 +885,130 @@
       throw lastError || new Error("all proxies failed");
     }
 
+    /** Draw.io REST devolve JSON; evita Jina em modo HTML. */
+    async function fetchTdnRaw(url) {
+      const strategies = [fetchViaAllOrigins, fetchViaCorsProxy, fetchViaJina];
+      let lastError;
+      for (const strategy of strategies) {
+        try {
+          const text = await strategy(url);
+          if (text && (text.includes('"xml"') || text.includes("<mxfile"))) return text;
+          lastError = new Error("unexpected drawio payload");
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      throw lastError || new Error("drawio fetch failed");
+    }
+
+    function historyTag(kind) {
+      if (kind === "next") return '<span class="tag tag-next">Próxima</span>';
+      if (kind === "future") return '<span class="tag tag-future">Futura</span>';
+      return '<span class="tag tag-past">Disponível</span>';
+    }
+
     function cardTemplate(mod) {
       const tdn = moduleUrl(mod);
+      const isLib = mod.type === "lib";
+      if (isLib) {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="lib">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">LIB</span>
+          </div>
+
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar histórico e próxima versão.
+          </div>
+
+          <div class="body-loading loading hidden">Buscando histórico da LIB no TDN…</div>
+          <div class="body-error error hidden"></div>
+
+          <div class="body-success meta hidden">
+            <div class="lib-highlights">
+              <div class="lib-pill">
+                <span>Última expedida</span>
+                <strong class="js-latest-code">—</strong>
+                <div class="lib-date js-latest-date">—</div>
+                <div class="lib-status js-latest-status"></div>
+                <a class="btn btn-secondary js-latest-link hidden" href="#" target="_blank" rel="noopener noreferrer">Ver release notes</a>
+              </div>
+              <div class="lib-pill lib-pill-next">
+                <span>Próxima de lançamento</span>
+                <strong class="js-next-code">—</strong>
+                <div class="lib-date js-next-date">—</div>
+                <div class="lib-status js-next-status"></div>
+                <p class="empty-next js-next-empty hidden">Nenhuma próxima versão listada no TDN.</p>
+                <a class="btn btn-primary js-next-link hidden" href="#" target="_blank" rel="noopener noreferrer">Ver release notes</a>
+              </div>
+            </div>
+            <p class="note js-cadence"></p>
+            <div class="history-block">
+              <h3>Histórico disponível</h3>
+              <ul class="history-list js-history"></ul>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver índice no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "quality") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="quality">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">QUALITY</span>
+          </div>
+
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para buscar os pacotes por release.
+          </div>
+
+          <div class="body-loading loading hidden">Buscando pacotes QUALITY no TDN…</div>
+          <div class="body-error error hidden"></div>
+
+          <div class="body-success meta hidden">
+            <p class="note">Pacotes por release (abas 12.1.xxxx no TDN).</p>
+            <div class="quality-releases js-quality-releases"></div>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>`;
+      }
+
       return `
-        <article class="card" data-module-id="${mod.id}">
+        <article class="card" data-module-id="${mod.id}" data-type="${mod.type}">
           <div class="card-header">
             <h2>${mod.name}</h2>
             <span class="badge">${mod.packageLabel || "Backoffice"}</span>
           </div>
 
           <div class="body-idle idle">
-            Clique em <strong>Atualizar</strong> para buscar o pacote no TDN.
+            Clique em <strong>Atualizar todos</strong> para buscar no TDN.
           </div>
 
-          <div class="body-loading loading hidden">Buscando pacote no TDN…</div>
-
+          <div class="body-loading loading hidden">Buscando no TDN…</div>
           <div class="body-error error hidden"></div>
 
           <div class="body-success meta hidden">
             <div class="meta-row">
-              <span>Data de corte</span>
+              <span>Último pacote expedido</span>
               <strong class="js-date">—</strong>
             </div>
             <div class="meta-row">
               <span>Pacote</span>
-              <strong class="js-package">Backoffice</strong>
+              <strong class="js-package">${mod.packageLabel || "Backoffice"}</strong>
             </div>
+            <a class="btn btn-primary js-download" href="#" target="_blank" rel="noopener noreferrer">Baixar pacote</a>
           </div>
 
           <div class="actions">
-            <button type="button" class="btn-primary js-refresh">Atualizar</button>
-            <a class="btn btn-secondary js-download hidden" href="#" target="_blank" rel="noopener noreferrer">Baixar pacote</a>
             <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
           </div>
         </article>
@@ -379,31 +1021,135 @@
       card.querySelector(".body-error").classList.toggle("hidden", state !== "error");
       card.querySelector(".body-success").classList.toggle("hidden", state !== "success");
 
-      const refreshBtn = card.querySelector(".js-refresh");
-      refreshBtn.disabled = state === "loading";
-
       if (state === "error") {
         card.querySelector(".body-error").textContent = message || "Erro desconhecido.";
-        card.querySelector(".js-download").classList.add("hidden");
       }
     }
 
-    function fillSuccess(card, data) {
-      card.querySelector(".js-date").textContent = data.cutoffDate;
-      card.querySelector(".js-package").textContent = data.packageName || "Backoffice";
-      const download = card.querySelector(".js-download");
-      download.href = data.downloadUrl;
-      download.classList.remove("hidden");
+    function fillLibSuccess(card, data) {
+      const latest = data.latest;
+      const next = data.next;
+
+      card.querySelector(".js-cadence").textContent = data.cadenceNote || "";
+
+      card.querySelector(".js-latest-code").textContent = latest
+        ? latest.versionLabel
+        : "—";
+      card.querySelector(".js-latest-date").textContent = latest
+        ? latest.dateLabel
+        : "—";
+      card.querySelector(".js-latest-status").textContent = latest?.statusLabel || "";
+      const latestLink = card.querySelector(".js-latest-link");
+      if (latest) {
+        latestLink.href = latest.pageUrl;
+        latestLink.classList.remove("hidden");
+      } else {
+        latestLink.classList.add("hidden");
+      }
+
+      const nextEmpty = card.querySelector(".js-next-empty");
+      const nextLink = card.querySelector(".js-next-link");
+      if (next) {
+        card.querySelector(".js-next-code").textContent = next.versionLabel;
+        card.querySelector(".js-next-date").textContent = next.dateLabel;
+        card.querySelector(".js-next-status").textContent =
+          next.statusLabel || "Próxima versão listada no TDN";
+        nextLink.href = next.pageUrl;
+        nextLink.classList.remove("hidden");
+        nextEmpty.classList.add("hidden");
+      } else {
+        card.querySelector(".js-next-code").textContent = "—";
+        card.querySelector(".js-next-date").textContent = "";
+        card.querySelector(".js-next-status").textContent = "";
+        nextLink.classList.add("hidden");
+        nextEmpty.classList.remove("hidden");
+      }
+
+      const historyEl = card.querySelector(".js-history");
+      historyEl.innerHTML = data.history
+        .map(
+          (item) => `
+          <li>
+            <div>
+              <a href="${item.pageUrl}" target="_blank" rel="noopener noreferrer">LIB ${item.versionLabel}</a>
+              <div class="history-meta">${item.dateLabel}${item.statusLabel ? ` · ${item.statusLabel}` : ""}</div>
+            </div>
+            ${historyTag(item.kind)}
+          </li>`
+        )
+        .join("");
+
       setState(card, "success");
     }
 
-    async function refreshModule(mod, card) {
+    function fillQualitySuccess(card, data) {
+      const list = card.querySelector(".js-quality-releases");
+      list.innerHTML = (data.releases || [])
+        .map(
+          (item) => `
+          <div class="quality-release">
+            <div class="quality-release-top">
+              <strong>Release ${item.release}</strong>
+              <span class="badge">QUALITY</span>
+            </div>
+            <div class="meta-row">
+              <span>Último pacote expedido</span>
+              <strong>${item.cutoffDate}</strong>
+            </div>
+            <a class="btn btn-primary" href="${item.downloadUrl}" target="_blank" rel="noopener noreferrer">Baixar pacote</a>
+          </div>`
+        )
+        .join("");
+      setState(card, "success");
+    }
+
+    function fillSuccess(card, data) {
+      if (card.dataset.type === "lib") {
+        fillLibSuccess(card, data);
+        return;
+      }
+      if (card.dataset.type === "quality") {
+        fillQualitySuccess(card, data);
+        return;
+      }
+
+      card.querySelector(".js-date").textContent = data.cutoffDate;
+      card.querySelector(".js-package").textContent = data.packageName;
+      const download = card.querySelector(".js-download");
+      if (download && data.downloadUrl) download.href = data.downloadUrl;
+      setState(card, "success");
+    }
+
+    function findCard(mod) {
+      return document.querySelector(`[data-module-id="${mod.id}"]`);
+    }
+
+    async function refreshModule(mod) {
+      const card = findCard(mod);
+      if (!card) return;
       setState(card, "loading");
       try {
         const html = await fetchTdnHtml(moduleUrl(mod));
-        const parsed = parsePackageFromHtml(html);
+        let drawioJsonText = "";
+        if (mod.type === "lib" && mod.drawioUrl) {
+          try {
+            drawioJsonText = await fetchTdnRaw(mod.drawioUrl);
+          } catch (err) {
+            console.warn("Draw.io da LIB indisponível, usando só o histórico.", err);
+          }
+        }
+
+        const parsed = parseModule(mod, html, drawioJsonText);
         if (parsed.error === "not_found") {
-          setState(card, "error", "Não achei o pacote na página.");
+          setState(
+            card,
+            "error",
+            mod.type === "lib"
+              ? "Não achei páginas Versão LIB no índice."
+              : mod.type === "quality"
+                ? "Não achei pacotes QUALITY (release) na página."
+                : "Não achei o pacote na página."
+          );
           return;
         }
         if (parsed.error === "incomplete") {
@@ -417,19 +1163,50 @@
       }
     }
 
-    function render() {
-      const root = document.getElementById("modules");
-      root.innerHTML = MODULES.map(cardTemplate).join("");
+    async function refreshAll() {
+      const btn = document.getElementById("refresh-all");
+      btn.disabled = true;
+      btn.textContent = "Atualizando…";
+      try {
+        await Promise.all(allModules().map((mod) => refreshModule(mod)));
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Atualizar todos";
+      }
+    }
 
-      MODULES.forEach((mod) => {
-        const card = root.querySelector(`[data-module-id="${mod.id}"]`);
-        card.querySelector(".js-refresh").addEventListener("click", () => {
-          refreshModule(mod, card);
-        });
+    function setTab(tabId) {
+      activeTab = tabId;
+      document.querySelectorAll(".tab").forEach((tab) => {
+        const selected = tab.dataset.tab === tabId;
+        tab.setAttribute("aria-selected", selected ? "true" : "false");
+      });
+      Object.entries(TABS).forEach(([id, tab]) => {
+        document.getElementById(tab.panelId).hidden = id !== tabId;
       });
     }
 
-    window.ExpedicaoContinua = { parsePackageFromHtml, MODULES };
+    function render() {
+      Object.values(TABS).forEach((tab) => {
+        const root = document.getElementById(tab.rootId);
+        root.innerHTML = tab.modules.map(cardTemplate).join("");
+      });
+
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => setTab(tab.dataset.tab));
+      });
+
+      document.getElementById("refresh-all").addEventListener("click", refreshAll);
+      setTab("backoffice");
+    }
+
+    window.ExpedicaoContinua = {
+      parsePackageFromHtml,
+      parseQualityFromHtml,
+      parseLibFromHtml,
+      TABS,
+      refreshAll,
+    };
     render();
   </script>
 </body>
