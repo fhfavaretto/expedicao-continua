@@ -281,6 +281,11 @@
 
     .hidden { display: none !important; }
 
+    /* .card define display:flex e sobrescreve o [hidden] nativo */
+    .card[hidden] {
+      display: none !important;
+    }
+
     .tabs {
       display: flex;
       flex-wrap: wrap;
@@ -496,6 +501,182 @@
       font-size: 1.05rem;
     }
 
+    .appserver-families {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .appserver-family {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      background: #fafcff;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .appserver-family-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .appserver-family-head strong {
+      color: var(--totvs-darker);
+      font-size: 1.02rem;
+    }
+
+    .appserver-release {
+      border-top: 1px solid var(--border);
+      padding-top: 0.65rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .appserver-release:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.12rem 0.45rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      width: fit-content;
+    }
+
+    .status-ok {
+      background: #e3f6ea;
+      color: #1b6b3a;
+    }
+
+    .status-dev {
+      background: #fff0df;
+      color: #9a5400;
+    }
+
+    .status-other {
+      background: #eee;
+      color: #555;
+    }
+
+    .config-sections {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 420px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .config-sections li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .config-sections li:last-child { border-bottom: 0; }
+
+    .config-sections a {
+      color: var(--totvs-darker);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .config-sections a:hover {
+      color: var(--totvs-base);
+      text-decoration: underline;
+    }
+
+    .config-key {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .tabs-secondary {
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .os-policy {
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .os-groups {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .os-group {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      background: #fafcff;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .os-group-head strong {
+      color: var(--totvs-darker);
+      font-size: 1.02rem;
+    }
+
+    .os-row {
+      border-top: 1px solid var(--border);
+      padding-top: 0.6rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .os-row:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .os-row-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .os-row-top a {
+      color: var(--totvs-darker);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .os-row-top a:hover {
+      color: var(--totvs-base);
+      text-decoration: underline;
+    }
+
+    .status-eol {
+      background: #fde8e8;
+      color: #9b1c1c;
+    }
+
+    .status-limited {
+      background: #eef0f7;
+      color: #3d4a6b;
+    }
+
     footer {
       margin-top: 2.5rem;
       color: var(--muted);
@@ -584,7 +765,30 @@
     </div>
 
     <div id="section-binarios" class="section" hidden>
-      <div id="modules-binarios" class="grid" aria-live="polite"></div>
+      <div class="toolbar">
+        <div class="tabs" role="tablist" aria-label="Componentes binários">
+          <button type="button" class="tab bin-tab" role="tab" id="tab-bin-appserver" aria-controls="panel-bin-appserver" aria-selected="true" data-bin-tab="appserver">AppServer</button>
+          <button type="button" class="tab bin-tab" role="tab" id="tab-bin-dbaccess" aria-controls="panel-bin-dbaccess" aria-selected="false" data-bin-tab="dbaccess">DBAccess</button>
+          <button type="button" class="tab bin-tab" role="tab" id="tab-bin-smartclient" aria-controls="panel-bin-smartclient" aria-selected="false" data-bin-tab="smartclient">SmartClient HTML</button>
+        </div>
+      </div>
+
+      <section id="panel-bin-appserver" class="panel" role="tabpanel" aria-labelledby="tab-bin-appserver">
+        <div class="tabs tabs-secondary" role="tablist" aria-label="Tópicos do Application Server">
+          <button type="button" class="tab appserver-subtab" role="tab" aria-selected="true" data-appserver-sub="releases">Releases</button>
+          <button type="button" class="tab appserver-subtab" role="tab" aria-selected="false" data-appserver-sub="config">Configuração</button>
+          <button type="button" class="tab appserver-subtab" role="tab" aria-selected="false" data-appserver-sub="os">Sistemas operacionais</button>
+        </div>
+        <div id="modules-bin-appserver" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-bin-dbaccess" class="panel" role="tabpanel" aria-labelledby="tab-bin-dbaccess" hidden>
+        <div id="modules-bin-dbaccess" class="grid" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-bin-smartclient" class="panel" role="tabpanel" aria-labelledby="tab-bin-smartclient" hidden>
+        <div id="modules-bin-smartclient" class="grid" aria-live="polite"></div>
+      </section>
     </div>
 
     <aside class="disclaimer" role="note" aria-label="Aviso legal">
@@ -622,7 +826,7 @@
       binarios: {
         title: "Binários",
         subtitle:
-          "Application Server, DBAccess e SmartClient HTML. Links do TDN serão configurados em seguida.",
+          "Application Server (releases, appserver.ini e SOs homologados), DBAccess e SmartClient HTML.",
       },
     };
 
@@ -709,7 +913,11 @@
             name: "Framework LIB",
             type: "lib",
             packageLabel: "LIB",
-            url: "https://tdn.totvs.com/display/public/framework/Framework+%7C+Release+Notes",
+            // URL com "|" no path retorna HTTP 400 em proxies; usar pageId estável.
+            pageId: "152798709",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=152798709",
+            childrenUrl:
+              "https://tdn.totvs.com/rest/api/content/152798709/child/page?limit=50",
             drawioUrl:
               "https://tdn.totvs.com/rest/drawio/1.0/diagram/crud/ReleaseNotes/152798709",
           },
@@ -717,37 +925,97 @@
       },
     };
 
-    const BINARIOS = [
-      {
-        id: "application-server",
-        name: "Application Server",
-        type: "binary",
-        packageLabel: "Binário",
-        url: "",
+    const BINARIO_TABS = {
+      appserver: {
+        panelId: "panel-bin-appserver",
+        rootId: "modules-bin-appserver",
+        modules: [
+          {
+            id: "application-server",
+            name: "Application Server",
+            type: "appserver",
+            packageLabel: "Releases",
+            appserverSub: "releases",
+            url: "https://tdn.totvs.com/display/tec/Application+Server+-+Notas+de+release",
+            childrenUrl:
+              "https://tdn.totvs.com/rest/api/content/271652295/child/page?limit=50",
+          },
+          {
+            id: "appserver-config",
+            name: "Arquivo de configuração",
+            type: "appserver-config",
+            packageLabel: "appserver.ini",
+            appserverSub: "config",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=6064745",
+            childrenUrl:
+              "https://tdn.totvs.com/rest/api/content/6064745/child/page?limit=100",
+          },
+          {
+            id: "appserver-os",
+            name: "Sistemas operacionais homologados",
+            type: "appserver-os",
+            packageLabel: "Protheus",
+            appserverSub: "os",
+            url: "https://tdn.totvs.com/display/tec/Application+Server+Protheus+-+Sistemas+operacionais",
+            pageId: "452690307",
+          },
+        ],
       },
-      {
-        id: "dbaccess",
-        name: "DBAccess",
-        type: "binary",
-        packageLabel: "Binário",
-        url: "",
+      dbaccess: {
+        panelId: "panel-bin-dbaccess",
+        rootId: "modules-bin-dbaccess",
+        modules: [
+          {
+            id: "dbaccess",
+            name: "DBAccess",
+            type: "binary",
+            packageLabel: "Binário",
+            url: "",
+          },
+        ],
       },
-      {
-        id: "smartclient-html",
-        name: "SmartClient HTML",
-        type: "binary",
-        packageLabel: "Binário",
-        url: "",
+      smartclient: {
+        panelId: "panel-bin-smartclient",
+        rootId: "modules-bin-smartclient",
+        modules: [
+          {
+            id: "smartclient-html",
+            name: "SmartClient HTML",
+            type: "binary",
+            packageLabel: "Binário",
+            url: "",
+          },
+        ],
       },
-    ];
+    };
+
+    const BINARIOS = Object.values(BINARIO_TABS).flatMap((tab) => tab.modules);
 
     const TDN_BASE = "https://tdn.totvs.com/pages/releaseview.action?pageId=";
     let activeTab = "backoffice";
     let activeSection = "expedicao";
+    let activeBinarioTab = "appserver";
+    let activeAppServerSub = "releases";
 
     function sectionModules() {
-      if (activeSection === "binarios") return BINARIOS;
+      if (activeSection === "binarios") {
+        const tab = BINARIO_TABS[activeBinarioTab];
+        if (!tab) return [];
+        return tab.modules;
+      }
       return Object.values(TABS).flatMap((tab) => tab.modules);
+    }
+
+    function refreshTargets() {
+      if (activeSection === "binarios") {
+        const tab = BINARIO_TABS[activeBinarioTab];
+        if (!tab) return [];
+        // No AppServer, atualiza os 3 tópicos de uma vez (mesmo com sub-aba).
+        return tab.modules.filter(isBinaryModuleReady);
+      }
+      // Expedição: só a aba ativa — evita rate limit nos proxies e falha da LIB.
+      const tab = TABS[activeTab];
+      return (tab?.modules || []).filter((mod) => moduleUrl(mod));
     }
 
     function allModules() {
@@ -789,6 +1057,39 @@
       const ta = document.createElement("textarea");
       ta.innerHTML = value;
       return ta.value;
+    }
+
+    function extractJsonPayload(text) {
+      if (!text) return null;
+      const trimmed = String(text).trim();
+
+      const tryParse = (value) => {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      };
+
+      if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+        const direct = tryParse(trimmed);
+        if (direct) return direct;
+      }
+
+      const preMatch = trimmed.match(/<pre[^>]*>([\s\S]*?)<\/pre>/i);
+      if (preMatch) {
+        const fromPre = tryParse(preMatch[1].trim());
+        if (fromPre) return fromPre;
+      }
+
+      const startObj = trimmed.indexOf("{");
+      const endObj = trimmed.lastIndexOf("}");
+      if (startObj >= 0 && endObj > startObj) {
+        const fromSlice = tryParse(trimmed.slice(startObj, endObj + 1));
+        if (fromSlice) return fromSlice;
+      }
+
+      return null;
     }
 
     function parsePackageFromHtml(html) {
@@ -900,14 +1201,14 @@
         const text = (a.textContent || "").replace(/\s+/g, " ").trim();
         const m = text.match(/Vers[aã]o\s+LIB\s+(\d{8})_P12/i);
         if (!m) return;
-        const href = a.getAttribute("href");
-        if (!href) return;
+        const pageUrl = safeAbsoluteUrl(a.getAttribute("href"));
+        if (!pageUrl) return;
         const code = m[1];
         byCode.set(code, {
           code,
           versionLabel: `${code}_P12`,
           title: text,
-          pageUrl: new URL(href, "https://tdn.totvs.com").href,
+          pageUrl,
           dateLabel: formatLibCodeDate(code),
           statusLabel: "",
         });
@@ -916,49 +1217,30 @@
       return [...byCode.values()].sort((a, b) => b.code.localeCompare(a.code));
     }
 
-    function parseLibDrawioStatuses(drawioJsonText) {
-      let xml = "";
-      try {
-        const data = JSON.parse(drawioJsonText);
-        xml = data.xml || "";
-      } catch {
-        xml = drawioJsonText;
-      }
-      if (!xml) return { statuses: {}, cadenceNote: "" };
+    function extractLibVersionsFromChildren(childrenJsonText) {
+      const data = extractJsonPayload(childrenJsonText);
+      if (!data) return [];
 
-      const values = [...xml.matchAll(/value="([^"]*)"/g)].map((m) => {
-        let text = decodeHtmlEntities(m[1]);
-        text = decodeHtmlEntities(text);
-        text = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-        return text;
+      const byCode = new Map();
+      (data.results || []).forEach((page) => {
+        const title = page.title || "";
+        const m = title.match(/Vers[aã]o\s+LIB\s+(\d{8})_P12/i);
+        if (!m) return;
+        const code = m[1];
+        byCode.set(code, {
+          code,
+          versionLabel: `${code}_P12`,
+          title,
+          pageUrl: `https://tdn.totvs.com/pages/viewpage.action?pageId=${page.id}`,
+          dateLabel: formatLibCodeDate(code),
+          statusLabel: "",
+        });
       });
 
-      const statuses = {};
-      let cadenceNote = "";
-      for (let i = 0; i < values.length; i += 1) {
-        const libMatch = values[i].match(/^LIB (20\d{6})_P12$/i);
-        if (libMatch) {
-          const code = libMatch[1];
-          for (let j = i + 1; j < Math.min(i + 6, values.length); j += 1) {
-            if (/^LIB 20\d{6}_P12$/i.test(values[j])) break;
-            if (/Prevista para|Expedida em/i.test(values[j])) {
-              statuses[code] = values[j];
-              break;
-            }
-          }
-        }
-        if (/a cada 40 dias/i.test(values[i])) cadenceNote = values[i];
-      }
-      return { statuses, cadenceNote };
+      return [...byCode.values()].sort((a, b) => b.code.localeCompare(a.code));
     }
 
-    /**
-     * LIB hub: child pages "Versão LIB YYYYMMDD_P12" = histórico.
-     * Próxima = menor data futura; última expedida = maior data <= hoje.
-     * Draw.io (opcional) traz textos "Prevista/Expedida".
-     */
-    function parseLibFromHtml(html, drawioJsonText) {
-      const history = extractLibVersionsFromHtml(html);
+    function buildLibResult(history, drawioJsonText) {
       if (!history.length) return { error: "not_found" };
 
       const today = startOfTodayUTC();
@@ -998,6 +1280,58 @@
       };
     }
 
+    function parseLibDrawioStatuses(drawioJsonText) {
+      let xml = "";
+      const data = extractJsonPayload(drawioJsonText);
+      if (data && data.xml) {
+        xml = data.xml;
+      } else {
+        xml = drawioJsonText || "";
+      }
+      if (!xml) return { statuses: {}, cadenceNote: "" };
+
+      const values = [...xml.matchAll(/value="([^"]*)"/g)].map((m) => {
+        let text = decodeHtmlEntities(m[1]);
+        text = decodeHtmlEntities(text);
+        text = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+        return text;
+      });
+
+      const statuses = {};
+      let cadenceNote = "";
+      for (let i = 0; i < values.length; i += 1) {
+        const libMatch = values[i].match(/^LIB (20\d{6})_P12$/i);
+        if (libMatch) {
+          const code = libMatch[1];
+          for (let j = i + 1; j < Math.min(i + 6, values.length); j += 1) {
+            if (/^LIB 20\d{6}_P12$/i.test(values[j])) break;
+            if (/Prevista para|Expedida em/i.test(values[j])) {
+              statuses[code] = values[j];
+              break;
+            }
+          }
+        }
+        if (/a cada 40 dias/i.test(values[i])) cadenceNote = values[i];
+      }
+      return { statuses, cadenceNote };
+    }
+
+    /**
+     * LIB hub: child pages "Versão LIB YYYYMMDD_P12" = histórico.
+     * Próxima = menor data futura; última expedida = maior data <= hoje.
+     * Draw.io (opcional) traz textos "Prevista/Expedida".
+     */
+    function parseLibFromHtml(html, drawioJsonText) {
+      return buildLibResult(extractLibVersionsFromHtml(html), drawioJsonText);
+    }
+
+    function parseLibFromChildren(childrenJsonText, drawioJsonText) {
+      return buildLibResult(
+        extractLibVersionsFromChildren(childrenJsonText),
+        drawioJsonText
+      );
+    }
+
     function parseModule(mod, html, drawioJsonText) {
       if (mod.type === "lib") return parseLibFromHtml(html, drawioJsonText);
       if (mod.type === "quality") return parseQualityFromHtml(html);
@@ -1010,7 +1344,7 @@
       });
       if (!res.ok) throw new Error(`jina ${res.status}`);
       const html = await res.text();
-      if (!html || html.length < 500) throw new Error("jina empty");
+      assertUsableHtml(html, "jina");
       return html;
     }
 
@@ -1020,7 +1354,7 @@
       );
       if (!res.ok) throw new Error(`allorigins ${res.status}`);
       const html = await res.text();
-      if (!html || html.length < 500) throw new Error("allorigins empty");
+      assertUsableHtml(html, "allorigins");
       return html;
     }
 
@@ -1028,8 +1362,18 @@
       const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
       if (!res.ok) throw new Error(`corsproxy ${res.status}`);
       const html = await res.text();
-      if (!html || html.length < 500) throw new Error("corsproxy empty");
+      assertUsableHtml(html, "corsproxy");
       return html;
+    }
+
+    function assertUsableHtml(html, source) {
+      if (!html || html.length < 500) throw new Error(`${source} empty`);
+      if (
+        /HTTP Status 400|Attention Required! \| Cloudflare/i.test(html) &&
+        html.length < 8000
+      ) {
+        throw new Error(`${source} blocked or bad request`);
+      }
     }
 
     async function fetchTdnHtml(url) {
@@ -1045,20 +1389,333 @@
       throw lastError || new Error("all proxies failed");
     }
 
-    /** Draw.io REST devolve JSON; evita Jina em modo HTML. */
+    /** Conteúdo bruto (JSON Draw.io / REST Confluence). */
     async function fetchTdnRaw(url) {
       const strategies = [fetchViaAllOrigins, fetchViaCorsProxy, fetchViaJina];
       let lastError;
       for (const strategy of strategies) {
         try {
           const text = await strategy(url);
-          if (text && (text.includes('"xml"') || text.includes("<mxfile"))) return text;
-          lastError = new Error("unexpected drawio payload");
+          if (
+            text &&
+            (text.includes('"xml"') ||
+              text.includes("<mxfile") ||
+              text.includes('"results"') ||
+              text.trim().startsWith("{"))
+          ) {
+            return text;
+          }
+          lastError = new Error("unexpected raw payload");
         } catch (err) {
           lastError = err;
         }
       }
-      throw lastError || new Error("drawio fetch failed");
+      throw lastError || new Error("raw fetch failed");
+    }
+
+    function versionSortKey(title) {
+      const m = String(title).match(/(\d+)\.(\d+)/);
+      if (!m) return 0;
+      return Number(m[1]) * 1000 + Number(m[2]);
+    }
+
+    /** Link Confluence no espaço tec (ex.: Application Server - 26.3.0.1). */
+    function tecDisplayUrl(title) {
+      return (
+        "https://tdn.totvs.com/display/tec/" +
+        String(title || "")
+          .trim()
+          .replace(/ /g, "+")
+      );
+    }
+
+    function safeAbsoluteUrl(href) {
+      try {
+        if (!href || /^javascript:/i.test(href)) return "";
+        return new URL(href, "https://tdn.totvs.com").href;
+      } catch {
+        return "";
+      }
+    }
+
+    const APPSERVER_FAMILY_FALLBACK = [
+      {
+        id: "1055101575",
+        title: "Application Server - 26.3.y.z",
+        pageUrl: "https://tdn.totvs.com/pages/viewpage.action?pageId=1055101575",
+      },
+      {
+        id: "824927016",
+        title: "Application Server - 24.3.y.z",
+        pageUrl: "https://tdn.totvs.com/pages/viewpage.action?pageId=824927016",
+      },
+      {
+        id: "571517176",
+        title: "Application Server - 20.3.y.z",
+        pageUrl: "https://tdn.totvs.com/pages/viewpage.action?pageId=571517176",
+      },
+    ];
+
+    function parseAppServerFamilies(childrenJsonText) {
+      const data = extractJsonPayload(childrenJsonText);
+      if (!data) return [];
+
+      const families = (data.results || [])
+        .map((page) => ({
+          id: String(page.id),
+          title: page.title || "",
+          pageUrl: `https://tdn.totvs.com/pages/viewpage.action?pageId=${page.id}`,
+        }))
+        .filter((page) =>
+          /Application Server\s*-\s*\d+\.\d+\.y\.z/i.test(page.title)
+        );
+
+      families.sort((a, b) => versionSortKey(b.title) - versionSortKey(a.title));
+      return families.slice(0, 3);
+    }
+
+    function parseAppServerConfigSections(childrenJsonText) {
+      const data = extractJsonPayload(childrenJsonText);
+      if (!data) return [];
+
+      return (data.results || [])
+        .map((page) => {
+          const title = page.title || "";
+          const keyMatch = title.match(/\[([^\]]+)\]/);
+          return {
+            id: String(page.id),
+            title,
+            sectionKey: keyMatch ? `[${keyMatch[1]}]` : title,
+            pageUrl: `https://tdn.totvs.com/pages/viewpage.action?pageId=${page.id}`,
+          };
+        })
+        .filter((page) => page.title)
+        .sort((a, b) =>
+          a.sectionKey.localeCompare(b.sectionKey, undefined, { sensitivity: "base" })
+        );
+    }
+
+    function parseAppServerConfigIntro(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const root =
+        doc.querySelector("#main-content") ||
+        doc.querySelector(".wiki-content") ||
+        doc.body;
+      const paragraphs = Array.from(root.querySelectorAll("p"))
+        .map((p) => (p.textContent || "").replace(/\s+/g, " ").trim())
+        .filter((text) => text.length > 40);
+
+      const notes = [];
+      for (const text of paragraphs) {
+        if (/ini customizado|appserver\.ini|nomenclatura/i.test(text)) {
+          notes.push(text);
+        }
+        if (notes.length >= 2) break;
+      }
+      return notes;
+    }
+
+    function statusClass(status) {
+      const s = (status || "").toUpperCase();
+      if (s.includes("HOMOLOGADO") || s === "SUPPORTED") return "status-ok";
+      if (s.includes("DESENVOLVIMENTO")) return "status-dev";
+      if (s === "EOL" || s.includes("END OF LIFE")) return "status-eol";
+      if (s.includes("RUSSIAN") || s.includes("ONLY")) return "status-limited";
+      return "status-other";
+    }
+
+    function inferOsFamily(name) {
+      const n = String(name || "");
+      if (/^Astra Linux/i.test(n)) return "Astra Linux";
+      if (/^Windows Server/i.test(n)) return "Microsoft";
+      if (/^OpenSUSE/i.test(n)) return "OpenSUSE";
+      if (/^Oracle Linux/i.test(n)) return "Oracle Linux";
+      if (/^Red Hat/i.test(n)) return "Red Hat";
+      if (/^SUSE Linux/i.test(n)) return "SUSE";
+      return n.split(/\s+/).slice(0, 2).join(" ") || "Outros";
+    }
+
+    function parseAppServerOsPage(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const root =
+        doc.querySelector("#main-content") ||
+        doc.querySelector(".wiki-content") ||
+        doc.body;
+
+      const notes = [];
+      Array.from(root.querySelectorAll("p")).forEach((p) => {
+        const text = (p.textContent || "").replace(/\s+/g, " ").trim();
+        if (text.length < 50) return;
+        if (
+          /Informação importante para Sistemas Operacionais Linux|Política de homologação|não estão homologadas|Versão homologada|Versões suportadas|Versões não suportadas|Mudança de major version/i.test(
+            text
+          )
+        ) {
+          notes.push(text);
+        }
+      });
+
+      const groups = [];
+      const tables = Array.from(root.querySelectorAll("table"));
+
+      for (const table of tables) {
+        const headerRow = table.rows?.[0];
+        if (!headerRow) continue;
+        const headerCells = Array.from(headerRow.cells).map((cell) =>
+          (cell.textContent || "").replace(/\s+/g, " ").trim().toLowerCase()
+        );
+        if (!headerCells.some((h) => h.includes("sistema operacional"))) continue;
+
+        let statusIdx = headerCells.findIndex((h) => h.includes("status"));
+        let notesIdx = headerCells.findIndex((h) =>
+          /observ|vers|informa|software/i.test(h)
+        );
+        if (statusIdx < 0 && headerCells.length >= 3) {
+          statusIdx = headerCells.length - 1;
+        }
+        if (notesIdx < 0 && headerCells.length >= 2) {
+          notesIdx = statusIdx > 0 ? statusIdx - 1 : 1;
+        }
+
+        const items = [];
+        Array.from(table.rows)
+          .slice(1)
+          .forEach((row) => {
+            const cells = Array.from(row.cells);
+            if (cells.length < 2) return;
+
+            const nameCell = cells[0];
+            const link = nameCell.querySelector("a[href]");
+            const name = (
+              (link && link.textContent) ||
+              nameCell.textContent ||
+              ""
+            )
+              .replace(/\s+/g, " ")
+              .trim();
+            if (!name || /^sistema operacional$/i.test(name)) return;
+            if (/GetServerIP|GetSrvInfo|Software requirements/i.test(name)) return;
+            // Exige versão (dígito) ou link dedicado — evita linhas de categoria/intro.
+            if (!link && !/\d/.test(name)) return;
+            if (link && !/\d/.test(name) && cells.length < 3) return;
+
+            const notesText = (cells[notesIdx]?.textContent || "")
+              .replace(/\s+/g, " ")
+              .trim();
+            const status = (cells[statusIdx]?.textContent || "")
+              .replace(/\s+/g, " ")
+              .trim();
+            const cleanNotes = /GetServerIP|GetSrvInfo|Software requirements/i.test(
+              notesText
+            )
+              ? ""
+              : notesText;
+
+            items.push({
+              name,
+              notes: cleanNotes,
+              status,
+              pageUrl: link
+                ? safeAbsoluteUrl(link.getAttribute("href")) || tecDisplayUrl(name)
+                : tecDisplayUrl(name),
+            });
+          });
+
+        if (!items.length) continue;
+        groups.push({
+          family: inferOsFamily(items[0].name),
+          items,
+        });
+      }
+
+      // Remove duplicatas (tabelas aninhadas no TDN).
+      const seen = new Set();
+      const uniqueGroups = groups
+        .map((group) => ({
+          ...group,
+          items: group.items.filter((item) => {
+            const key = item.name.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          }),
+        }))
+        .filter((group) => group.items.length);
+
+      if (!uniqueGroups.length) return { error: "not_found" };
+      return { groups: uniqueGroups, notes: notes.slice(0, 6) };
+    }
+
+    /**
+     * Página da família (ex.: 24.3.y.z): tabela + lista abaixo.
+     * Mantém ordem de cima para baixo e pega só os 3 primeiros.
+     */
+    function parseAppServerFamilyPage(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const tableItems = [];
+      const tables = Array.from(doc.querySelectorAll("table"));
+
+      for (const table of tables) {
+        const headerText = (table.querySelector("tr")?.textContent || "").toLowerCase();
+        if (!headerText.includes("apelido") || !headerText.includes("releases")) {
+          continue;
+        }
+        Array.from(table.querySelectorAll("tr"))
+          .slice(1)
+          .forEach((row) => {
+            const cells = Array.from(row.querySelectorAll("th, td"));
+            if (cells.length < 4) return;
+            const name = (cells[0].textContent || "").replace(/\s+/g, " ").trim();
+            if (!/Application Server\s*-\s*\d+/i.test(name)) return;
+            const nickname = (cells[1].textContent || "").replace(/\s+/g, " ").trim();
+            const timeEl = cells[2].querySelector("time");
+            const date =
+              formatDate(timeEl?.getAttribute("datetime") || "") ||
+              (cells[2].textContent || "").replace(/\s+/g, " ").trim();
+            const status = (cells[3].textContent || "").replace(/\s+/g, " ").trim();
+            const homologado = (cells[4]?.textContent || "").replace(/\s+/g, " ").trim();
+            tableItems.push({ name, nickname, date, status, homologado, pageUrl: "" });
+          });
+        break;
+      }
+
+      const listLinks = [];
+      const root =
+        doc.querySelector("#main-content") ||
+        doc.querySelector(".wiki-content") ||
+        doc.body;
+      Array.from(root.querySelectorAll("a[href]")).forEach((a) => {
+        const name = (a.textContent || "").replace(/\s+/g, " ").trim();
+        if (!/^Application Server\s*-\s*\d+\.\d+\.\d+\.\d+$/i.test(name)) return;
+        const pageUrl = safeAbsoluteUrl(a.getAttribute("href"));
+        if (!pageUrl) return;
+        listLinks.push({ name, pageUrl });
+      });
+
+      const urlByName = new Map(listLinks.map((item) => [item.name, item.pageUrl]));
+      const ordered = [];
+      const seen = new Set();
+
+      tableItems.forEach((item) => {
+        item.pageUrl = urlByName.get(item.name) || tecDisplayUrl(item.name);
+        ordered.push(item);
+        seen.add(item.name);
+      });
+
+      listLinks.forEach((link) => {
+        if (seen.has(link.name)) return;
+        ordered.push({
+          name: link.name,
+          nickname: "",
+          date: "",
+          status: "",
+          homologado: "",
+          pageUrl: link.pageUrl,
+        });
+        seen.add(link.name);
+      });
+
+      return ordered.slice(0, 3);
     }
 
     function historyTag(kind) {
@@ -1177,6 +1834,73 @@
                 ? `<a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>`
                 : `<span class="note">Aguardando link</span>`
             }
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "appserver") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="appserver" data-appserver-sub="${mod.appserverSub || "releases"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "AppServer"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para buscar as 3 linhas do topo e os 3 primeiros releases de cada uma.
+          </div>
+          <div class="body-loading loading hidden">Buscando notas de release do Application Server…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <p class="note">Mostrando os 3 primeiros de cima para baixo (famílias e releases).</p>
+            <div class="appserver-families js-appserver-families"></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver índice no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "appserver-config") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="appserver-config" data-appserver-sub="${mod.appserverSub || "config"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "appserver.ini"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar as seções do <strong>appserver.ini</strong>.
+          </div>
+          <div class="body-loading loading hidden">Buscando seções do arquivo de configuração…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="js-config-notes"></div>
+            <p class="note">Seções do arquivo de configuração do Application Server:</p>
+            <ul class="config-sections js-config-sections"></ul>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "appserver-os") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="appserver-os" data-appserver-sub="${mod.appserverSub || "os"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "Protheus"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar os sistemas operacionais homologados do Application Server Protheus.
+          </div>
+          <div class="body-loading loading hidden">Buscando sistemas operacionais homologados…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="os-policy js-os-notes"></div>
+            <div class="os-groups js-os-groups"></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
           </div>
         </article>`;
       }
@@ -1303,6 +2027,107 @@
       setState(card, "success");
     }
 
+    function fillAppServerSuccess(card, data) {
+      const root = card.querySelector(".js-appserver-families");
+      root.innerHTML = (data.families || [])
+        .map((family) => {
+          const releases = (family.releases || [])
+            .map((item) => {
+              const meta = [
+                item.nickname,
+                item.date,
+                item.homologado,
+              ]
+                .filter(Boolean)
+                .join(" · ");
+              return `
+                <div class="appserver-release">
+                  <a href="${item.pageUrl}" target="_blank" rel="noopener noreferrer"><strong>${item.name}</strong></a>
+                  ${item.status ? `<span class="status-pill ${statusClass(item.status)}">${item.status}</span>` : ""}
+                  ${meta ? `<div class="history-meta">${meta}</div>` : ""}
+                </div>`;
+            })
+            .join("");
+          return `
+            <div class="appserver-family">
+              <div class="appserver-family-head">
+                <strong>${family.title}</strong>
+                <a class="btn btn-ghost" href="${family.pageUrl}" target="_blank" rel="noopener noreferrer">Abrir família</a>
+              </div>
+              ${releases || '<p class="note">Nenhum release encontrado nesta família.</p>'}
+            </div>`;
+        })
+        .join("");
+      setState(card, "success");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function fillAppServerConfigSuccess(card, data) {
+      const notesRoot = card.querySelector(".js-config-notes");
+      notesRoot.innerHTML = (data.notes || [])
+        .map((note) => `<p class="note">${escapeHtml(note)}</p>`)
+        .join("");
+
+      const list = card.querySelector(".js-config-sections");
+      list.innerHTML = (data.sections || [])
+        .map(
+          (item) => `
+          <li>
+            <a href="${item.pageUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a>
+            <span class="config-key">${escapeHtml(item.sectionKey)}</span>
+          </li>`
+        )
+        .join("");
+      setState(card, "success");
+    }
+
+    function fillAppServerOsSuccess(card, data) {
+      const notesRoot = card.querySelector(".js-os-notes");
+      notesRoot.innerHTML = (data.notes || [])
+        .map((note) => `<p class="note">${escapeHtml(note)}</p>`)
+        .join("");
+
+      const groupsRoot = card.querySelector(".js-os-groups");
+      groupsRoot.innerHTML = (data.groups || [])
+        .map((group) => {
+          const rows = (group.items || [])
+            .map((item) => {
+              const meta = item.notes
+                ? `<div class="history-meta">${escapeHtml(item.notes)}</div>`
+                : "";
+              return `
+                <div class="os-row">
+                  <div class="os-row-top">
+                    <a href="${escapeHtml(item.pageUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>
+                    ${
+                      item.status
+                        ? `<span class="status-pill ${statusClass(item.status)}">${escapeHtml(item.status)}</span>`
+                        : ""
+                    }
+                  </div>
+                  ${meta}
+                </div>`;
+            })
+            .join("");
+          return `
+            <div class="os-group">
+              <div class="os-group-head">
+                <strong>${escapeHtml(group.family)}</strong>
+              </div>
+              ${rows}
+            </div>`;
+        })
+        .join("");
+      setState(card, "success");
+    }
+
     function fillSuccess(card, data) {
       if (card.dataset.type === "lib") {
         fillLibSuccess(card, data);
@@ -1310,6 +2135,18 @@
       }
       if (card.dataset.type === "quality") {
         fillQualitySuccess(card, data);
+        return;
+      }
+      if (card.dataset.type === "appserver") {
+        fillAppServerSuccess(card, data);
+        return;
+      }
+      if (card.dataset.type === "appserver-config") {
+        fillAppServerConfigSuccess(card, data);
+        return;
+      }
+      if (card.dataset.type === "appserver-os") {
+        fillAppServerOsSuccess(card, data);
         return;
       }
 
@@ -1324,6 +2161,109 @@
       return document.querySelector(`[data-module-id="${mod.id}"]`);
     }
 
+    async function refreshAppServer(mod, card) {
+      setState(card, "loading");
+      try {
+        let families = [];
+        try {
+          const childrenText = await fetchTdnRaw(mod.childrenUrl);
+          families = parseAppServerFamilies(childrenText);
+        } catch (err) {
+          console.warn("API de famílias do AppServer falhou, usando fallback.", err);
+        }
+
+        if (!families.length) {
+          families = APPSERVER_FAMILY_FALLBACK;
+        } else {
+          // Preferir pageId do fallback quando o título bater (URLs mais estáveis no proxy).
+          const byTitle = new Map(
+            APPSERVER_FAMILY_FALLBACK.map((f) => [f.title.toLowerCase(), f])
+          );
+          families = families.map((family) => {
+            const known = byTitle.get((family.title || "").toLowerCase());
+            return known ? { ...family, id: known.id, pageUrl: known.pageUrl } : family;
+          });
+        }
+
+        const detailed = [];
+        for (const family of families) {
+          try {
+            const html = await fetchTdnHtml(family.pageUrl);
+            detailed.push({
+              ...family,
+              releases: parseAppServerFamilyPage(html),
+            });
+          } catch (err) {
+            console.warn(`Falha ao carregar família ${family.title}`, err);
+            detailed.push({ ...family, releases: [] });
+          }
+        }
+
+        const withReleases = detailed.filter((family) => family.releases.length);
+        if (!withReleases.length) {
+          setState(
+            card,
+            "error",
+            "Achei as famílias, mas não consegui ler os releases em cada página."
+          );
+          return;
+        }
+
+        fillAppServerSuccess(card, { families: detailed });
+      } catch (err) {
+        console.error(err);
+        setState(card, "error", "Não foi possível buscar o Application Server no TDN.");
+      }
+    }
+
+    async function refreshAppServerConfig(mod, card) {
+      setState(card, "loading");
+      try {
+        const [childrenText, pageHtml] = await Promise.all([
+          fetchTdnRaw(mod.childrenUrl),
+          fetchTdnHtml(moduleUrl(mod)),
+        ]);
+        const sections = parseAppServerConfigSections(childrenText);
+        if (!sections.length) {
+          setState(card, "error", "Não achei as seções do arquivo de configuração.");
+          return;
+        }
+        const notes = parseAppServerConfigIntro(pageHtml);
+        fillAppServerConfigSuccess(card, { sections, notes });
+      } catch (err) {
+        console.error(err);
+        setState(
+          card,
+          "error",
+          "Não foi possível buscar o arquivo de configuração no TDN."
+        );
+      }
+    }
+
+    async function refreshAppServerOs(mod, card) {
+      setState(card, "loading");
+      try {
+        const html = await fetchTdnHtml(moduleUrl(mod));
+        const parsed = parseAppServerOsPage(html);
+        if (parsed.error === "not_found") {
+          setState(
+            card,
+            "error",
+            "Não achei a tabela de sistemas operacionais na página."
+          );
+          return;
+        }
+        fillAppServerOsSuccess(card, parsed);
+      } catch (err) {
+        console.error(err);
+        setState(
+          card,
+          "error",
+          "Não foi possível buscar os sistemas operacionais homologados no TDN."
+        );
+      }
+    }
+
     async function refreshModule(mod) {
       const card = findCard(mod);
       if (!card) return;
@@ -1333,10 +2273,26 @@
         return;
       }
 
+      if (mod.type === "appserver") {
+        await refreshAppServer(mod, card);
+        return;
+      }
+
+      if (mod.type === "appserver-config") {
+        await refreshAppServerConfig(mod, card);
+        return;
+      }
+
+      if (mod.type === "appserver-os") {
+        await refreshAppServerOs(mod, card);
+        return;
+      }
+
       setState(card, "loading");
       try {
-        const html = await fetchTdnHtml(moduleUrl(mod));
+        let parsed = null;
         let drawioJsonText = "";
+
         if (mod.type === "lib" && mod.drawioUrl) {
           try {
             drawioJsonText = await fetchTdnRaw(mod.drawioUrl);
@@ -1345,7 +2301,20 @@
           }
         }
 
-        const parsed = parseModule(mod, html, drawioJsonText);
+        if (mod.type === "lib" && mod.childrenUrl) {
+          try {
+            const childrenText = await fetchTdnRaw(mod.childrenUrl);
+            parsed = parseLibFromChildren(childrenText, drawioJsonText);
+          } catch (err) {
+            console.warn("API de children da LIB falhou, tentando HTML.", err);
+          }
+        }
+
+        if (!parsed || parsed.error) {
+          const html = await fetchTdnHtml(moduleUrl(mod));
+          parsed = parseModule(mod, html, drawioJsonText);
+        }
+
         if (parsed.error === "not_found") {
           setState(
             card,
@@ -1369,16 +2338,23 @@
       }
     }
 
+    function isBinaryModuleReady(mod) {
+      return (
+        mod.type === "appserver" ||
+        mod.type === "appserver-config" ||
+        mod.type === "appserver-os" ||
+        Boolean(moduleUrl(mod))
+      );
+    }
+
     async function refreshAll() {
       const btn = document.getElementById("refresh-all");
-      const modules = sectionModules().filter(
-        (mod) => mod.type !== "binary" || moduleUrl(mod)
-      );
+      const list = refreshTargets();
       btn.disabled = true;
       btn.textContent = "Atualizando…";
       try {
-        if (!modules.length) return;
-        await Promise.all(modules.map((mod) => refreshModule(mod)));
+        if (!list.length) return;
+        await Promise.all(list.map((mod) => refreshModule(mod)));
       } finally {
         btn.disabled = false;
         btn.textContent = "Atualizar todos";
@@ -1387,13 +2363,57 @@
 
     function setTab(tabId) {
       activeTab = tabId;
-      document.querySelectorAll(".tab").forEach((tab) => {
+      document.querySelectorAll("#section-expedicao .tab").forEach((tab) => {
         const selected = tab.dataset.tab === tabId;
         tab.setAttribute("aria-selected", selected ? "true" : "false");
       });
       Object.entries(TABS).forEach(([id, tab]) => {
         document.getElementById(tab.panelId).hidden = id !== tabId;
       });
+    }
+
+    function setBinarioTab(tabId) {
+      activeBinarioTab = tabId;
+      document.querySelectorAll(".bin-tab").forEach((tab) => {
+        tab.setAttribute(
+          "aria-selected",
+          tab.dataset.binTab === tabId ? "true" : "false"
+        );
+      });
+      Object.entries(BINARIO_TABS).forEach(([id, tab]) => {
+        document.getElementById(tab.panelId).hidden = id !== tabId;
+      });
+      updateRefreshButton();
+    }
+
+    function setAppServerSub(subId) {
+      activeAppServerSub = subId;
+      document.querySelectorAll(".appserver-subtab").forEach((tab) => {
+        tab.setAttribute(
+          "aria-selected",
+          tab.dataset.appserverSub === subId ? "true" : "false"
+        );
+      });
+      document
+        .querySelectorAll("#modules-bin-appserver [data-appserver-sub]")
+        .forEach((card) => {
+          card.hidden = card.dataset.appserverSub !== subId;
+        });
+      updateRefreshButton();
+    }
+
+    function updateRefreshButton() {
+      const refreshBtn = document.getElementById("refresh-all");
+      if (activeSection !== "binarios") {
+        refreshBtn.disabled = false;
+        refreshBtn.title = "";
+        return;
+      }
+      const ready = sectionModules().some(isBinaryModuleReady);
+      refreshBtn.disabled = !ready;
+      refreshBtn.title = ready
+        ? ""
+        : "Configure os links do TDN para habilitar a atualização";
     }
 
     function setSection(sectionId) {
@@ -1411,18 +2431,7 @@
 
       document.getElementById("section-expedicao").hidden = sectionId !== "expedicao";
       document.getElementById("section-binarios").hidden = sectionId !== "binarios";
-
-      const refreshBtn = document.getElementById("refresh-all");
-      if (sectionId === "binarios") {
-        const ready = BINARIOS.some((mod) => moduleUrl(mod));
-        refreshBtn.disabled = !ready;
-        refreshBtn.title = ready
-          ? ""
-          : "Configure os links do TDN para habilitar a atualização";
-      } else {
-        refreshBtn.disabled = false;
-        refreshBtn.title = "";
-      }
+      updateRefreshButton();
     }
 
     function render() {
@@ -1431,11 +2440,21 @@
         root.innerHTML = tab.modules.map(cardTemplate).join("");
       });
 
-      const binariesRoot = document.getElementById("modules-binarios");
-      binariesRoot.innerHTML = BINARIOS.map(cardTemplate).join("");
+      Object.values(BINARIO_TABS).forEach((tab) => {
+        const root = document.getElementById(tab.rootId);
+        root.innerHTML = tab.modules.map(cardTemplate).join("");
+      });
 
-      document.querySelectorAll(".tab").forEach((tab) => {
+      document.querySelectorAll("#section-expedicao .tab").forEach((tab) => {
         tab.addEventListener("click", () => setTab(tab.dataset.tab));
+      });
+
+      document.querySelectorAll(".bin-tab").forEach((tab) => {
+        tab.addEventListener("click", () => setBinarioTab(tab.dataset.binTab));
+      });
+
+      document.querySelectorAll(".appserver-subtab").forEach((tab) => {
+        tab.addEventListener("click", () => setAppServerSub(tab.dataset.appserverSub));
       });
 
       document.querySelectorAll(".section-btn").forEach((btn) => {
@@ -1444,6 +2463,8 @@
 
       document.getElementById("refresh-all").addEventListener("click", refreshAll);
       setTab("backoffice");
+      setBinarioTab("appserver");
+      setAppServerSub("releases");
       setSection("expedicao");
     }
 
@@ -1451,7 +2472,13 @@
       parsePackageFromHtml,
       parseQualityFromHtml,
       parseLibFromHtml,
+      parseLibFromChildren,
+      parseAppServerFamilies,
+      parseAppServerFamilyPage,
+      parseAppServerOsPage,
+      parseAppServerConfigSections,
       TABS,
+      BINARIO_TABS,
       BINARIOS,
       SECTIONS,
       refreshAll,
