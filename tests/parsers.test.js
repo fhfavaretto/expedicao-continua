@@ -227,6 +227,27 @@ describe("regressão — contratos da UI/config", () => {
     expect(mods.every((m) => m.url || m.pageId)).toBe(true);
   });
 
+  it("BINARIO_TABS expõe Ferramental com TDS e TIR", () => {
+    const mods = app.BINARIO_TABS.ferramental.modules;
+    expect(mods.map((m) => m.id)).toEqual(["tds-vscode", "tir"]);
+    expect(mods.every((m) => m.type === "github-release")).toBe(true);
+    expect(mods.every((m) => m.repo && m.url.includes("github.com"))).toBe(true);
+  });
+
+  it("GitHub release: extrai tag e data da release", () => {
+    const tds = app.parseGitHubRelease(readFixture("tds-vscode-latest.json"));
+    expect(tds.error).toBeUndefined();
+    expect(tds.tag).toMatch(/^v?\d/);
+    expect(tds.publishedDate).toMatch(/\d{2}\/\d{2}\/\d{4}/);
+    expect(tds.htmlUrl).toContain("github.com/totvs/tds-vscode");
+
+    const tir = app.parseGitHubRelease(readFixture("tir-latest.json"));
+    expect(tir.error).toBeUndefined();
+    expect(tir.tag).toMatch(/^v?\d/);
+    expect(tir.publishedDate).toMatch(/\d{2}\/\d{2}\/\d{4}/);
+    expect(tir.htmlUrl).toContain("github.com/totvs/tir");
+  });
+
   it("tecDisplayUrl / parseAppServerFamilyPage não quebram sem link na lista", () => {
     const html = `
       <div id="main-content">

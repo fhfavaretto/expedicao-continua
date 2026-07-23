@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#002233" />
   <title>Expedição Contínua</title>
   <link rel="icon" href="assets/totvs-favicon-light.png" type="image/png" />
   <link rel="apple-touch-icon" href="assets/totvs-favicon-light.png" />
@@ -781,6 +782,212 @@
       font-size: 0.8rem;
       line-height: 1.45;
     }
+
+    /* —— Mobile —— */
+    @media (max-width: 699px) {
+      body {
+        overflow-x: clip;
+      }
+
+      .page {
+        width: min(880px, calc(100% - 1.25rem));
+        padding: 1.15rem 0 max(2.4rem, env(safe-area-inset-bottom));
+      }
+
+      .hero {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.85rem;
+        margin-bottom: 1.05rem;
+      }
+
+      .hero-brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.55rem;
+        flex-basis: auto;
+      }
+
+      .hero-logo-wrap {
+        padding: 0;
+      }
+
+      .hero-logo {
+        height: 1.85rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.4rem, 7.2vw, 1.85rem);
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+        max-width: none;
+      }
+
+      #refresh-all {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      .section-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-btn {
+        width: 100%;
+        min-height: 44px;
+        padding: 0.55rem 0.7rem;
+        font-size: 0.86rem;
+        border-radius: 12px;
+      }
+
+      .toolbar {
+        margin-bottom: 0.8rem;
+      }
+
+      .tabs {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        gap: 0.25rem;
+      }
+
+      .tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        min-height: 40px;
+        padding: 0.45rem 0.8rem;
+        font-size: 0.84rem;
+      }
+
+      .tabs-secondary {
+        margin-bottom: 0.75rem;
+      }
+
+      .card {
+        padding: 1rem;
+        min-height: 0;
+        border-radius: 12px;
+        gap: 0.75rem;
+      }
+
+      .card-header {
+        align-items: center;
+      }
+
+      .card-header h2 {
+        font-size: 1.12rem;
+        line-height: 1.25;
+      }
+
+      .badge {
+        font-size: 0.7rem;
+        padding: 0.18rem 0.45rem;
+      }
+
+      .meta-row strong {
+        font-size: 1.05rem;
+        overflow-wrap: anywhere;
+      }
+
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .actions .btn,
+      .actions a.btn,
+      .meta .js-download,
+      .meta .js-section-link,
+      .btn-primary {
+        width: 100%;
+      }
+
+      .btn-ghost {
+        width: 100%;
+        justify-content: flex-start;
+        padding-block: 0.55rem;
+      }
+
+      .lib-highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .lib-pill strong {
+        font-size: 1.2rem;
+        overflow-wrap: anywhere;
+      }
+
+      .history-list,
+      .config-sections {
+        max-height: 16rem;
+      }
+
+      .config-sections li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+
+      .config-key {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .appserver-family-head,
+      .quality-release-top,
+      .os-row-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .appserver-release,
+      .os-row-top a,
+      .history-list a {
+        overflow-wrap: anywhere;
+      }
+
+      .tag {
+        white-space: normal;
+      }
+
+      .disclaimer {
+        padding: 0.95rem 1rem;
+      }
+
+      .disclaimer p {
+        font-size: 0.84rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .section-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-logo {
+        height: 1.65rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      button,
+      .btn {
+        transition: none;
+      }
+
+      button:hover:not(:disabled),
+      .btn:hover {
+        transform: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -842,6 +1049,7 @@
           <button type="button" class="tab bin-tab" role="tab" id="tab-bin-appserver" aria-controls="panel-bin-appserver" aria-selected="true" data-bin-tab="appserver">AppServer</button>
           <button type="button" class="tab bin-tab" role="tab" id="tab-bin-dbaccess" aria-controls="panel-bin-dbaccess" aria-selected="false" data-bin-tab="dbaccess">DBAccess</button>
           <button type="button" class="tab bin-tab" role="tab" id="tab-bin-smartclient" aria-controls="panel-bin-smartclient" aria-selected="false" data-bin-tab="smartclient">SmartClient HTML</button>
+          <button type="button" class="tab bin-tab" role="tab" id="tab-bin-ferramental" aria-controls="panel-bin-ferramental" aria-selected="false" data-bin-tab="ferramental">Ferramental</button>
         </div>
       </div>
 
@@ -873,6 +1081,10 @@
         </div>
         <div id="modules-bin-smartclient" class="grid" aria-live="polite"></div>
       </section>
+
+      <section id="panel-bin-ferramental" class="panel" role="tabpanel" aria-labelledby="tab-bin-ferramental" hidden>
+        <div id="modules-bin-ferramental" class="grid" aria-live="polite"></div>
+      </section>
     </div>
 
     <aside class="disclaimer" role="note" aria-label="Aviso legal">
@@ -896,7 +1108,7 @@
     </aside>
 
     <footer class="disclaimer-meta">
-      Ferramenta comunitária · fontes: TDN TOTVS · Expedição Contínua e Binários.
+      Ferramenta comunitária · fontes: TDN TOTVS e GitHub · Expedição Contínua, Binários e Ferramental.
     </footer>
   </main>
 
@@ -910,7 +1122,7 @@
       binarios: {
         title: "Binários",
         subtitle:
-          "Application Server, DBAccess e SmartClient HTML (WebApp, WebAgent, configuração e navegadores).",
+          "Application Server, DBAccess, SmartClient HTML e Ferramental (TDS e TIR no VS Code).",
       },
     };
 
@@ -1124,6 +1336,28 @@
             packageLabel: "Browsers",
             smartclientSub: "browsers",
             url: "https://tdn.totvs.com/pages/viewpage.action?pageId=6066145",
+          },
+        ],
+      },
+      ferramental: {
+        panelId: "panel-bin-ferramental",
+        rootId: "modules-bin-ferramental",
+        modules: [
+          {
+            id: "tds-vscode",
+            name: "TDS",
+            type: "github-release",
+            packageLabel: "VS Code",
+            repo: "totvs/tds-vscode",
+            url: "https://github.com/totvs/tds-vscode/releases",
+          },
+          {
+            id: "tir",
+            name: "TIR",
+            type: "github-release",
+            packageLabel: "VS Code",
+            repo: "totvs/tir",
+            url: "https://github.com/totvs/tir/releases",
           },
         ],
       },
@@ -1553,6 +1787,53 @@
         }
       }
       throw lastError || new Error("raw fetch failed");
+    }
+
+    /**
+     * GitHub Releases API (CORS aberto). Preferência: /releases/latest
+     * (última estável). Fallback: primeira release não-draft da lista.
+     */
+    async function fetchGitHubLatestRelease(repo) {
+      const latestUrl = `https://api.github.com/repos/${repo}/releases/latest`;
+      const listUrl = `https://api.github.com/repos/${repo}/releases?per_page=10`;
+      const headers = {
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      };
+
+      const latestRes = await fetch(latestUrl, { headers });
+      if (latestRes.ok) {
+        return await latestRes.json();
+      }
+
+      const listRes = await fetch(listUrl, { headers });
+      if (!listRes.ok) {
+        throw new Error(`github ${listRes.status}`);
+      }
+      const list = await listRes.json();
+      if (!Array.isArray(list) || !list.length) {
+        throw new Error("github empty releases");
+      }
+      const stable = list.find((r) => r && !r.draft && !r.prerelease);
+      return stable || list.find((r) => r && !r.draft) || list[0];
+    }
+
+    function parseGitHubRelease(payload) {
+      const data =
+        typeof payload === "string" ? extractJsonPayload(payload) : payload;
+      if (!data || typeof data !== "object") return { error: "incomplete" };
+
+      const tag = String(data.tag_name || data.name || "").trim();
+      const published = data.published_at || data.created_at || "";
+      if (!tag || !published) return { error: "incomplete" };
+
+      return {
+        tag,
+        publishedAt: published,
+        publishedDate: formatDate(published),
+        htmlUrl: data.html_url || "",
+        prerelease: Boolean(data.prerelease),
+      };
     }
 
     function versionSortKey(title) {
@@ -2750,6 +3031,34 @@
         </article>`;
       }
 
+      if (mod.type === "github-release") {
+        return `
+        <article class="card" data-module-id="${mod.id}" data-type="github-release">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "VS Code"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para buscar a release no GitHub.
+          </div>
+          <div class="body-loading loading hidden">Buscando release no GitHub…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="meta-row">
+              <span>Release</span>
+              <strong class="js-release">—</strong>
+            </div>
+            <div class="meta-row">
+              <span>Data</span>
+              <strong class="js-date">—</strong>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-github" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver releases no GitHub</a>
+          </div>
+        </article>`;
+      }
+
       return `
         <article class="card" data-module-id="${mod.id}" data-type="${mod.type}">
           <div class="card-header">
@@ -3484,6 +3793,33 @@
       }
     }
 
+    async function refreshGitHubRelease(mod, card) {
+      setState(card, "loading");
+      try {
+        if (!mod.repo) {
+          setState(card, "error", "Repositório GitHub não configurado.");
+          return;
+        }
+        const payload = await fetchGitHubLatestRelease(mod.repo);
+        const parsed = parseGitHubRelease(payload);
+        if (parsed.error) {
+          setState(card, "error", "Não achei a release no GitHub.");
+          return;
+        }
+
+        card.querySelector(".js-release").textContent = parsed.tag;
+        card.querySelector(".js-date").textContent = parsed.publishedDate;
+        const link = card.querySelector(".js-github");
+        if (link) {
+          link.href = parsed.htmlUrl || moduleUrl(mod);
+        }
+        setState(card, "success");
+      } catch (err) {
+        console.error(err);
+        setState(card, "error", "Não foi possível buscar a release no GitHub.");
+      }
+    }
+
     async function refreshModule(mod) {
       const card = findCard(mod);
       if (!card) return;
@@ -3545,6 +3881,11 @@
 
       if (mod.type === "smartclient-browsers") {
         await refreshBrowsers(mod, card);
+        return;
+      }
+
+      if (mod.type === "github-release") {
+        await refreshGitHubRelease(mod, card);
         return;
       }
 
@@ -3611,6 +3952,7 @@
         mod.type === "webagent" ||
         mod.type === "webapp-config" ||
         mod.type === "smartclient-browsers" ||
+        mod.type === "github-release" ||
         Boolean(moduleUrl(mod))
       );
     }
@@ -3801,6 +4143,7 @@
       parseWebAppConfigPage,
       parseBrowsersHomologationPage,
       parseExpandChangelog,
+      parseGitHubRelease,
       TABS,
       BINARIO_TABS,
       BINARIOS,
