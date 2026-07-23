@@ -149,6 +149,48 @@ describe("regressão — parsers TDN", () => {
     const names = parsed.groups.flatMap((g) => g.items.map((i) => i.name)).join(" | ");
     expect(names).toMatch(/Windows Server/i);
   });
+
+  it("WebApp: famílias 10.x/9.x a partir da API", () => {
+    const families = app.parseWebAppFamilies(readFixture("webapp-children.json"));
+    expect(families.length).toBe(2);
+    expect(families[0].title).toMatch(/10\.x/i);
+  });
+
+  it("WebApp: changelog expand da família 10.x", () => {
+    const parsed = app.parseWebAppFamilyPage(readFixture("webapp-family-10.html"));
+    expect(parsed.releases.length).toBe(3);
+    expect(parsed.releases[0].name).toMatch(/^10\./);
+    expect(parsed.compatibility).toMatch(/Application Server/i);
+    expect(parsed.releases[0].notes.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("WebAgent: releases recentes do changelog", () => {
+    const parsed = app.parseWebAgentReleases(readFixture("webagent-releases.html"));
+    expect(parsed.error).toBeUndefined();
+    expect(parsed.releases.length).toBeGreaterThanOrEqual(3);
+    expect(parsed.releases[0].name).toMatch(/^1\./);
+  });
+
+  it("WebApp config: aponta para seção [WebApp] do AppServer", () => {
+    const parsed = app.parseWebAppConfigPage(readFixture("webapp-config.html"));
+    expect(parsed.error).toBeUndefined();
+    expect(parsed.sectionLink.pageUrl).toContain("pageId=");
+    expect(parsed.notes.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("SmartClient: navegadores homologados", () => {
+    const parsed = app.parseBrowsersHomologationPage(
+      readFixture("smartclient-browsers.html")
+    );
+    expect(parsed.error).toBeUndefined();
+    expect(parsed.browsers.length).toBeGreaterThanOrEqual(4);
+    expect(parsed.browsers.some((b) => /Chrome/i.test(b.name) && b.status === "SUPPORTED")).toBe(
+      true
+    );
+    expect(
+      parsed.browsers.some((b) => /Safari|Internet Explorer/i.test(b.name) && b.status === "UNSUPPORTED")
+    ).toBe(true);
+  });
 });
 
 describe("regressão — contratos da UI/config", () => {
@@ -170,6 +212,17 @@ describe("regressão — contratos da UI/config", () => {
       "dbaccess-config",
       "dbaccess-databases",
       "dbaccess-os",
+    ].sort());
+    expect(mods.every((m) => m.url || m.pageId)).toBe(true);
+  });
+
+  it("BINARIO_TABS expõe SmartClient HTML completo", () => {
+    const mods = app.BINARIO_TABS.smartclient.modules;
+    expect(mods.map((m) => m.type).sort()).toEqual([
+      "smartclient-browsers",
+      "webapp",
+      "webapp-config",
+      "webagent",
     ].sort());
     expect(mods.every((m) => m.url || m.pageId)).toBe(true);
   });
