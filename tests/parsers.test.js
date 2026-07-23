@@ -91,6 +91,64 @@ describe("regressão — parsers TDN", () => {
     expect(sections.length).toBeGreaterThanOrEqual(1);
     expect(sections[0].sectionKey).toMatch(/^\[.+\]$/);
   });
+
+  it("DBAccess: famílias ativas a partir da API de children", () => {
+    const json = readFixture("dbaccess-children.json");
+    const families = app.parseDbAccessFamilies(json);
+
+    expect(families.length).toBeGreaterThanOrEqual(1);
+    expect(families.length).toBeLessThanOrEqual(3);
+    expect(families[0].title).toMatch(/DBAccess\s*-\s*\d+\.\d+\.y\.z/i);
+  });
+
+  it("DBAccess: releases da página da família 26.1", () => {
+    const html = readFixture("dbaccess-family-26.html");
+    const releases = app.parseDbAccessFamilyPage(html);
+
+    expect(releases.length).toBeGreaterThanOrEqual(1);
+    expect(releases[0].name).toMatch(/DBAccess\s*-\s*26\.1\.\d+\.\d+/i);
+  });
+
+  it("DBAccess: fallback por children da família 24.1", () => {
+    const json = readFixture("dbaccess-family-24-children.json");
+    const releases = app.parseDbAccessFamilyFromChildren(json);
+
+    expect(releases.length).toBe(3);
+    expect(releases[0].name).toMatch(/DBAccess\s*-\s*24\.1\.\d+\.\d+/i);
+  });
+
+  it("DBAccess config: seções e nomenclatura do ini", () => {
+    const sections = app.parseDbAccessConfigSections(
+      readFixture("dbaccess-config-children.json")
+    );
+    const intro = app.parseDbAccessConfigIntro(readFixture("dbaccess-config.html"));
+
+    expect(sections.length).toBeGreaterThanOrEqual(5);
+    expect(sections.some((s) => s.sectionKey === "[General]")).toBe(true);
+    expect(intro.nomenclature.length).toBeGreaterThanOrEqual(2);
+    expect(intro.nomenclature.some((n) => /dbaccess\.ini/i.test(n.file))).toBe(true);
+  });
+
+  it("DBAccess: bancos de dados homologados agrupados", () => {
+    const parsed = app.parseDbAccessDatabasesPage(readFixture("dbaccess-databases.html"));
+
+    expect(parsed.error).toBeUndefined();
+    expect(parsed.groups.length).toBeGreaterThanOrEqual(3);
+    const names = parsed.groups.flatMap((g) => g.items.map((i) => i.name)).join(" | ");
+    expect(names).toMatch(/SQL Server|Oracle|PostgreSQL/i);
+    expect(parsed.groups.some((g) => g.items.some((i) => /SUPPORTED|EOL/i.test(i.status)))).toBe(
+      true
+    );
+  });
+
+  it("DBAccess OS: sistemas operacionais homologados", () => {
+    const parsed = app.parseAppServerOsPage(readFixture("dbaccess-os.html"));
+
+    expect(parsed.error).toBeUndefined();
+    expect(parsed.groups.length).toBeGreaterThanOrEqual(3);
+    const names = parsed.groups.flatMap((g) => g.items.map((i) => i.name)).join(" | ");
+    expect(names).toMatch(/Windows Server/i);
+  });
 });
 
 describe("regressão — contratos da UI/config", () => {
@@ -103,6 +161,17 @@ describe("regressão — contratos da UI/config", () => {
       "appserver-config",
       "appserver-os",
     ].sort());
+  });
+
+  it("BINARIO_TABS expõe DBAccess completo", () => {
+    const mods = app.BINARIO_TABS.dbaccess.modules;
+    expect(mods.map((m) => m.type).sort()).toEqual([
+      "dbaccess",
+      "dbaccess-config",
+      "dbaccess-databases",
+      "dbaccess-os",
+    ].sort());
+    expect(mods.every((m) => m.url || m.pageId)).toBe(true);
   });
 
   it("tecDisplayUrl / parseAppServerFamilyPage não quebram sem link na lista", () => {

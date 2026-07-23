@@ -783,6 +783,12 @@
       </section>
 
       <section id="panel-bin-dbaccess" class="panel" role="tabpanel" aria-labelledby="tab-bin-dbaccess" hidden>
+        <div class="tabs tabs-secondary" role="tablist" aria-label="Tópicos do DBAccess">
+          <button type="button" class="tab dbaccess-subtab" role="tab" aria-selected="true" data-dbaccess-sub="releases">Releases</button>
+          <button type="button" class="tab dbaccess-subtab" role="tab" aria-selected="false" data-dbaccess-sub="config">Configuração</button>
+          <button type="button" class="tab dbaccess-subtab" role="tab" aria-selected="false" data-dbaccess-sub="databases">Bancos de dados</button>
+          <button type="button" class="tab dbaccess-subtab" role="tab" aria-selected="false" data-dbaccess-sub="os">Sistemas operacionais</button>
+        </div>
         <div id="modules-bin-dbaccess" class="grid" aria-live="polite"></div>
       </section>
 
@@ -826,7 +832,7 @@
       binarios: {
         title: "Binários",
         subtitle:
-          "Application Server (releases, appserver.ini e SOs homologados), DBAccess e SmartClient HTML.",
+          "Application Server e DBAccess (releases, configuração e homologações), SmartClient HTML.",
       },
     };
 
@@ -966,11 +972,40 @@
         rootId: "modules-bin-dbaccess",
         modules: [
           {
-            id: "dbaccess",
+            id: "dbaccess-releases",
             name: "DBAccess",
-            type: "binary",
-            packageLabel: "Binário",
-            url: "",
+            type: "dbaccess",
+            packageLabel: "Releases",
+            dbaccessSub: "releases",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=6064546",
+            childrenUrl:
+              "https://tdn.totvs.com/rest/api/content/6064546/child/page?limit=50",
+          },
+          {
+            id: "dbaccess-config",
+            name: "Arquivo de configuração",
+            type: "dbaccess-config",
+            packageLabel: "dbaccess.ini",
+            dbaccessSub: "config",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=6064707",
+            childrenUrl:
+              "https://tdn.totvs.com/rest/api/content/6064707/child/page?limit=50",
+          },
+          {
+            id: "dbaccess-databases",
+            name: "Bancos de dados homologados",
+            type: "dbaccess-databases",
+            packageLabel: "SGBD",
+            dbaccessSub: "databases",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=6064703",
+          },
+          {
+            id: "dbaccess-os",
+            name: "Sistemas operacionais homologados",
+            type: "dbaccess-os",
+            packageLabel: "SO",
+            dbaccessSub: "os",
+            url: "https://tdn.totvs.com/pages/viewpage.action?pageId=337361672",
           },
         ],
       },
@@ -996,6 +1031,7 @@
     let activeSection = "expedicao";
     let activeBinarioTab = "appserver";
     let activeAppServerSub = "releases";
+    let activeDbAccessSub = "releases";
 
     function sectionModules() {
       if (activeSection === "binarios") {
@@ -1517,9 +1553,17 @@
 
     function statusClass(status) {
       const s = (status || "").toUpperCase();
-      if (s.includes("HOMOLOGADO") || s === "SUPPORTED") return "status-ok";
+      if (s.includes("HOMOLOGADO") || s.includes("SUPPORTED")) return "status-ok";
       if (s.includes("DESENVOLVIMENTO")) return "status-dev";
-      if (s === "EOL" || s.includes("END OF LIFE")) return "status-eol";
+      if (
+        s === "EOL" ||
+        s.includes("END OF LIFE") ||
+        s.includes("SUPPORT ENDED") ||
+        s.includes("NÃO HOMOLOGADO") ||
+        s.includes("NAO HOMOLOGADO")
+      ) {
+        return "status-eol";
+      }
       if (s.includes("RUSSIAN") || s.includes("ONLY")) return "status-limited";
       return "status-other";
     }
@@ -1718,6 +1762,330 @@
       return ordered.slice(0, 3);
     }
 
+    const DBACCESS_FAMILY_FALLBACK = [
+      {
+        id: "1055101608",
+        title: "DBAccess - 26.1.y.z",
+        pageUrl: "https://tdn.totvs.com/pages/viewpage.action?pageId=1055101608",
+      },
+      {
+        id: "776520415",
+        title: "DBAccess - 24.1.y.z",
+        pageUrl: "https://tdn.totvs.com/pages/viewpage.action?pageId=776520415",
+      },
+    ];
+
+    function normalizeDbAccessReleaseName(title) {
+      const m = String(title || "").match(/(\d+\.\d+\.\d+\.\d+)/);
+      if (!m) return String(title || "").trim();
+      return `DBAccess - ${m[1]}`;
+    }
+
+    function releaseVersionSortKey(title) {
+      const m = String(title || "").match(/(\d+)\.(\d+)\.(\d+)\.(\d+)/);
+      if (!m) return 0;
+      return (
+        Number(m[1]) * 1e9 +
+        Number(m[2]) * 1e6 +
+        Number(m[3]) * 1e3 +
+        Number(m[4])
+      );
+    }
+
+    function parseDbAccessFamilies(childrenJsonText) {
+      const data = extractJsonPayload(childrenJsonText);
+      if (!data) return [];
+
+      const families = (data.results || [])
+        .map((page) => ({
+          id: String(page.id),
+          title: page.title || "",
+          pageUrl: `https://tdn.totvs.com/pages/viewpage.action?pageId=${page.id}`,
+        }))
+        .filter((page) => /DBAccess\s*-\s*\d+\.\d+\.y\.z/i.test(page.title));
+
+      families.sort((a, b) => versionSortKey(b.title) - versionSortKey(a.title));
+      return families.slice(0, 3);
+    }
+
+    function parseDbAccessFamilyPage(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const tableItems = [];
+      const tables = Array.from(doc.querySelectorAll("table"));
+
+      for (const table of tables) {
+        const headerRow = table.rows?.[0];
+        if (!headerRow) continue;
+        const headerText = (headerRow.textContent || "").toLowerCase();
+        if (!headerText.includes("releases") || !headerText.includes("status")) {
+          continue;
+        }
+        Array.from(table.rows)
+          .slice(1)
+          .forEach((row) => {
+            const cells = Array.from(row.cells);
+            if (cells.length < 2) return;
+            const name = normalizeDbAccessReleaseName(
+              (cells[0].textContent || "").replace(/\s+/g, " ").trim()
+            );
+            if (!/DBAccess\s*-\s*\d+\.\d+\.\d+\.\d+/i.test(name)) return;
+            const timeEl = cells[1]?.querySelector?.("time");
+            const date =
+              formatDate(timeEl?.getAttribute("datetime") || "") ||
+              (cells[1]?.textContent || "").replace(/\s+/g, " ").trim();
+            const status = (cells[2]?.textContent || cells[1]?.textContent || "")
+              .replace(/\s+/g, " ")
+              .trim();
+            tableItems.push({
+              name,
+              nickname: "",
+              date: /DESENVOLVIMENTO|HOMOLOGADO|SUPPORTED|EOL/i.test(date)
+                ? ""
+                : date,
+              status: /DESENVOLVIMENTO|HOMOLOGADO|SUPPORTED|EOL/i.test(status)
+                ? status
+                : (cells[2]?.textContent || "").replace(/\s+/g, " ").trim(),
+              homologado: "",
+              pageUrl: "",
+            });
+          });
+        break;
+      }
+
+      const listLinks = [];
+      const root =
+        doc.querySelector("#main-content") ||
+        doc.querySelector(".wiki-content") ||
+        doc.body;
+      Array.from(root.querySelectorAll("a[href]")).forEach((a) => {
+        const raw = (a.textContent || "").replace(/\s+/g, " ").trim();
+        const name = normalizeDbAccessReleaseName(raw);
+        if (!/^DBAccess\s*-\s*\d+\.\d+\.\d+\.\d+$/i.test(name)) return;
+        const pageUrl = safeAbsoluteUrl(a.getAttribute("href"));
+        if (!pageUrl) return;
+        listLinks.push({ name, pageUrl });
+      });
+
+      const urlByName = new Map(listLinks.map((item) => [item.name, item.pageUrl]));
+      const ordered = [];
+      const seen = new Set();
+
+      tableItems.forEach((item) => {
+        item.pageUrl = urlByName.get(item.name) || tecDisplayUrl(item.name);
+        ordered.push(item);
+        seen.add(item.name);
+      });
+
+      listLinks.forEach((link) => {
+        if (seen.has(link.name)) return;
+        ordered.push({
+          name: link.name,
+          nickname: "",
+          date: "",
+          status: "",
+          homologado: "",
+          pageUrl: link.pageUrl,
+        });
+        seen.add(link.name);
+      });
+
+      return ordered.slice(0, 3);
+    }
+
+    function parseDbAccessFamilyFromChildren(childrenJsonText) {
+      const data = extractJsonPayload(childrenJsonText);
+      if (!data) return [];
+
+      return (data.results || [])
+        .map((page) => {
+          const name = normalizeDbAccessReleaseName(page.title || "");
+          return {
+            name,
+            nickname: "",
+            date: "",
+            status: "",
+            homologado: "",
+            pageUrl: `https://tdn.totvs.com/pages/viewpage.action?pageId=${page.id}`,
+          };
+        })
+        .filter((item) => /DBAccess\s*-\s*\d+\.\d+\.\d+\.\d+/i.test(item.name))
+        .sort(
+          (a, b) => releaseVersionSortKey(b.name) - releaseVersionSortKey(a.name)
+        )
+        .slice(0, 3);
+    }
+
+    function parseDbAccessConfigSections(childrenJsonText) {
+      const data = extractJsonPayload(childrenJsonText);
+      if (!data) return [];
+
+      return (data.results || [])
+        .map((page) => {
+          const title = page.title || "";
+          const keyMatch = title.match(/\[([^\]]+)\]/);
+          return {
+            id: String(page.id),
+            title,
+            sectionKey: keyMatch ? `[${keyMatch[1]}]` : title,
+            pageUrl: `https://tdn.totvs.com/pages/viewpage.action?pageId=${page.id}`,
+          };
+        })
+        .filter((page) => page.title)
+        .sort((a, b) =>
+          a.sectionKey.localeCompare(b.sectionKey, undefined, { sensitivity: "base" })
+        );
+    }
+
+    function parseDbAccessConfigIntro(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const root =
+        doc.querySelector("#main-content") ||
+        doc.querySelector(".wiki-content") ||
+        doc.body;
+      const notes = Array.from(root.querySelectorAll("p"))
+        .map((p) => (p.textContent || "").replace(/\s+/g, " ").trim())
+        .filter(
+          (text) =>
+            text.length > 40 &&
+            /dbaccess\.ini|totvsdbaccess\.ini|topconnect\.ini|nomenclatura|seções do arquivo/i.test(
+              text
+            )
+        )
+        .slice(0, 3);
+
+      const nomenclature = [];
+      Array.from(root.querySelectorAll("table")).forEach((table) => {
+        const header = (table.rows?.[0]?.textContent || "").toLowerCase();
+        if (!header.includes("nomenclatura") || !header.includes("configuração")) {
+          return;
+        }
+        Array.from(table.rows)
+          .slice(1)
+          .forEach((row) => {
+            const cells = Array.from(row.cells).map((cell) =>
+              (cell.textContent || "").replace(/\s+/g, " ").trim()
+            );
+            if (cells.length >= 2 && cells[0] && cells[1]) {
+              nomenclature.push({ product: cells[0], file: cells[1] });
+            }
+          });
+      });
+
+      return { notes, nomenclature };
+    }
+
+    function inferDbFamily(name) {
+      const n = String(name || "");
+      if (/DB2/i.test(n)) return "IBM DB2";
+      if (/Informix/i.test(n)) return "IBM Informix";
+      if (/SQL Server/i.test(n)) return "Microsoft SQL Server";
+      if (/OpenEdge/i.test(n)) return "OpenEdge";
+      if (/Oracle/i.test(n)) return "Oracle";
+      if (/PostgreSQL/i.test(n)) return "PostgreSQL";
+      return n.split(/\s+/).slice(0, 2).join(" ") || "Outros";
+    }
+
+    function parseDbAccessDatabasesPage(html) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const root =
+        doc.querySelector("#main-content") ||
+        doc.querySelector(".wiki-content") ||
+        doc.body;
+
+      const notes = [];
+      Array.from(root.querySelectorAll("p")).forEach((p) => {
+        const text = (p.textContent || "").replace(/\s+/g, " ").trim();
+        if (text.length < 50) return;
+        if (
+          /homolog|Express|suporte após|major version|minor version|não são homologados/i.test(
+            text
+          )
+        ) {
+          notes.push(text);
+        }
+      });
+
+      const groups = [];
+      Array.from(root.querySelectorAll("table")).forEach((table) => {
+        const headerRow = table.rows?.[0];
+        if (!headerRow) return;
+        const headerCells = Array.from(headerRow.cells).map((cell) =>
+          (cell.textContent || "").replace(/\s+/g, " ").trim().toLowerCase()
+        );
+        const hasDbHeader = headerCells.some((h) => h.includes("banco de dados"));
+        const looksLikeDbTable = Array.from(table.rows)
+          .slice(1)
+          .some((row) => {
+            const status = (row.cells[row.cells.length - 1]?.textContent || "").trim();
+            return /SUPPORTED|EOL|SUPPORT ENDED/i.test(status);
+          });
+        if (!hasDbHeader && !looksLikeDbTable) return;
+
+        let statusIdx = headerCells.findIndex((h) => h.includes("status"));
+        let notesIdx = headerCells.findIndex((h) => /observ|informa/i.test(h));
+        if (statusIdx < 0) statusIdx = Math.min(2, headerRow.cells.length - 1);
+        if (notesIdx < 0) notesIdx = Math.max(1, statusIdx - 1);
+
+        const items = [];
+        Array.from(table.rows)
+          .slice(hasDbHeader ? 1 : 0)
+          .forEach((row) => {
+            const cells = Array.from(row.cells);
+            if (cells.length < 2) return;
+            const nameCell = cells[0];
+            const link = nameCell.querySelector("a[href]");
+            const name = (
+              (link && link.textContent) ||
+              nameCell.textContent ||
+              ""
+            )
+              .replace(/\s+/g, " ")
+              .trim();
+            if (!name || /banco de dados/i.test(name)) return;
+            if (!/\d/.test(name) && !link) return;
+
+            const notesText = (cells[notesIdx]?.textContent || "")
+              .replace(/\s+/g, " ")
+              .trim();
+            const status = (cells[statusIdx]?.textContent || "")
+              .replace(/\s+/g, " ")
+              .trim();
+            if (!status && !/\d/.test(name)) return;
+
+            items.push({
+              name,
+              notes: notesText,
+              status,
+              pageUrl: link
+                ? safeAbsoluteUrl(link.getAttribute("href")) || tecDisplayUrl(name)
+                : tecDisplayUrl(name),
+            });
+          });
+
+        if (!items.length) return;
+        groups.push({
+          family: inferDbFamily(items[0].name),
+          items,
+        });
+      });
+
+      const seen = new Set();
+      const uniqueGroups = groups
+        .map((group) => ({
+          ...group,
+          items: group.items.filter((item) => {
+            const key = item.name.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          }),
+        }))
+        .filter((group) => group.items.length);
+
+      if (!uniqueGroups.length) return { error: "not_found" };
+      return { groups: uniqueGroups, notes: notes.slice(0, 5) };
+    }
+
     function historyTag(kind) {
       if (kind === "next") return '<span class="tag tag-next">Próxima</span>';
       if (kind === "future") return '<span class="tag tag-future">Futura</span>';
@@ -1892,6 +2260,96 @@
           </div>
           <div class="body-idle idle">
             Clique em <strong>Atualizar todos</strong> para carregar os sistemas operacionais homologados do Application Server Protheus.
+          </div>
+          <div class="body-loading loading hidden">Buscando sistemas operacionais homologados…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="os-policy js-os-notes"></div>
+            <div class="os-groups js-os-groups"></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "dbaccess") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="dbaccess" data-dbaccess-sub="${mod.dbaccessSub || "releases"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "Releases"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para buscar as linhas ativas e os 3 primeiros releases de cada uma.
+          </div>
+          <div class="body-loading loading hidden">Buscando notas de release do DBAccess…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <p class="note">Mostrando as famílias ativas e até 3 releases recentes por família.</p>
+            <div class="appserver-families js-appserver-families"></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver índice no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "dbaccess-config") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="dbaccess-config" data-dbaccess-sub="${mod.dbaccessSub || "config"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "dbaccess.ini"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar as seções do arquivo de configuração do DBAccess.
+          </div>
+          <div class="body-loading loading hidden">Buscando seções do arquivo de configuração…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="js-config-notes"></div>
+            <div class="js-config-nomenclature"></div>
+            <p class="note">Seções do arquivo de configuração do DBAccess:</p>
+            <ul class="config-sections js-config-sections"></ul>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "dbaccess-databases") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="dbaccess-databases" data-dbaccess-sub="${mod.dbaccessSub || "databases"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "SGBD"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar os bancos de dados homologados do DBAccess.
+          </div>
+          <div class="body-loading loading hidden">Buscando bancos de dados homologados…</div>
+          <div class="body-error error hidden"></div>
+          <div class="body-success meta hidden">
+            <div class="os-policy js-os-notes"></div>
+            <div class="os-groups js-os-groups"></div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-ghost js-tdn" href="${tdn}" target="_blank" rel="noopener noreferrer">Ver no TDN</a>
+          </div>
+        </article>`;
+      }
+
+      if (mod.type === "dbaccess-os") {
+        return `
+        <article class="card card-lib" data-module-id="${mod.id}" data-type="dbaccess-os" data-dbaccess-sub="${mod.dbaccessSub || "os"}">
+          <div class="card-header">
+            <h2>${mod.name}</h2>
+            <span class="badge">${mod.packageLabel || "SO"}</span>
+          </div>
+          <div class="body-idle idle">
+            Clique em <strong>Atualizar todos</strong> para carregar os sistemas operacionais homologados do DBAccess.
           </div>
           <div class="body-loading loading hidden">Buscando sistemas operacionais homologados…</div>
           <div class="body-error error hidden"></div>
@@ -2128,6 +2586,44 @@
       setState(card, "success");
     }
 
+    function fillDbAccessConfigSuccess(card, data) {
+      const notesRoot = card.querySelector(".js-config-notes");
+      notesRoot.innerHTML = (data.notes || [])
+        .map((note) => `<p class="note">${escapeHtml(note)}</p>`)
+        .join("");
+
+      const nomenclatureRoot = card.querySelector(".js-config-nomenclature");
+      if (nomenclatureRoot) {
+        nomenclatureRoot.innerHTML = (data.nomenclature || []).length
+          ? `
+            <p class="note">Nomenclatura do arquivo:</p>
+            <ul class="config-sections">
+              ${(data.nomenclature || [])
+                .map(
+                  (item) => `
+                <li>
+                  <span>${escapeHtml(item.product)}</span>
+                  <span class="config-key">${escapeHtml(item.file)}</span>
+                </li>`
+                )
+                .join("")}
+            </ul>`
+          : "";
+      }
+
+      const list = card.querySelector(".js-config-sections");
+      list.innerHTML = (data.sections || [])
+        .map(
+          (item) => `
+          <li>
+            <a href="${item.pageUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a>
+            <span class="config-key">${escapeHtml(item.sectionKey)}</span>
+          </li>`
+        )
+        .join("");
+      setState(card, "success");
+    }
+
     function fillSuccess(card, data) {
       if (card.dataset.type === "lib") {
         fillLibSuccess(card, data);
@@ -2137,7 +2633,7 @@
         fillQualitySuccess(card, data);
         return;
       }
-      if (card.dataset.type === "appserver") {
+      if (card.dataset.type === "appserver" || card.dataset.type === "dbaccess") {
         fillAppServerSuccess(card, data);
         return;
       }
@@ -2145,7 +2641,15 @@
         fillAppServerConfigSuccess(card, data);
         return;
       }
-      if (card.dataset.type === "appserver-os") {
+      if (card.dataset.type === "dbaccess-config") {
+        fillDbAccessConfigSuccess(card, data);
+        return;
+      }
+      if (
+        card.dataset.type === "appserver-os" ||
+        card.dataset.type === "dbaccess-os" ||
+        card.dataset.type === "dbaccess-databases"
+      ) {
         fillAppServerOsSuccess(card, data);
         return;
       }
@@ -2264,6 +2768,117 @@
       }
     }
 
+    async function refreshDbAccess(mod, card) {
+      setState(card, "loading");
+      try {
+        let families = [];
+        try {
+          const childrenText = await fetchTdnRaw(mod.childrenUrl);
+          families = parseDbAccessFamilies(childrenText);
+        } catch (err) {
+          console.warn("API de famílias do DBAccess falhou, usando fallback.", err);
+        }
+
+        if (!families.length) {
+          families = DBACCESS_FAMILY_FALLBACK;
+        } else {
+          const byTitle = new Map(
+            DBACCESS_FAMILY_FALLBACK.map((f) => [f.title.toLowerCase(), f])
+          );
+          families = families.map((family) => {
+            const known = byTitle.get((family.title || "").toLowerCase());
+            return known ? { ...family, id: known.id, pageUrl: known.pageUrl } : family;
+          });
+        }
+
+        const detailed = [];
+        for (const family of families) {
+          let releases = [];
+          try {
+            const html = await fetchTdnHtml(family.pageUrl);
+            releases = parseDbAccessFamilyPage(html);
+          } catch (err) {
+            console.warn(`HTML da família ${family.title} falhou`, err);
+          }
+
+          if (!releases.length) {
+            try {
+              const childrenText = await fetchTdnRaw(
+                `https://tdn.totvs.com/rest/api/content/${family.id}/child/page?limit=50`
+              );
+              releases = parseDbAccessFamilyFromChildren(childrenText);
+            } catch (err) {
+              console.warn(`Children da família ${family.title} falhou`, err);
+            }
+          }
+
+          detailed.push({ ...family, releases });
+        }
+
+        if (!detailed.some((family) => family.releases.length)) {
+          setState(
+            card,
+            "error",
+            "Achei as famílias, mas não consegui ler os releases em cada página."
+          );
+          return;
+        }
+
+        fillAppServerSuccess(card, { families: detailed });
+      } catch (err) {
+        console.error(err);
+        setState(card, "error", "Não foi possível buscar o DBAccess no TDN.");
+      }
+    }
+
+    async function refreshDbAccessConfig(mod, card) {
+      setState(card, "loading");
+      try {
+        const [childrenText, pageHtml] = await Promise.all([
+          fetchTdnRaw(mod.childrenUrl),
+          fetchTdnHtml(moduleUrl(mod)),
+        ]);
+        const sections = parseDbAccessConfigSections(childrenText);
+        if (!sections.length) {
+          setState(card, "error", "Não achei as seções do arquivo de configuração.");
+          return;
+        }
+        const intro = parseDbAccessConfigIntro(pageHtml);
+        fillDbAccessConfigSuccess(card, {
+          sections,
+          notes: intro.notes,
+          nomenclature: intro.nomenclature,
+        });
+      } catch (err) {
+        console.error(err);
+        setState(
+          card,
+          "error",
+          "Não foi possível buscar o arquivo de configuração do DBAccess no TDN."
+        );
+      }
+    }
+
+    async function refreshDbAccessDatabases(mod, card) {
+      setState(card, "loading");
+      try {
+        const html = await fetchTdnHtml(moduleUrl(mod));
+        const parsed = parseDbAccessDatabasesPage(html);
+        if (parsed.error === "not_found") {
+          setState(card, "error", "Não achei a tabela de bancos de dados na página.");
+          return;
+        }
+        fillAppServerOsSuccess(card, parsed);
+      } catch (err) {
+        console.error(err);
+        setState(
+          card,
+          "error",
+          "Não foi possível buscar os bancos de dados homologados no TDN."
+        );
+      }
+    }
+
     async function refreshModule(mod) {
       const card = findCard(mod);
       if (!card) return;
@@ -2284,6 +2899,26 @@
       }
 
       if (mod.type === "appserver-os") {
+        await refreshAppServerOs(mod, card);
+        return;
+      }
+
+      if (mod.type === "dbaccess") {
+        await refreshDbAccess(mod, card);
+        return;
+      }
+
+      if (mod.type === "dbaccess-config") {
+        await refreshDbAccessConfig(mod, card);
+        return;
+      }
+
+      if (mod.type === "dbaccess-databases") {
+        await refreshDbAccessDatabases(mod, card);
+        return;
+      }
+
+      if (mod.type === "dbaccess-os") {
         await refreshAppServerOs(mod, card);
         return;
       }
@@ -2343,6 +2978,10 @@
         mod.type === "appserver" ||
         mod.type === "appserver-config" ||
         mod.type === "appserver-os" ||
+        mod.type === "dbaccess" ||
+        mod.type === "dbaccess-config" ||
+        mod.type === "dbaccess-databases" ||
+        mod.type === "dbaccess-os" ||
         Boolean(moduleUrl(mod))
       );
     }
@@ -2402,6 +3041,22 @@
       updateRefreshButton();
     }
 
+    function setDbAccessSub(subId) {
+      activeDbAccessSub = subId;
+      document.querySelectorAll(".dbaccess-subtab").forEach((tab) => {
+        tab.setAttribute(
+          "aria-selected",
+          tab.dataset.dbaccessSub === subId ? "true" : "false"
+        );
+      });
+      document
+        .querySelectorAll("#modules-bin-dbaccess [data-dbaccess-sub]")
+        .forEach((card) => {
+          card.hidden = card.dataset.dbaccessSub !== subId;
+        });
+      updateRefreshButton();
+    }
+
     function updateRefreshButton() {
       const refreshBtn = document.getElementById("refresh-all");
       if (activeSection !== "binarios") {
@@ -2457,6 +3112,10 @@
         tab.addEventListener("click", () => setAppServerSub(tab.dataset.appserverSub));
       });
 
+      document.querySelectorAll(".dbaccess-subtab").forEach((tab) => {
+        tab.addEventListener("click", () => setDbAccessSub(tab.dataset.dbaccessSub));
+      });
+
       document.querySelectorAll(".section-btn").forEach((btn) => {
         btn.addEventListener("click", () => setSection(btn.dataset.section));
       });
@@ -2465,6 +3124,7 @@
       setTab("backoffice");
       setBinarioTab("appserver");
       setAppServerSub("releases");
+      setDbAccessSub("releases");
       setSection("expedicao");
     }
 
@@ -2477,6 +3137,12 @@
       parseAppServerFamilyPage,
       parseAppServerOsPage,
       parseAppServerConfigSections,
+      parseDbAccessFamilies,
+      parseDbAccessFamilyPage,
+      parseDbAccessFamilyFromChildren,
+      parseDbAccessConfigSections,
+      parseDbAccessConfigIntro,
+      parseDbAccessDatabasesPage,
       TABS,
       BINARIO_TABS,
       BINARIOS,
