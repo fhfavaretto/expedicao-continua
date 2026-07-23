@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Expedicao Continua">
+  <!-- Marca propria: ciclo continuo + pacote (nao e logo TOTVS). -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      stroke="#002233"
+      stroke-width="4.2"
+      d="M46.8 18.2a18.5 18.5 0 0 0-29.6 2.4"
+    />
+    <path fill="#002233" stroke="none" d="M49.2 12.4 52.6 22.2 42.4 21.1z" />
+    <path
+      stroke="#00a3be"
+      stroke-width="4.2"
+      d="M17.2 45.8a18.5 18.5 0 0 0 29.6-2.4"
+    />
+    <path fill="#00a3be" stroke="none" d="M14.8 51.6 11.4 41.8 21.6 42.9z" />
+  </g>
+  <g transform="translate(22 22)">
+    <rect x="1.5" y="6" width="17" height="13.5" rx="1.8" fill="#e6fbff" stroke="#002233" stroke-width="2" />
+    <path d="M1.5 10.2h17" stroke="#00a3be" stroke-width="2" />
+    <path d="M10 6V19.5" stroke="#002233" stroke-width="1.6" opacity=".55" />
+    <path d="M5.2 6 10 1.8 14.8 6" fill="#00dbff" stroke="#002233" stroke-width="1.6" stroke-linejoin="round" />
+  </g>
+</svg>
